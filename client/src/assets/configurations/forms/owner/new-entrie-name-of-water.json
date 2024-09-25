@@ -1,0 +1,51 @@
+{
+    "config": [
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "type_of_water",
+            "title": "commonFields.typeOfWater",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "fieldTemplate": {
+                "fields": [
+                    {
+                        "type": "text",
+                        "values": [
+                            "name"
+                        ]
+                    }
+                ]
+            },
+            "request": {
+                "localData": {
+                    "path": "data",
+                    "file": "type-of-water.json"
+                }
+            },
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "name",
+            "title": "commonFields.nameOfWater",
+            "field": "name",
+            "required": true
+        },
+        {
+            "type": "button",
+            "response": "toastr",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submitAndPay",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

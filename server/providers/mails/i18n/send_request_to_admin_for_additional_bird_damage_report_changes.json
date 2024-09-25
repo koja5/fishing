@@ -1,0 +1,44 @@
+{
+    "template": "send_request_to_admin_for_additional_bird_damage_report_changes.hjs",
+    "language": {
+        "en": {
+            "subject": "User #name request for additional bird damage changes on #fbz",
+            "body": {
+                "greetings": "Hey 👋",
+                "message": "User #name request to allow him to make additional changes on #fbz.",
+                "nameLabel": "Owner name",
+                "fbzLabel": "FBZ",
+                "yearLabel": "Year",
+                "checkReportDetailsLink": "Check report details",
+                "directlyAllowOwnerForAdditionalChanges": "Direkt zulassen",
+                "notSureWhyReceived": "Not sure why you got this email? Please ingorize this email.",
+                "letUsKnow": "let us know",
+                "greetingsEnd": "Thanks,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Use of our service and website is subject to our",
+                "terms": "Terms of Use",
+                "and": "and",
+                "privacyPolicy": "Privacy Policy"
+            }
+        },
+        "de": {
+            "subject": "Benutzername #name für zusätzliche Vogelschadensänderungen auf #fbz",
+            "body": {
+                "greetings": "Hey 👋",
+                "message": "Anfrage des Benutzers #name, damit er weitere Änderungen an #fbz vornehmen kann.",
+                "nameLabel": "Besitzername",
+                "fbzLabel": "FBZ",
+                "yearLabel": "Jahr",
+                "checkReportDetails": "Überprüfen Sie die Berichtsdetails",
+                "directlyAllowOwnerForAdditionalChanges": "Allow directly",
+                "notSureWhyReceived": "Sie sind sich nicht sicher, warum Sie diese E-Mail erhalten haben? Bitte ignorieren Sie diese E-Mail.",
+                "greetingsEnd": "Danke,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Die Nutzung unseres Dienstes und unserer Website unterliegt unseren",
+                "terms": "Nutzungsbedingungen",
+                "and": "und",
+                "privacyPolicy": "Datenschutzrichtlinie"
+            }
+        }
+    }
+}

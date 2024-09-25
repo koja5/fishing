@@ -1,0 +1,332 @@
+@import "@core/scss/core.scss";
+@import "./assets/scss/styles";
+
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-angular-calendars/styles/material.css";
+
+@media (min-width: 992px) {
+  .e-schedule
+    .e-vertical-view
+    .e-left-indent-wrap
+    table
+    tbody
+    td.e-header-cells.e-week-number {
+    height: 82px;
+  }
+
+  .e-schedule
+    .e-vertical-view
+    .e-left-indent-wrap
+    table
+    tbody
+    td.e-header-cells.e-week-number {
+    font-size: 32px;
+  }
+
+  // .ngx-datatable.scroll-horz .datatable-body {
+  //   height: calc(100vh - 35vh) !important;
+  // }
+
+  // .ngx-datatable.material .datatable-body {
+  //   min-height: calc(100vh - 35vh) !important;
+  //   height: calc(100vh - 35vh) !important;
+  //   overflow: auto;
+  // }
+}
+
+@media (max-width: 991px) {
+  .e-schedule-resource-toolbar-container {
+    display: none;
+  }
+
+  .e-toolbar-item.e-add {
+    display: none !important;
+  }
+
+  .e-schedule .e-vertical-view .e-day-wrapper .e-appointment .e-subject {
+    font-size: 9px !important;
+  }
+
+  .e-schedule
+    .e-vertical-view
+    .e-left-indent-wrap
+    table
+    tbody
+    td.e-header-cells.e-week-number {
+    font-size: 16px;
+  }
+
+  .action button {
+    width: 100%;
+  }
+
+  // .ngx-datatable.scroll-horz .datatable-body {
+  //   height: calc(100vh - 38vh) !important;
+  // }
+
+  .action button {
+    padding: 0px;
+  }
+}
+
+.ngx-datatable {
+  height: 100%;
+}
+
+.e-schedule.e-device .e-vertical-view .e-time-cells-wrap table td {
+  white-space: break-spaces;
+}
+
+.e-schedule .e-vertical-view .e-work-cells.e-disable-dates {
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.08) !important;
+}
+
+// .e-datetimepicker[readOnly]:has(.e-valid-input) {
+//   background: #efefef !important;
+// }
+
+.e-datetimepicker[ng-reflect-readonly] span {
+  background: #efefef !important;
+}
+
+.dark-layout .e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos,
+.dark-layout .e-schedule .e-schedule-table {
+  background-color: #283046 !important;
+}
+
+.dark-layout .e-schedule .e-vertical-view .e-time-cells-wrap table td {
+  background-color: #283046 !important;
+  color: #fff !important;
+}
+
+.dark-layout .e-schedule .e-vertical-view .e-date-header-wrap table tbody td {
+  background-color: #283046 !important;
+  color: #fff !important;
+}
+
+.dark-layout .e-schedule-dialog .e-dlg-content,
+.dark-layout .e-dialog .e-dlg-header-content,
+.dark-layout .e-dlg-header,
+.dark-layout .e-dlg-header *,
+.dark-layout .e-dialog .e-footer-content,
+.dark-layout .e-popup.e-popup-open.e-dialog {
+  background-color: #283046 !important;
+  color: #fff !important;
+}
+
+.dark-layout .e-schedule .e-vertical-view .e-work-cells {
+  background-color: #283046;
+}
+
+.dark-layout .e-schedule .e-vertical-view .e-left-indent-wrap table tbody td {
+  background-color: #283046 !important;
+}
+
+.dark-layout .e-schedule {
+  background-color: #283046 !important;
+}
+
+.dark-layout .e-toolbar .e-toolbar-item .e-tbar-btn {
+  background-color: #283046 !important;
+}
+
+.dark-layout .e-schedule .e-month-view .e-work-days,
+.dark-layout .e-schedule .e-month-agenda-view .e-work-days,
+.dark-layout .dark-layout .e-schedule .e-month-view .e-work-cells,
+.dark-layout .e-schedule .e-month-agenda-view .e-work-cells,
+.dark-layout .e-schedule .e-month-view .e-date-header-wrap table td,
+.dark-layout .e-schedule .e-month-agenda-view .e-date-header-wrap table td,
+.dark-layout .e-schedule .e-agenda-view .e-empty-event,
+.dark-layout .e-schedule .e-month-view .e-work-cells,
+.dark-layout .e-schedule .e-month-agenda-view .e-work-cells,
+.dark-layout .e-schedule .e-agenda-view,
+.dark-layout .e-schedule .e-agenda-view .e-appointment:hover,
+.dark-layout .e-toolbar .e-hor-nav {
+  background-color: #283046 !important;
+  color: #fff !important;
+}
+
+.dark-layout .e-toolbar .e-toolbar-item .e-tbar-btn .e-tbar-btn-text,
+.dark-layout .e-toolbar .e-toolbar-item .e-tbar-btn .e-icons,
+.dark-layout .e-btn.e-flat,
+.dark-layout .e-css.e-btn.e-flat,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-date-time-details,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-location-details,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-time-zone-details,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-description-details,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-resource-details,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-date-time-details,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-location-details,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-time-zone-details,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-description-details,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-resource-details,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-date-time-icon,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-location-icon,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-time-zone-icon,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-description-icon,
+.dark-layout .e-quick-popup-wrapper .e-cell-popup .e-resource-icon,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-date-time-icon,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-location-icon,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-time-zone-icon,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-description-icon,
+.dark-layout .e-quick-popup-wrapper .e-event-popup .e-resource-icon,
+.dark-layout .e-schedule .e-agenda-view .e-subject,
+.dark-layout .e-schedule .e-agenda-view .e-date-time,
+.dark-layout .e-schedule .e-agenda-view .e-day-date-header .e-m-date,
+.dark-layout .e-schedule .e-agenda-view .e-day-date-header .e-m-day,
+.dark-layout .e-schedule .e-agenda-view .e-resource-column,
+.dark-layout
+  .e-schedule
+  .e-vertical-view
+  .e-left-indent-wrap
+  table
+  tbody
+  td.e-header-cells.e-week-number,
+.dark-layout .e-toolbar .e-hor-nav:hover .e-icons,
+.dark-layout .e-toolbar .e-popup-down-icon.e-icons,
+.e-toolbar .e-popup-up-icon.e-icons {
+  color: #fff !important;
+}
+
+.dark-layout .e-popup.e-popup-open {
+  background-color: #283046 !important;
+  color: #fff !important;
+}
+
+.dark-layout .e-dialog .e-dlg-header-content + .e-dlg-content {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+.e-toolbar .e-toolbar-item .e-tbar-btn,
+.e-toolbar .e-toolbar-items {
+  background: #fff !important;
+}
+
+.ngx-datatable.bootstrap.core-bootstrap .datatable-footer {
+  margin-bottom: 0px !important;
+}
+
+.e-treeview .e-list-item.e-active > .e-fullrow {
+  height: 60px;
+}
+
+.need-to-select-container {
+  display: flex;
+  height: 70vh;
+}
+
+.need-to-select {
+  text-align: center;
+  margin: auto;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.need-to-select img {
+  width: 260px;
+  margin: auto;
+}
+
+.e-popup.e-popup-open.e-dialog {
+  max-height: max-content !important;
+}
+
+.selected-payment {
+  color: var(--primary);
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+  top: 10px !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: 150px !important;
+}
+
+.e-calendar .e-content td.e-today.e-selected:hover span.e-day,
+.e-calendar .e-content td.e-selected:hover span.e-day,
+.e-calendar .e-content td.e-selected.e-focused-date span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-today.e-selected:hover span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-selected:hover span.e-day,
+.e-bigger.e-small
+  .e-calendar
+  .e-content
+  td.e-selected.e-focused-date
+  span.e-day {
+  background-color: var(--primary) !important;
+}
+
+.e-date-wrapper.e-outline .e-input-group-icon.e-date-icon,
+.e-date-wrapper.e-control-wrapper.e-outline .e-input-group-icon.e-date-icon {
+  color: var(--primary) !important;
+}
+
+.e-input-group.e-control-wrapper .e-input-group-icon {
+  color: var(--primary) !important;
+}
+
+.e-calendar .e-content td.e-today.e-selected span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-today.e-selected span.e-day {
+  background-color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+}
+
+.e-btn.e-flat.e-primary,
+.e-css.e-btn.e-flat.e-primary {
+  color: var(--primary) !important;
+}
+
+.e-calendar .e-content td.e-today span.e-day,
+.e-calendar .e-content td.e-focused-date.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-today span.e-day,
+.e-bigger.e-small .e-calendar .e-content td.e-focused-date.e-today span.e-day {
+  border: 1px solid var(--primary) !important;
+  color: #000;
+}
+
+.e-btn.e-flat.e-primary:focus,
+.e-css.e-btn.e-flat.e-primary:focus {
+  color: var(--primary) !important;
+  background: transparent !important;
+}
+
+.e-date-wrapper .error {
+  border-color: red !important;
+}
+
+#date_input {
+  pointer-events: none !important;
+}
+
+.alert-message {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.alert-message div {
+  width: 100%;
+}
+
+.explanation {
+  padding-top: 7px;
+  padding-left: 10px;
+}
+
+.explanation span {
+  font-size: 24px !important;
+  color: var(--primary);
+}
+
+.alert-message .explanation {
+  width: auto !important;
+}

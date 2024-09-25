@@ -1,0 +1,14 @@
+[
+    {
+        "name": "typeOfWater.river",
+        "value": "river"
+    },
+    {
+        "name": "typeOfWater.lake",
+        "value": "lake"
+    },
+    {
+        "name": "typeOfWater.smallLake",
+        "value": "smallLake"
+    }
+]

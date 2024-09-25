@@ -1,0 +1,120 @@
+<div *ngIf="managementRegistersData && managementRegistersData.length">
+    <div class="row">
+        <div class="alert-message col-md-12 text-center">
+            <div *ngIf="report && report.status === reportStatusEnum.completed">
+                <ngb-alert [type]="'success'" [dismissible]="false">
+                    <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+                        {{report.date_completed | date: 'dd.MM.yyyy. HH:mm'}}</div>
+                </ngb-alert>
+            </div>
+            <div *ngIf="allData && allData.length && (!report || report.status ===
+            reportStatusEnum.draft)">
+                <ngb-alert [type]="'warning'" [dismissible]="false">
+                    <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+                </ngb-alert>
+            </div>
+
+            <div class="explanation">
+                <app-explanation-mark [mainExplanation]="'birdCount.mainExplanation'"></app-explanation-mark>
+            </div>
+        </div>
+        <div class="mb-2 col-md-3">
+            <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
+                    [explanation]="'birdCount.explanation'"></app-explanation-mark></label>
+            <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
+                [(ngModel)]="filter.managementRegisterId"
+                [placeholder]="'commonFields.chooseManagementRegistry' | translate"
+                (change)="onChangeManagementRegister($event)" [searchable]="true">
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                    <span>{{item.fbz}} - {{item.year}}</span>
+                </ng-template>
+                <ng-template ng-value-tmp let-item="item">
+                    <span>{{item.fbz}} - {{item.year}}</span>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                    <span>{{item.fbz}} - {{item.year}}</span>
+                </ng-template>
+            </ng-select>
+
+        </div>
+        <div class="mb-2 col-md-3">
+            <label>{{'commonFields.nameOfWater' | translate}} <app-explanation-mark
+                    [explanation]="'birdCount.explanationSecond'"></app-explanation-mark></label>
+            <ng-select [items]="allWaters" bindLabel="name" bindValue="id" [(ngModel)]="filter.water"
+                [placeholder]="'commonFields.chooseNameOfWater' | translate" (change)="onChangeWater($event)"
+                [searchable]="true">
+                <ng-template ng-footer-tmp *ngIf="filter.managementRegisterId">
+                    <p class="m-0 font-weight-bold cursor-pointer" (click)="openModalNewEntrie()"><span
+                            class="fa fa-plus-circle"></span> {{
+                        'commonFields.createNew' | translate
+                        }} </p>
+                </ng-template>
+            </ng-select>
+        </div>
+        <div class="col-md-6" *ngIf="filter">
+            <div class="d-flex justify-content-end action">
+                <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
+                    (click)="completeReportsDialog()"><span class="fa fa-check"></span>
+                    {{'action.completeReport' |
+                    translate}}</button>
+                <button *ngIf="report && report.status === reportStatusEnum.completed" class="btn btn-primary mb-1"
+                    (click)="requestForAdditionalChanges()"><span class="fa fa-question-circle-o"></span>
+                    {{'action.requestAdminToChangeStatus' |
+                    translate}}</button>
+                <button *ngIf="!report || report.status !== reportStatusEnum.completed"
+                    class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveEntryDialog()"><span
+                        class="fa fa-times"></span>
+                    {{'action.noHaveEntry' |
+                    translate}}</button>
+            </div>
+        </div>
+    </div>
+
+    <app-dynamic-grid *ngIf="!loading&&data&&(filter && filter.water)" #grid [path]="path" [file]="file" [data]="data"
+        [disableCRUD]="(filter && filter.water ? false : true)  || (report && report.status === reportStatusEnum.completed)"
+        [hideCreateNew]="true" [height]="'calc(100vh - 25vh)'" (submit)="submit($event)"
+        (refreshParentComponent)="refreshGrid()"></app-dynamic-grid>
+
+    <app-no-data *ngIf="!filter || !filter.water" [text]="('general.pleaseSelectNameOfWater' | translate)"
+        [image]="'../../../assets/images/icons/filter.png'"></app-no-data>
+
+</div>
+
+<app-loader *ngIf="loading"></app-loader>
+
+
+<app-no-data *ngIf="(!managementRegistersData || !managementRegistersData.length) && !loading"
+    [text]="('general.noManagementRegisterForYou' | translate)"
+    [image]="'../../../assets/images/icons/no-data-for-user.png'"></app-no-data>
+
+
+<ng-template #modalNewEntrie let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' | translate}}</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <app-dynamic-forms [path]="'forms/owner'" [file]="'new-entrie-name-of-water.json'"
+            (submit)="submitNewEntriesEmitter($event)" #form="dynamicForm">
+        </app-dynamic-forms>
+    </div>
+</ng-template>
+
+<app-dialog-confirm #dialogConfirm [title]="('actionMessage.dialogCompleteReportQuestionTitle' | translate)"
+    [content]="('actionMessage.dialogCompleteReportQuestionText' | translate)"
+    [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionYes' | translate)"
+    [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionNo' | translate)"
+    (confirm)="confirmCompleteReport()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogNoHaveEntry [title]="('actionMessage.dialogNoHaveReportsTitle' | translate)"
+    [content]="('actionMessage.dialogNoHaveReportsText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="confirmNoHaveEntry()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogRequestForAdditionalChanges
+    [title]="('actionMessage.dialogRequestForAdditionalChangesTitle' | translate)"
+    [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>

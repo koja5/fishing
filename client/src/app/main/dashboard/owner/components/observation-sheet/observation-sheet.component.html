@@ -1,0 +1,6 @@
+<div class="alert-message col-md-12 text-center mb-1">
+    <div class="explanation">
+        <app-explanation-mark [mainExplanation]="'observationSheet.mainExplanation'"></app-explanation-mark>
+    </div>
+</div>
+<app-dynamic-grid #grid [path]="path" [file]="file" [height]="'calc(100vh - 15vh)'"></app-dynamic-grid>

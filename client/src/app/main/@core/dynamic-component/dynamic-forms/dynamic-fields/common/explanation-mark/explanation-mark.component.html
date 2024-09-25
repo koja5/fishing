@@ -1,0 +1,12 @@
+<span *ngIf="explanation" class="fa fa-question-circle-o explanation-mark {{fontSize}}"
+    ngbTooltip="{{explanation | translate}}" triggers="click:blur">
+</span>
+
+<div *ngIf="mainExplanation && _translate.instant(mainExplanation) != mainExplanation">
+    <span *ngIf="generateText()" class="fa fa-question-circle-o explanation-mark {{fontSize}}"
+        ngbTooltip="{{generateText()}}" triggers="click:blur">
+    </span>
+    <a *ngIf="generateLink()" href="{{generateLink()}}" target="_blank"> <span
+            class="fa fa-question-circle-o explanation-mark {{fontSize}}">
+        </span></a>
+</div>

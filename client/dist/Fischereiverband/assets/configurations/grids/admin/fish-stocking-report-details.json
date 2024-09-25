@@ -1,0 +1,326 @@
+{
+    "pageSize": 10,
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "actionButtons": {
+        "addButton": false
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "api": "/api/owner/setFishStocking",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "commonFields.date",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "date",
+            "format": "dd.MM.yyyy",
+            "class": "text-align-right",
+            "field": "date",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.nameOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name_of_water",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.typeOfWater",
+            "template": {
+                "choices": [
+                    {
+                        "field": "type_of_water",
+                        "value": "river",
+                        "operator": "==",
+                        "apart": {
+                            "title": "typeOfWater.river",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    },
+                    {
+                        "field": "type_of_water",
+                        "value": "lake",
+                        "operator": "==",
+                        "apart": {
+                            "title": "typeOfWater.lake",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    },
+                    {
+                        "field": "type_of_water",
+                        "value": "smallLake",
+                        "operator": "==",
+                        "apart": {
+                            "title": "typeOfWater.smallLake",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    }
+                ]
+            },
+            "field": "type_of_water"
+        },
+        {
+            "title": "commonFields.nameOfFish",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fish",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.ageOfFish",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "age_of_fish",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.origin",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "origin",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.quantity",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "quantity",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.cost",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "costs",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hidden",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id"
+        },
+        {
+            "type": "datepicker",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "date",
+            "title": "commonFields.date",
+            "field": "date",
+            "format": "dd.MM.yyyy",
+            "required": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_water",
+            "title": "commonFields.nameOfWater",
+            "field": {
+                "text": "name",
+                "value": "id_water"
+            },
+            "request": {
+                "type": "GET",
+                "parameterType": "QUERY",
+                "api": "/api/owner/getAllWaters",
+                "parameters": [],
+                "fields": "",
+                "root": "",
+                "parametarsDate": [
+                    {
+                        "type": "localStorage",
+                        "key": "selectedManagementRegistry",
+                        "property": [
+                            "fbz"
+                        ]
+                    }
+                ]
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_fish",
+            "title": "commonFields.nameOfFish",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/admin/getAllFishes",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_age_of_fish",
+            "title": "commonFields.ageOfFish",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/admin/getAgeOfFishes",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "id_origin",
+            "title": "commonFields.origin",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/admin/getAllOrigins",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "quantity",
+            "title": "commonFields.quantity",
+            "field": "quantity",
+            "required": true
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "costs",
+            "title": "commonFields.cost",
+            "field": "costs",
+            "required": true
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

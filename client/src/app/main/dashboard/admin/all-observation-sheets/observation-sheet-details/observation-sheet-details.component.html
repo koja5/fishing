@@ -1,0 +1,14 @@
+<div class="informations d-flex row">
+    <div class="col-md-12">
+        <app-go-back></app-go-back>
+    </div>
+    <div class="col-md-12 owner text-center mb-1">
+        <h3><b>{{userProfile.firstname}} {{userProfile.lastname}}</b></h3>
+
+        <label>{{'commonFields.fbz' | translate}}: <b>{{_activatedRouter.snapshot.queryParams.fbz}}</b></label> &nbsp;
+        <label>{{'commonFields.year' | translate}}: <b>{{_activatedRouter.snapshot.queryParams.year}}</b></label> &nbsp;
+    </div>
+
+</div>
+
+<app-dynamic-grid #grid *ngIf="!loader" [path]="path" [file]="file" [data]="data" [height]="'calc(100vh - 28vh)'"></app-dynamic-grid>

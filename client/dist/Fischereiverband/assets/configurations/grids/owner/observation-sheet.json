@@ -1,0 +1,420 @@
+{
+    "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/owner/getAllObservationSheet",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "formData": true,
+            "api": "/api/uploader/setObservationSheetAndUploadDocument",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "commonFields.action",
+            "template": {
+                "type": "action",
+                "actionMode": {
+                    "type": "menu",
+                    "icon": "more-vertical",
+                    "menu": [
+                        {
+                            "type": "edit",
+                            "actionName": "general.edit",
+                            "icon": "edit",
+                            "formDialog": {
+                                "type": "sidebar",
+                                "closeAfterExecute": true
+                            }
+                        },
+                        {
+                            "type": "delete",
+                            "actionName": "general.delete",
+                            "icon": "trash",
+                            "executeAction": {
+                                "request": {
+                                    "type": "POST",
+                                    "api": "/api/owner/deleteObservationSheet",
+                                    "parameters": [],
+                                    "fields": "",
+                                    "root": ""
+                                },
+                                "response": "toastr",
+                                "showQuestionBeforeExecute": true,
+                                "modalConfig": {
+                                    "modalTitle": "",
+                                    "modalText": "",
+                                    "windowClass": "modal modal-danger"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "field": "allow_online"
+        },
+        {
+            "title": "observationSheet.district",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fbz",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.dateAndTime",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "date",
+            "format": "dd.MM.yyyy HH:mm",
+            "class": "text-align-right",
+            "field": "date_time",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.district",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "district",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.nameOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "water",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.orientation",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "orientation",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.typeOfWater",
+            "width": 150,
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "type_of_water",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hidden",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "fbz",
+            "title": "commonFields.fbz",
+            "explanation": "explanation.fbz",
+            "field": {
+                "text": "fbz",
+                "value": "fbz"
+            },
+            "fieldTemplate": {
+                "fields": [
+                    {
+                        "type": "text",
+                        "values": [
+                            "fbz",
+                            " - ",
+                            "year"
+                        ]
+                    }
+                ]
+            },
+            "additionalField": [
+                {
+                    "key": "year",
+                    "value": "year"
+                }
+            ],
+            "request": {
+                "type": "GET",
+                "api": "/api/owner/getManagementRegistersData",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "label",
+            "width": "col-md-12 border-bottom",
+            "text": "observationSheet.secondSection"
+        },
+        {
+            "type": "datetimepicker",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "date_time",
+            "title": "observationSheet.dateAndTime",
+            "explanation": "explanation.dateAndTime",
+            "field": "date_time",
+            "format": "dd.MM.yyyy HH:mm",
+            "timeFormat": "HH:mm"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "district",
+            "title": "observationSheet.district",
+            "explanation": "explanation.district",
+            "field": "district"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "water",
+            "title": "observationSheet.nameOfWater",
+            "explanation": "explanation.nameOfWater",
+            "field": "water"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "orientation",
+            "title": "observationSheet.orientation",
+            "explanation": "explanation.orientation",
+            "field": "orientation"
+        },
+        {
+            "type": "radio",
+            "width": "col-md-12",
+            "name": "type_of_water",
+            "title": "observationSheet.typeOfWater",
+            "explanation": "explanation.typeOfWater",
+            "dataArray": [
+                {
+                    "title": "observationSheet.rivers",
+                    "id": "rivers",
+                    "class": "mb-1"
+                },
+                {
+                    "title": "observationSheet.lake",
+                    "id": "lake",
+                    "class": "mb-1"
+                },
+                {
+                    "title": "observationSheet.pond",
+                    "id": "pond",
+                    "class": "mb-1"
+                },
+                {
+                    "title": "observationSheet.fishingFarm",
+                    "id": "fishingFarm"
+                }
+            ],
+            "field": "type_of_water"
+        },
+        {
+            "type": "label",
+            "width": "col-md-12 border-bottom",
+            "text": "observationSheet.thirdSection"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "visual_observation",
+            "title": "observationSheet.visualObservation",
+            "explanation": "explanation.visualObservation",
+            "field": "visual_observation"
+        },
+        {
+            "type": "radio",
+            "width": "col-md-12",
+            "name": "find_dead",
+            "title": "observationSheet.findDead",
+            "explanation": "explanation.findDead",
+            "dataArray": [
+                {
+                    "title": "observationSheet.inTerrain",
+                    "id": "inTerrain"
+                },
+                {
+                    "title": "observationSheet.roadTrafic",
+                    "id": "roadTrafic"
+                }
+            ],
+            "oneLine": true,
+            "field": "find_dead"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "drove_traces",
+            "title": "observationSheet.droveTraces",
+            "explanation": "explanation.droveTraces",
+            "field": "drove_traces"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "find_losing",
+            "title": "observationSheet.findLosing",
+            "explanation": "explanation.findLosing",
+            "field": "find_losing"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "fish_prey",
+            "title": "observationSheet.fishPrey",
+            "explanation": "explanation.fishPrey",
+            "field": "fish_prey"
+        },
+        {
+            "type": "radio",
+            "width": "col-md-12",
+            "name": "traces_color",
+            "title": "observationSheet.tracesColor",
+            "explanation": "explanation.tracesColor",
+            "dataArray": [
+                {
+                    "title": "observationSheet.tracesIsolated",
+                    "id": "tracesIsolated"
+                },
+                {
+                    "title": "observationSheet.tracesNumerous",
+                    "id": "tracesNumerous"
+                }
+            ],
+            "oneLine": true,
+            "field": "traces_color"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "photo_trap",
+            "title": "observationSheet.photoTrap",
+            "explanation": "explanation.photoTrap",
+            "field": "photo_trap"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "estimation_inventory",
+            "title": "observationSheet.estimationInventory",
+            "explanation": "explanation.estimationInventory",
+            "field": "estimation_inventory"
+        },
+        {
+            "type": "uploader",
+            "multiline": true,
+            "cols": 50,
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "documentation",
+            "title": "observationSheet.documentation",
+            "explanation": "explanation.documentation",
+            "field": "documentation"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

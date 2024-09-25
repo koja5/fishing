@@ -1,0 +1,64 @@
+<div class="informations d-flex row">
+    <div class="col-md-12">
+        <app-go-back></app-go-back>
+    </div>
+    <div class="col-md-12 owner text-center mb-1">
+        <h3><b>{{userProfile.firstname}}
+                {{userProfile.lastname}}</b></h3>
+
+        <label>{{'commonFields.fbz' | translate}}: <b>{{report.fbz}}</b></label> &nbsp;
+        <label>{{'commonFields.year' | translate}}: <b>{{report.year}}</b></label> &nbsp;
+    </div>
+    <div class="col-md-12 text-center">
+        <ngb-alert *ngIf="report.status == REPORT_STATUS_ENUM.completed" [type]="'success'" [dismissible]="false">
+            <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+                {{report.date_completed | date: 'dd.MM.yyyy. HH:mm'}}
+            </div>
+        </ngb-alert>
+        <ngb-alert *ngIf="report.status == REPORT_STATUS_ENUM.draft" [type]="'warning'" [dismissible]="false">
+            <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+        </ngb-alert>
+    </div>
+    <div class="col-md-4">
+        <ng-select [items]="allWaters" bindLabel="name" bindValue="id" [(ngModel)]="filter.water"
+            [placeholder]="'commonFields.chooseManagementRegistry' | translate" (change)="onChangeWater($event)"
+            [searchable]="true">
+        </ng-select>
+    </div>
+    <div class="col-md-8 mb-1">
+
+        <div class="d-flex justify-content-end action">
+            <button *ngIf="report.status == REPORT_STATUS_ENUM.completed" class="btn btn-warning"
+                (click)="dialogConfirmBackReportShow()"><span class="fa fa-backward"></span>
+                {{'action.backReportToOwner' |
+                translate}}</button>
+
+            <button *ngIf="report.status == REPORT_STATUS_ENUM.draft" class="btn btn-info reminder-button"
+                (click)="dialogConfirmReminderOwnerShow()"><span class="fa fa-bell"></span>
+                {{'action.reminderOwnerToCompleteReport' |
+                translate}}</button>
+        </div>
+    </div>
+</div>
+<app-loader *ngIf="loader"></app-loader>
+
+<app-dynamic-grid #grid *ngIf="!loader&&data.length" [path]="path" [file]="file" [data]="data" [height]="'calc(100vh - 42vh)'"></app-dynamic-grid>
+
+<!-- INFO TO SELECT FIRST DROPDOWN TO GET DATA -->
+
+<app-no-data *ngIf="!data || !data.length" [text]="('general.pleaseSelectValueFirst' | translate)"
+    [image]="'../../../assets/images/icons/filter.png'"></app-no-data>
+
+
+<!--  -->
+
+<app-dialog-confirm #dialogConfirmBackReport [title]="('actionMessage.dialogBackReportToOwnerTitle' | translate)"
+    [content]="('actionMessage.dialogBackReportToOwnerText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="backReportToOwner()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogConfirmReminderOwner
+    [title]="('actionMessage.dialogReminderOwnerToCompleteReportTitle' | translate)"
+    [content]="('actionMessage.dialogReminderOwnerToCompleteReportText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="reminderOwnerToCompleteReport()"></app-dialog-confirm>

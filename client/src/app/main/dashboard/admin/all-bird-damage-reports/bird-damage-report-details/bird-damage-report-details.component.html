@@ -1,0 +1,56 @@
+<div class="informations d-flex row">
+    <div class="col-md-12">
+        <app-go-back></app-go-back>
+    </div>
+    <div class="col-md-12 owner text-center mb-1">
+        <h3><b>{{userProfile.firstname}}
+                {{userProfile.lastname}}</b></h3>
+
+        <label>{{'commonFields.fbz' | translate}}: <b>{{report.fbz}}</b></label> &nbsp;
+        <label>{{'commonFields.year' | translate}}: <b>{{report.year}}</b></label> &nbsp;
+    </div>
+
+    <div class="col-md-12 text-center">
+        <ngb-alert *ngIf="report.status == REPORT_STATUS_ENUM.completed" [type]="'success'" [dismissible]="false">
+            <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+                {{report.date_completed | date: 'dd.MM.yyyy. HH:mm'}}
+            </div>
+        </ngb-alert>
+        <ngb-alert *ngIf="report.status == REPORT_STATUS_ENUM.draft" [type]="'warning'" [dismissible]="false">
+            <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+        </ngb-alert>
+    </div>
+    <div class="col-md-12 mb-1">
+        <div class="d-flex justify-content-end action">
+            <button *ngIf="report.status == REPORT_STATUS_ENUM.completed" class="btn btn-warning"
+                (click)="dialogConfirmBackReportShow()"><span class="fa fa-backward"></span>
+                {{'action.backReportToOwner' |
+                translate}}</button>
+
+            <button *ngIf="report.status == REPORT_STATUS_ENUM.draft" class="btn btn-info"
+                (click)="dialogConfirmReminderOwnerShow()"><span class="fa fa-bell"></span>
+                {{'action.reminderOwnerToCompleteReport' |
+                translate}}</button>
+        </div>
+    </div>
+</div>
+<app-loader *ngIf="loader"></app-loader>
+<app-dynamic-grid #grid *ngIf="data" [path]="path" [file]="file" [data]="data" [template]="customFormBirdDamage"
+    [modalDialogSize]="'modal-dialog-large'" [height]="'calc(100vh - 42vh)'"
+    (emitValueForCustomForm)="emitValueForCustomForm($event)"></app-dynamic-grid>
+
+<ng-template #customFormBirdDamage>
+    <app-custom-form-bird-damage *ngIf="itemData" [data]="itemData" [disableCRUD]="true" [disableInput]="true"
+        (submit)="handleSubmit($event)"></app-custom-form-bird-damage>
+</ng-template>
+
+<app-dialog-confirm #dialogConfirmBackReport [title]="('actionMessage.dialogBackReportToOwnerTitle' | translate)"
+    [content]="('actionMessage.dialogBackReportToOwnerText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="backReportToOwner()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogConfirmReminderOwner
+    [title]="('actionMessage.dialogReminderOwnerToCompleteReportTitle' | translate)"
+    [content]="('actionMessage.dialogReminderOwnerToCompleteReportText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="reminderOwnerToCompleteReport()"></app-dialog-confirm>

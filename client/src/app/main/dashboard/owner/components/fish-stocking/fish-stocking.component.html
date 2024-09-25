@@ -1,0 +1,95 @@
+<div *ngIf="managementRegistersData && managementRegistersData.length">
+    <div class="row">
+        <div class="alert-message col-md-12 text-center" *ngIf="selectedManagementRegistryId">
+            <div *ngIf="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed">
+                <ngb-alert [type]="'success'" [dismissible]="false">
+                    <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+                        {{fishStockingReport.date_completed | date: 'dd.MM.yyyy. HH:mm'}}</div>
+                </ngb-alert>
+            </div>
+            <div *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status ===
+                fishStockingReportEnum.draft)">
+                <ngb-alert [type]="'warning'" [dismissible]="false">
+                    <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+                </ngb-alert>
+            </div>
+            <div class="explanation">
+                <app-explanation-mark [mainExplanation]="'fishStocking.mainExplanation'"></app-explanation-mark>
+            </div>
+        </div>
+        <div class="mb-2 col-md-3">
+            <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
+                    [explanation]="'fishStocking.explanation'"></app-explanation-mark></label>
+            <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
+                [(ngModel)]="selectedManagementRegistryId"
+                [placeholder]="'commonFields.chooseManagementRegistry' | translate" (change)="onChange($event)"
+                [searchable]="true">
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                    <span>{{item.fbz}} - {{item.year}}</span>
+                </ng-template>
+                <ng-template ng-value-tmp let-item="item">
+                    <span>{{item.fbz}} - {{item.year}}</span>
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                    <span>{{item.fbz}} - {{item.year}}</span>
+                </ng-template>
+            </ng-select>
+
+        </div>
+        <div class="col-md-9" *ngIf="selectedManagementRegistryId && !loading">
+            <div class="d-flex justify-content-end action">
+                <button
+                    *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"
+                    class="btn btn-success mb-1" (click)="completeReports()"><span class="fa fa-check"></span>
+                    {{'action.completeReport' |
+                    translate}}</button>
+
+                <button *ngIf="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"
+                    class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
+                        class="fa fa-question-circle-o"></span>
+                    {{'action.requestAdminToChangeStatus' |
+                    translate}}</button>
+
+                <button *ngIf="!fishStockingReport || fishStockingReport.status !== fishStockingReportEnum.completed"
+                    class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishStockingEntryDialog()"><span
+                        class="fa fa-times"></span>
+                    {{'action.noHaveEntry' |
+                    translate}}</button>
+            </div>
+        </div>
+    </div>
+
+    <app-no-data *ngIf="!selectedManagementRegistry" [text]="('general.selectFbzToGetData' | translate)"
+        [image]="'../../../assets/images/icons/filter.png'"></app-no-data>
+
+    <div *ngIf="selectedManagementRegistry">
+        <app-dynamic-grid #grid *ngIf="!loading" [path]="path" [file]="file" [data]="data"
+            [additionalData]="selectedRegistry" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
+            (refreshParentComponent)="refreshGrid()"
+            [disableCRUD]="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"></app-dynamic-grid>
+    </div>
+</div>
+
+<app-loader *ngIf="loading"></app-loader>
+
+<app-no-data *ngIf="(!managementRegistersData || !managementRegistersData.length) && !loading"
+    [text]="('general.noManagementRegisterForYou' | translate)"
+    [image]="'../../../assets/images/icons/no-data-for-user.png'"></app-no-data>
+
+<app-dialog-confirm #dialogConfirm [title]="('actionMessage.dialogCompleteReportQuestionTitle' | translate)"
+    [content]="('actionMessage.dialogCompleteReportQuestionText' | translate)"
+    [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionYes' | translate)"
+    [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionNo' | translate)"
+    (confirm)="confirmCompleteReport()"></app-dialog-confirm>
+
+
+<app-dialog-confirm #dialogNoHaveEntry [title]="('actionMessage.dialogNoHaveReportsTitle' | translate)"
+    [content]="('actionMessage.dialogNoHaveReportsText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="confirmNoHaveFishStockingEntry()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogRequestForAdditionalChanges
+    [title]="('actionMessage.dialogRequestForAdditionalChangesTitle' | translate)"
+    [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>

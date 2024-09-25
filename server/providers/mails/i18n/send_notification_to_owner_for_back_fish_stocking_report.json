@@ -1,0 +1,35 @@
+{
+    "template": "send_notification_to_owner_for_back_fish_stocking_report.hjs",
+    "language": {
+        "en": {
+            "subject": "Your fish stocking report status for FBZ is back",
+            "body": {
+                "greetings": "Hey 👋",
+                "message": "Use this link to reset your password and login.",
+                "resetPassword": "Reset Password →",
+                "notSureWhyReceived": "Not sure why you got this email? Please ingorize this email.",
+                "letUsKnow": "let us know",
+                "greetingsEnd": "Thanks,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Use of our service and website is subject to our",
+                "terms": "Terms of Use",
+                "and": "and",
+                "privacyPolicy": "Privacy Policy"
+            }
+        },
+        "de": {
+            "subject": "Status Ihres Fischbesatzberichts für #fbz wurde zurückgesetzt",
+            "body": {
+                "greetings": "Hey #name 👋",
+                "message": "der Bearbeitungs-Status für die Besatzmeldung für #fbz ist zurück gesetzt worden. Sie können Ihre Besatzmeldung wieder bearbeiten.",
+                "notSureWhyReceived": "Sie sind sich nicht sicher, warum Sie diese E-Mail erhalten haben? Bitte ignorieren Sie diese E-Mail.",
+                "greetingsEnd": "Danke,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Die Nutzung unseres Dienstes und unserer Website unterliegt unseren",
+                "terms": "Nutzungsbedingungen",
+                "and": "und",
+                "privacyPolicy": "Datenschutzrichtlinie"
+            }
+        }
+    }
+}

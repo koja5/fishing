@@ -1,0 +1,58 @@
+<form>
+    <div class="col-md-12 mb-1">
+        <label>{{'commonFields.nameOfFish' | translate }}</label>
+        <ng-select *ngIf="allFishes" [items]="allFishes" [bindLabel]="'name'" [bindValue]="'name'" name="fish"
+            [(ngModel)]="data.fish">
+            <ng-template ng-footer-tmp>
+                <p class="m-0 font-weight-bold cursor-pointer" (click)="openModalNewEntrie()"><span
+                        class="fa fa-plus-circle"></span> {{'commonFields.createNew' | translate
+                    }} </p>
+            </ng-template>
+        </ng-select>
+    </div>
+    <div class="col-md-12 mb-1">
+        <label>
+            {{'commonFields.totalQuantity' | translate }}
+            <app-explanation-mark [explanation]="('explanation.totalQuantity' | translate)">
+            </app-explanation-mark>
+        </label>
+        <input class="form-control" name="quantity" [(ngModel)]="data.quantity">
+    </div>
+    <div class="col-md-12 mb-1">
+        <label>
+            {{'commonFields.edibleFishQuantity' | translate }}
+            <app-explanation-mark [explanation]="('explanation.edibleFishQuantity' | translate)">
+            </app-explanation-mark>
+        </label>
+        <input class="form-control" name="edible_fish_quantity" [(ngModel)]="data.edible_fish_quantity">
+        <p *ngIf="checkValues()" class="color-red">{{'actionMessage.valueNeedToBeLess' |
+            translate}}</p>
+    </div>
+    <div class="col-md-12 mb-1">
+        <label>
+            {{'commonFields.stockedFishQuantity' | translate }}
+            <app-explanation-mark [explanation]="('explanation.stockedFishQuantity' | translate)">
+            </app-explanation-mark>
+        </label>
+        <input class="form-control" name="stocked_fish_quantity" [value]="calculateStockedFishQuantity()"
+            [disabled]="true">
+    </div>
+    <div class="text-right mt-4">
+        <button class="btn btn-primary" (click)="save()" [disabled]="checkValues()">{{'general.save' |
+            translate}}</button>
+    </div>
+</form>
+
+<ng-template #modalNewEntrie let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' | translate}}</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <app-dynamic-forms [path]="'/forms/owner'" [file]="'new-entrie-name-of-fish.json'"
+            (submit)="submitNewEntriesEmitter($event)" #form="dynamicForm">
+        </app-dynamic-forms>
+    </div>
+</ng-template>

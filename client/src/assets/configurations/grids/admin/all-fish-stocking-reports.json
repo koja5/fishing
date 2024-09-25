@@ -1,0 +1,183 @@
+{
+    "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/admin/getAllFishStockingReports",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "columns": [
+        {
+            "title": "",
+            "width": 70,
+            "flexGrow": 1,
+            "template": {
+                "type": "action",
+                "actionMode": {
+                    "type": "button",
+                    "icon": "eye",
+                    "routerLink": {
+                        "link": "/dashboard/admin/fish-stocking-report-details",
+                        "parameters": [
+                            "fbz",
+                            "year"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "title": "commonFields.fbz",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fbz",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.year",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "year",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.name",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "commonFields.status",
+            "field": "status",
+            "template": {
+                "choices": [
+                    {
+                        "field": "status",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.empty",
+                            "badge": "badge badge-pill badge-light-default"
+                        }
+                    },
+                    {
+                        "field": "status",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.default",
+                            "badge": "badge badge-pill badge-light-warning"
+                        }
+                    },
+                    {
+                        "field": "status",
+                        "value": 2,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.completed",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "title": "commonFields.date",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "date",
+            "format": "dd.MM.yyyy HH:mm",
+            "class": "text-align-right",
+            "field": "date_completed",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hidden",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "name",
+            "title": "commonFields.name",
+            "field": "name",
+            "required": true
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "btn btn-primary",
+            "name": "submit",
+            "title": "general.save",
+            "field": "submit",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

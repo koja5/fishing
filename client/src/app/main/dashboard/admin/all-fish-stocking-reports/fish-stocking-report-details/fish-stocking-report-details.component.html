@@ -1,0 +1,51 @@
+<div class="informations d-flex row">
+    <div class="col-md-12">
+        <app-go-back></app-go-back>
+    </div>
+    <div class="col-md-12 owner text-center mb-1">
+        <h3><b>{{userProfile.firstname}}
+                {{userProfile.lastname}}</b></h3>
+
+        <label>{{'commonFields.fbz' | translate}}: <b>{{fishStockingReport.fbz}}</b></label> &nbsp;
+        <label>{{'commonFields.year' | translate}}: <b>{{fishStockingReport.year}}</b></label> &nbsp;
+    </div>
+
+    <div class="col-md-12 text-center">
+        <ngb-alert *ngIf="fishStockingReport.status == FISH_STOCKING_REPORT_ENUM.completed" [type]="'success'"
+            [dismissible]="false">
+            <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+                {{fishStockingReport.date_completed | date: 'dd.MM.yyyy. HH:mm'}}
+            </div>
+        </ngb-alert>
+        <ngb-alert *ngIf="fishStockingReport.status == FISH_STOCKING_REPORT_ENUM.draft" [type]="'warning'"
+            [dismissible]="false">
+            <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+        </ngb-alert>
+    </div>
+    <div class="col-md-12 mb-1">
+        <div class="d-flex justify-content-end action">
+            <button *ngIf="fishStockingReport.status == FISH_STOCKING_REPORT_ENUM.completed" class="btn btn-warning"
+                (click)="dialogConfirmBackReportShow()"><span class="fa fa-backward"></span>
+                {{'action.backReportToOwner' |
+                translate}}</button>
+
+            <button *ngIf="fishStockingReport.status == FISH_STOCKING_REPORT_ENUM.draft" class="btn btn-info"
+                (click)="dialogConfirmReminderOwnerShow()"><span class="fa fa-bell"></span>
+                {{'action.reminderOwnerToCompleteReport' |
+                translate}}</button>
+        </div>
+    </div>
+</div>
+<app-loader *ngIf="loader"></app-loader>
+<app-dynamic-grid #grid *ngIf="data" [path]="path" [file]="file" [data]="data" [height]="'calc(100vh - 41vh)'"></app-dynamic-grid>
+
+<app-dialog-confirm #dialogConfirmBackReport [title]="('actionMessage.dialogBackReportToOwnerTitle' | translate)"
+    [content]="('actionMessage.dialogBackReportToOwnerText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="backFishStockingReportToOwner()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogConfirmReminderOwner
+    [title]="('actionMessage.dialogReminderOwnerToCompleteReportTitle' | translate)"
+    [content]="('actionMessage.dialogReminderOwnerToCompleteReportText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="reminderOwnerToCompleteFishStockingReport()"></app-dialog-confirm>

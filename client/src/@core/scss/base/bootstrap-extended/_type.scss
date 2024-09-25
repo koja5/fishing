@@ -1,0 +1,22 @@
+// ================================================================================================
+//     File Name: type.scss
+//     Description: Type pages custom scss
+//     ----------------------------------------------------------------------------------------------
+//     Item Name: Fischereiverband - Vuejs, React, Angular, HTML & Laravel Admin Dashboard Template
+//     Author: Fischereiverband
+//     Author URL: http://www.themeforest.net/user/Fischereiverband
+// ================================================================================================
+
+// text heading color
+.text-body-heading {
+  color: $headings-color;
+  &:hover {
+    color: inherit !important;
+  }
+}
+// text body hover color if have link
+.text-body {
+  &[href]:hover {
+    color: $link-hover-color !important;
+  }
+}

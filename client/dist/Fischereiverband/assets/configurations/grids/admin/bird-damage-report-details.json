@@ -1,0 +1,148 @@
+{
+    "pageSize": 10,
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "actionButtons": {
+        "addButton": false
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "api": "/api/owner/setFishStocking",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "commonFields.action",
+            "template": {
+                "type": "action",
+                "actionMode": {
+                    "type": "button",
+                    "action": {
+                        "type": "show",
+                        "actionName": "general.show",
+                        "icon": "eye",
+                        "formDialog": {
+                            "type": "sidebar",
+                            "closeAfterExecute": true
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "heron_number",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneDailyFood",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "heron_daily_food",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneQuantityRemoved",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "heron_damage_in_euro_per_kg",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "komorantage_number",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneDailyFood",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "komorantage_daily_food",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneQuantityRemoved",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "komorantage_damage_in_euro_per_kg",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": []
+}

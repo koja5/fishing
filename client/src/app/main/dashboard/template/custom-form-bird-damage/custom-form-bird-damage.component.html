@@ -1,0 +1,234 @@
+<div *ngIf="data">
+    <form id="{{disableInput ? 'disableInput' : ''}}">
+        <div>
+            <div class="section-one">
+                <h4 class="text-center mb-2">{{'birdDamage.sectionOneTitle' | translate}}</h4>
+
+                <div>
+                    <h5 class="mb-1 border-bottom">{{'birdDamage.sectionOneHeron' | translate}}</h5>
+
+                    <div class="row align-items-baseline">
+                        <div class="col-md-5">
+                            <label>{{'birdDamage.sectionOneNumber' | translate }}
+                                <app-explanation-mark [explanation]="('explanation.sectionOneNumber' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class=" form-control" name="heron_number" [(ngModel)]="data.heron_number">
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <p class="price-variable">{{'birdDamage.sectionTwoX' | translate}}
+                                {{'birdDamagePrice.heronForKg' | translate}}
+                                {{'birdDamage.sectionTwoKg' | translate}} {{'birdDamage.sectionTwoX' | translate}}
+                                {{'birdDamagePrice.pricePerKg' | translate}}
+                                {{'birdDamage.sectionTwoEuro' | translate}} </p>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionOneDamageInEuroPerKg' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionOneDamageInEuroPerKg' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="heron_sum_price" [value]="calculatePriceForHeronDemage()"
+                                [readOnly]="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <h5 class="mb-1 border-bottom">{{'birdDamage.sectionOneKomorantage' | translate}}</h5>
+
+                    <div class="row align-items-baseline">
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionOneNumber' | translate }}
+                                <app-explanation-mark [explanation]="('explanation.sectionOneNumber' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="komorantage_number" [(ngModel)]="data.komorantage_number">
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <p class="price-variable">{{'birdDamage.sectionTwoX' | translate}}
+                                {{'birdDamagePrice.komorantageForKg' | translate}}
+                                {{'birdDamage.sectionTwoKg' | translate}} {{'birdDamage.sectionTwoX' | translate}}
+                                {{'birdDamagePrice.pricePerKg' | translate}}
+                                {{'birdDamage.sectionTwoEuro' | translate}} </p>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionOneDamageInEuroPerKg' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionOneDamageInEuroPerKg' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="komorantage_sum_price"
+                                [value]="calculatePriceForKomorantage()" [readOnly]="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-two mt-3">
+                <h4 class="text-center mb-2">{{'birdDamage.sectionTwoTitle' | translate}}</h4>
+
+                <div>
+                    <h5 class="mb-1 border-bottom">{{'birdDamage.sectionTwoNumberOfSeedlings' | translate}}</h5>
+
+                    <div class="row align-items-baseline">
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionTwoNumber' | translate }}
+                                <app-explanation-mark [explanation]="('explanation.sectionTwoNumber' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="number_of_seedlings"
+                                [(ngModel)]="data.number_of_seedlings">
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <p class="price-variable">x {{'birdDamagePrice.pricePerItem' | translate}} € = </p>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionTwoDamageInEuro' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionTwoDamageInEuro' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="damage_of_seedlings"
+                                [value]="calculateDamageOfSeedlings()" [readOnly]="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <h5 class="mb-1 border-bottom">{{'birdDamage.sectionTwoAmountInInjured' | translate}}</h5>
+
+                    <div class="row align-items-baseline">
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionTwoKg' | translate }}
+                                <app-explanation-mark [explanation]="('explanation.sectionTwoKg' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="amount_of_injured_kg"
+                                [(ngModel)]="data.amount_of_injured_kg">
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <p class="price-variable">x {{'birdDamagePrice.pricePerKg' | translate}} € = </p>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionTwoDamageInEuro' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionTwoDamageInEuro' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="damage_amount_of_injured"
+                                [value]="calculateDamageAmountOfInjured()" [readOnly]="true">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-three mt-2">
+                <h4 class="text-center mb-2">
+                    {{'birdDamage.sectionThreeTitle' | translate}}
+                    <app-explanation-mark [explanation]="('explanation.sectionThreeTitle' | translate)">
+                    </app-explanation-mark>
+                </h4>
+
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{'birdDamage.sectionThreeColumnOne' | translate}}</th>
+                                <th scope="col">{{'birdDamage.sectionThreeColumnTwo' | translate}}</th>
+                                <th scope="col">{{'birdDamage.sectionThreeColumnThree' | translate}}</th>
+                                <th *ngIf="!disableCRUD" scope="col" class="p-0"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- <td *ngFor="let key of objectKeys(items)">
+                                    <input class="form-control" name="{{key}}"
+                                        [(ngModel)]="data.nest_and_sleeping[i][key]">
+                                </td> -->
+                            <tr *ngFor="let item of data.nest_and_sleeping; let i = index">
+                                <td><input class="form-control" name="name_of_water_{{i}}"
+                                        [(ngModel)]="data.nest_and_sleeping[i]['name_of_water_' + i]"></td>
+                                <td><input class="form-control" name="horste_{{i}}"
+                                        [(ngModel)]="data.nest_and_sleeping[i]['horste_' + i]"></td>
+                                <td><input class="form-control" name="kormoran_{{i}}"
+                                        [(ngModel)]="data.nest_and_sleeping[i]['kormoran_' + i]"></td>
+                                <td *ngIf="!disableCRUD" class="p-0">
+                                    <span class="fa fa-trash remove" title="{{'general.delete' | translate}}"
+                                        (click)="removeRowFromNestAndSleeping(i)"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right" *ngIf="!disableCRUD">
+                        <a class="btn-sm btn-outline-primary"
+                            (click)="addNewRowForNestAndSleeping()">{{'birdDamage.addNewRow' |
+                            translate}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-four mt-2">
+                <h4 class="text-center mb-2">
+                    {{sectionFourTitle}}
+                    <app-explanation-mark [explanation]="('explanation.sectionFourTitle' | translate)">
+                    </app-explanation-mark>
+                </h4>
+
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{'birdDamage.sectionFourColumnTwo' | translate}}</th>
+                                <th scope="col">{{'birdDamage.sectionFourColumnThree' | translate}}</th>
+                                <th scope="col">{{'birdDamage.sectionFourColumnFour' | translate}}</th>
+                                <th scope="col">{{'birdDamage.sectionFourColumnFive' | translate}}</th>
+                                <th class="p-0" *ngIf="!disableCRUD"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of data.requested_for_next_year; let i = index">
+                                <td>
+                                    <ng-select class="management-register-data" [items]="managementRegistersData"
+                                        [bindLabel]="'fbz'" [bindValue]="'fbz'" name="fbz_{{i}}"
+                                        [(ngModel)]="data.requested_for_next_year[i]['fbz_' + i]">
+                                    </ng-select>
+                                </td>
+                                <td><input class="form-control" name="wild_region_{{i}}"
+                                        [(ngModel)]="data.requested_for_next_year[i]['wild_region_' + i]">
+                                </td>
+                                <td><input class="form-control" name="heron_for_request_{{i}}"
+                                        [(ngModel)]="data.requested_for_next_year[i]['heron_for_request_' + i]"></td>
+                                <td><input class="form-control" name="kormoran_for_request{{i}}"
+                                        [(ngModel)]="data.requested_for_next_year[i]['kormoran_for_request_' + i]"></td>
+                                <td class="p-0" *ngIf="!disableCRUD">
+                                    <span class="fa fa-trash remove" title="{{'general.delete' | translate}}"
+                                        (click)="removeRowFromRequestedForNextYear(i)"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right" *ngIf="!disableCRUD">
+                        <a class="btn-sm btn-outline-primary"
+                            (click)="addNewRowForRequestedForNextYear()">{{'birdDamage.addNewRow' |
+                            translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right mt-4" *ngIf="!disableCRUD">
+            <a class="btn btn-primary" (click)="save()">{{'general.save' | translate}}</a>
+        </div>
+    </form>
+
+</div>

@@ -1,0 +1,15 @@
+.flag-icon {
+  margin-right: 5px;
+}
+
+@media (max-width: 993px) {
+  .dropdown-language {
+    top: 28px !important;
+  }
+}
+
+.dropdown-language {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
