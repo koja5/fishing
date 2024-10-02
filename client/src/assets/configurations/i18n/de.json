@@ -316,13 +316,13 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-   },
+  },
    "birdDamagePrice": {
       "heronForKg": 0.3,
       "pricePerKg": 14.00,
       "pricePerItem": 0.80,
       "komorantageForKg": 0.5
-   },
+  },
    "birdDamage": {
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "addNewRow": "Neue Zeile hinzufügen",
@@ -356,7 +356,7 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-   },
+  },
    "explanation": {
       "date": "Geben Sie bitte das Datum des Besatzes ein - z.B. 23.04.2024",
       "nameOfWater": "Wählen Sie bitte ein Gewässer aus in das die Fische besetzt wurden. Wird ein gewünschtes Gewässer nicht angeführt oder gefunden, können Sie auch beim Aufklappmenü auf 'Eintrag hinzufügen' klicken und ein neues Gewässer mit Ihrer Bezeichnung anlegen.",

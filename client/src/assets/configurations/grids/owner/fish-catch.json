@@ -94,6 +94,18 @@
             "field": "allow_online"
         },
         {
+            "title": "commonFields.nameOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name_of_water",
+            "validation": {
+                "required": true
+            }
+        },
+        {
             "title": "commonFields.nameOfFish",
             "filterable": true,
             "hideable": true,

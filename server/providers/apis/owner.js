@@ -659,8 +659,8 @@ router.get(
             req.query.id_water != "null"
           ) {
             conn.query(
-              "select fcd.* from fish_catch_details fcd where fcd.fbz = ? and fcd.id_water = ?",
-              [req.query.fbz, req.query.id_water],
+              "select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join (select w.id, w.name from waters w where fbz = ? union select wc.id, wc.name from waters_custom wc where wc.fbz = ?) as w on fcd.id_water = w.id where fcd.fbz = ? and fcd.id_water = ?",
+              [req.query.fbz, req.query.fbz, req.query.fbz, req.query.id_water],
               function (err, rows, fields) {
                 conn.release();
                 if (err) {
@@ -673,8 +673,8 @@ router.get(
             );
           } else {
             conn.query(
-              "select fcd.* from fish_catch_details fcd where fcd.fbz = ?",
-              [req.query.fbz],
+              "select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join (select w.id, w.name from waters w where fbz = ? union select wc.id, wc.name from waters_custom wc where wc.fbz = ?) as w on fcd.id_water = w.id where fcd.fbz = ?",
+              [req.query.fbz, req.query.fbz, req.query.fbz],
               function (err, rows, fields) {
                 conn.release();
                 if (err) {
