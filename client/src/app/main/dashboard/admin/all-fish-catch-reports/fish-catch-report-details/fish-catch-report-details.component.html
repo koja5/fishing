@@ -12,13 +12,13 @@
     <div class="col-md-12 text-center">
         <ngb-alert *ngIf="fishCatchReport.status == FISH_CATCH_REPORT_ENUM.completed" [type]="'success'"
             [dismissible]="false">
-            <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+            <div class="alert-body">{{'fishCatch.reportCompleted' | translate}}
                 {{fishCatchReport.date_completed | date: 'dd.MM.yyyy. HH:mm'}}
             </div>
         </ngb-alert>
         <ngb-alert *ngIf="fishCatchReport.status == FISH_CATCH_REPORT_ENUM.draft" [type]="'warning'"
             [dismissible]="false">
-            <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+            <div class="alert-body">{{'fishCatch.reportCompletedNotYet' | translate}}</div>
         </ngb-alert>
     </div>
     <div class="col-md-4">
@@ -29,10 +29,10 @@
     </div>
     <div class="col-md-8 mb-1">
 
-        <div class="d-flex justify-content-end action">
+        <div class="d-flex justify-content-end">
             <button *ngIf="fishCatchReport.status == FISH_CATCH_REPORT_ENUM.completed" class="btn btn-warning"
                 (click)="dialogConfirmBackReportShow()"><span class="fa fa-backward"></span>
-                {{'action.backReportToOwner' |
+                {{'fishCatch.backReportToOwner' |
                 translate}}</button>
 
             <button *ngIf="fishCatchReport.status == FISH_CATCH_REPORT_ENUM.draft" class="btn btn-info reminder-button"

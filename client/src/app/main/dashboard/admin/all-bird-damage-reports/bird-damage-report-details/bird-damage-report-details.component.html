@@ -21,7 +21,7 @@
         </ngb-alert>
     </div>
     <div class="col-md-12 mb-1">
-        <div class="d-flex justify-content-end action">
+        <div class="d-flex justify-content-end">
             <button *ngIf="report.status == REPORT_STATUS_ENUM.completed" class="btn btn-warning"
                 (click)="dialogConfirmBackReportShow()"><span class="fa fa-backward"></span>
                 {{'action.backReportToOwner' |

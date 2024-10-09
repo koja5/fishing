@@ -162,7 +162,7 @@ export class StorageService {
       }
       return config.app.appLanguage;
     }
-    return "en";
+    return "de";
   }
 
   setAvatarProfileInToken(avatar: any) {

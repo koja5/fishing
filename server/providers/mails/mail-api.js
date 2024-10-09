@@ -323,7 +323,7 @@ router.post(
 
     body["checkReportLink"] =
       process.env.link_client +
-      "dashboard/admin/fish-stocking-report-details?fbz=" +
+      "dashboard/admin/fish-catch-report-details?fbz=" +
       req.body.fbz +
       "&year=" +
       req.body.year;
@@ -368,7 +368,7 @@ router.post(
 
     body["checkReportDetailsLink"] =
       process.env.link_client +
-      "dashboard/admin/fish-stocking-report-details?fbz=" +
+      "dashboard/admin/fish-catch-report-details?fbz=" +
       req.body.fbz +
       "&year=" +
       req.body.year;
@@ -565,7 +565,7 @@ router.post(
 
     body["checkReportLink"] =
       process.env.link_client +
-      "dashboard/admin/bird-count-report-details?fbz=" +
+      "dashboard/admin/bird-damage-report-details?fbz=" +
       req.body.fbz +
       "&year=" +
       req.body.year;
@@ -608,7 +608,7 @@ router.post(
 
     body["checkReportDetailsLink"] =
       process.env.link_client +
-      "dashboard/admin/fish-stocking-report-details?fbz=" +
+      "dashboard/admin/bird-damage-report-details?fbz=" +
       req.body.fbz +
       "&year=" +
       req.body.year;

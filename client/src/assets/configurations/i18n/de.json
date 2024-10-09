@@ -32,7 +32,7 @@
    },
    "action": {
       "completeReport": "Meldung absenden",
-      "backReportToOwner": "Besatzmeldung wieder zum ändern freigeben",
+      "backReportToOwner": "Meldung wieder zum ändern freigeben",
       "noHaveEntry": "Leermeldung absenden",
       "reminderOwnerToCompleteReport": "Bewirtschafter  Erinnerung",
       "requestAdminToChangeStatus": "Bereits gesendete Meldung wieder Aktivieren"
@@ -44,17 +44,17 @@
       "errorExecuteActionTextDefault": "Bitte überprüfen Sie es noch einmal oder versuchen Sie es später",
       "errorUpdateTermineOnGoogleCalendarRights": "Ein Problem mit den Rechten beim Aktualisieren eines Termins im Google-Kalender.",
       "dialogCompleteReportQuestionTitle": "Sind Sie sicher?",
-      "dialogCompleteReportQuestionText": "Möchten Sie den Besatzmeldung abschließen und senden? Beachten Sie bitte, dass  die Besatzmeldung danach nicht mehr geändert werden kann.",
-      "dialogCompleteReportQuestionYes": "Ja, Besatzmeldung abschließen und senden!",
+      "dialogCompleteReportQuestionText": "Möchten Sie den Meldung abschließen und senden? Beachten Sie bitte, dass  die Meldung danach nicht mehr geändert werden kann.",
+      "dialogCompleteReportQuestionYes": "Ja, Meldung abschließen und senden!",
       "dialogCompleteReportQuestionNo": "NEIN",
-      "reportCompletedNotYet": "Die Besatzmeldung wurde noch nicht fertiggestellt und gesendet.",
-      "reportCompleted": "Diese Besatzmeldung wurde abgeschlossen am/um",
+      "reportCompletedNotYet": "Die Meldung wurde noch nicht fertiggestellt und gesendet.",
+      "reportCompleted": "Diese Meldung wurde abgeschlossen am/um",
       "dialogBackReportToOwnerTitle": "Sind sie sicher?",
-      "dialogBackReportToOwnerText": "Möchten Sie dem Bewirtschafter die Besatzmeldung wieder zum andern freigeben?",
+      "dialogBackReportToOwnerText": "Möchten Sie dem Bewirtschafter die Meldung wieder zum andern freigeben?",
       "dialogReminderOwnerToCompleteReportTitle": "Sind sie sicher?",
-      "dialogReminderOwnerToCompleteReportText": "Möchten Sie eine Benachrichtigung per E-Mail an den Bewirtschafter senden, z. B. eine Erinnerung zum Ausfüllen der Besatzmeldung?",
+      "dialogReminderOwnerToCompleteReportText": "Möchten Sie eine Benachrichtigung per E-Mail an den Bewirtschafter senden, z. B. eine Erinnerung zum Ausfüllen der Meldung?",
       "dialogRequestForAdditionalChangesTitle": "Sind sie sicher?",
-      "dialogRequestForAdditionalChangesText": "Möchten Sie eine Anfrage an den Landesfischereiverband senden, um die Besatzmeldung wieder ändern zu können?",
+      "dialogRequestForAdditionalChangesText": "Möchten Sie eine Anfrage an den Landesfischereiverband senden, um die Meldung wieder ändern zu können?",
       "dialogNoHaveReportsTitle": "Sind sie sicher?",
       "dialogNoHaveReportsText": "Möchten Sie einen leeren Bericht senden? Wenn Sie derzeit über einige Einträge verfügen, werden diese Einträge gelöscht!",
       "exportToPng": "Nach PNG exportieren",
@@ -137,7 +137,7 @@
    "status": {
       "empty": "Leer",
       "default": "Beginnend mit der Anfrage",
-      "completed": "Fertige Besatzmeldung"
+      "completed": "Fertige Meldung"
    },
    "login": {
       "title": "Willkommen beim Fischereiverband! 👋",
@@ -305,7 +305,10 @@
       "explanationSecond": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "mainExplanation": {
          "link": "https://google.rs"
-      }
+      },
+      "reportCompleted": "Diese AUSFANGmeldung wurde abgeschlossen am/um",
+      "reportCompletedNotYet": "Die AUSFANGmeldung wurde noch nicht fertiggestellt und gesendet.",
+      "backReportToOwner": "Ausfangemeldung wieder zum Ändern freigeben."
    },
    "birdCount": {
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
@@ -316,13 +319,13 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-  },
+   },
    "birdDamagePrice": {
       "heronForKg": 0.3,
       "pricePerKg": 14.00,
       "pricePerItem": 0.80,
       "komorantageForKg": 0.5
-  },
+   },
    "birdDamage": {
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "addNewRow": "Neue Zeile hinzufügen",
@@ -356,7 +359,7 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-  },
+   },
    "explanation": {
       "date": "Geben Sie bitte das Datum des Besatzes ein - z.B. 23.04.2024",
       "nameOfWater": "Wählen Sie bitte ein Gewässer aus in das die Fische besetzt wurden. Wird ein gewünschtes Gewässer nicht angeführt oder gefunden, können Sie auch beim Aufklappmenü auf 'Eintrag hinzufügen' klicken und ein neues Gewässer mit Ihrer Bezeichnung anlegen.",

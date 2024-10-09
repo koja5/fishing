@@ -1362,7 +1362,7 @@ router.post("/completeBirdDamageReport", auth, function (req, res, next) {
                   req.body["lastname"] = req.user.user.lastname;
                   makeRequest(
                     req.body,
-                    "mail/sendNotificationToOwnerForBackBirdDamageReport",
+                    "mail/sendNotificationToAdminForCompletedBirdDamageReport",
                     res
                   );
                 } else {

@@ -36,7 +36,7 @@
             </ng-select>
 
         </div>
-        <div class="col-md-9" *ngIf="selectedManagementRegistryId && !loading">
+        <div class="col-md-9" *ngIf="selectedManagementRegistryId">
             <div class="d-flex justify-content-end action">
                 <button
                     *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"

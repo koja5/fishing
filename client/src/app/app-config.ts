@@ -19,7 +19,7 @@ export const coreConfig: CoreConfig = {
     appName     : 'Fischereiverband',                                        // App Name
     appTitle    : 'Fischereiverband', // App Title
     appLogoImage: 'assets/images/logo/logo.png',                  // App Logo
-    appLanguage : 'en',                                           // App Default Language (en, fr, de, pt etc..)
+    appLanguage : 'de',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {
     skin  : 'default',                        // default, dark, bordered, semi-dark
