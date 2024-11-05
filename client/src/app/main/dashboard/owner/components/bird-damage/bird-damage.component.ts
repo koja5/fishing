@@ -22,6 +22,7 @@ import { BirdDamageReportModel } from "app/main/dashboard/models/bird-damage-rep
 export class BirdDamageComponent {
   public path = "grids/owner";
   public file = "bird-damage.json";
+  public fileExportReport = "bird-damage-report.json";
 
   @ViewChild("grid") grid: DynamicGridComponent;
 

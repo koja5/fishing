@@ -57,7 +57,7 @@
             }
         },
         {
-            "title": "commonFields.date",
+            "title": "Zähldatum",
             "filterable": true,
             "hideable": true,
             "filter": "date",
@@ -70,7 +70,6 @@
             "title": "birdCount.heron",
             "filterable": true,
             "hideable": true,
-            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "heron"
@@ -79,7 +78,6 @@
             "title": "birdCount.cormorant",
             "filterable": true,
             "hideable": true,
-            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "cormorant"
@@ -88,7 +86,6 @@
             "title": "birdCount.gooseSayer",
             "filterable": true,
             "hideable": true,
-            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "goose_sayer"

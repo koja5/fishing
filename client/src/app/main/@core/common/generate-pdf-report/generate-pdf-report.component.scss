@@ -1,0 +1,30 @@
+.export-pdf-modal {
+  max-width: fit-content;
+}
+
+table {
+  min-width: 100%;
+}
+
+#export-pdf {
+  margin: 10px;
+  margin: auto;
+  text-align: center;
+}
+
+.complex {
+  display: inline-table;
+  width: 97%;
+  margin: 2px;
+}
+
+.generated-date {
+  float: right;
+  margin: 0px;
+  margin-top: 5px;
+}
+
+.report-name {
+  font-weight: bolder;
+  margin-left: 110px;
+}

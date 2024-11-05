@@ -3,4 +3,8 @@
         <app-explanation-mark [mainExplanation]="'observationSheet.mainExplanation'"></app-explanation-mark>
     </div>
 </div>
-<app-dynamic-grid #grid [path]="path" [file]="file" [height]="'calc(100vh - 15vh)'"></app-dynamic-grid>
+
+<div class="mb-1 d-flex align-items-center justify-content-end">
+    <app-generate-pdf-report [path]=" path" [file]="fileExportReport"></app-generate-pdf-report>
+</div>
+<app-dynamic-grid #grid [path]="path" [file]="file" [height]="'calc(100vh - 25vh)'"></app-dynamic-grid>

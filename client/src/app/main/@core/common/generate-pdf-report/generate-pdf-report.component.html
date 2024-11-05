@@ -1,0 +1,131 @@
+<button class="btn btn-outline-primary" (click)="exportToPdf()"><span class="fa fa-download"></span>
+    {{'action.exportToPdf' | translate}}</button>
+
+<!-- <div id="export-grid">
+    <div>
+        <div class="text-center mb-2">
+            <h3 class="font-weight-bold"> {{generateReportName()}} </h3>
+            <h4>{{user.firstname}} {{user.lastname}}</h4>
+        </div>
+        <table cellspacing="0" rules="all" border="1">
+            <tr>
+                <div *ngFor="let item of config.columns" class="d-contents">
+                    <th *ngIf="!item.template">{{item.title | translate}}</th>
+                </div>
+            </tr>
+            <tr *ngFor="let value of rows">
+                <div *ngFor="let item of config.columns" class="d-contents">
+                    <td *ngIf="item.type === 'date'">{{value[item.field] | date: item.format}}</td>
+                    <td *ngIf="!item.template && item.type != 'date'">{{value[item.field]}}</td>
+                </div>
+            </tr>
+        </table>
+    </div>
+</div> -->
+
+<!-- <div *ngIf="config && rows" id="export-grid">
+    <div>
+        <div class="text-center mb-2">
+            <h3 class="font-weight-bold"> {{generateReportName()}} </h3>
+            <h4>{{user.firstname}} {{user.lastname}}</h4>
+        </div>
+        <table cellspacing="0" rules="all" border="1">
+            <tr>
+                <div *ngFor="let item of config.columns" class="d-contents">
+                    <th *ngIf="!item.template">{{item.title | translate}}</th>
+                </div>
+            </tr>
+            <tr *ngFor="let value of rows">
+                <div *ngFor="let item of config.columns" class="d-contents">
+                    <td *ngIf="item.type === 'date'">{{value[item.field] | date: item.format}}</td>
+                    <td *ngIf="!item.template && item.type != 'date'">{{value[item.field]}}</td>
+                </div>
+            </tr>
+        </table>
+    </div>
+</div> -->
+
+<ng-template #modal let-modal class="modal-export">
+    <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' | translate}}</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" tabindex="0" ngbAutofocus>
+        <app-loader></app-loader>
+        <div id="export-pdf">
+            <div>
+                <div class="text-center mb-2">
+                    <h5 class="generated-date">{{todayDate | date: 'dd.MM.yyyy HH:mm'}}</h5>
+                    <h3 class="report-name"> {{generateReportName()}} </h3>
+                    <h4>{{user.lastname}} {{user.firstname}}</h4>
+                    <h6>{{user.street}}<span *ngIf="user.street && user.location">,</span> {{user.location}}</h6>
+                    <h6>{{user.birthday | date: 'dd.MM.YYYY'}}</h6>
+                </div>
+                <table cellspacing="0" rules="all" border="1" *ngIf="!splitHeader">
+                    <tr>
+                        <div *ngFor="let item of config.columns" class="d-contents">
+                            <th *ngIf="!item.template">{{item.title | translate}}</th>
+                        </div>
+                    </tr>
+                    <tr *ngFor="let value of rows">
+                        <div *ngFor="let item of config.columns" class="d-contents">
+                            <td *ngIf="item.type === 'date'">{{value[item.field] | date: item.format}}</td>
+                            <td *ngIf="!item.template && item.type != 'date' && item.type !='complex'">
+                                {{value[item.field]}}</td>
+                            <td *ngIf="item.type==='complex'" style="min-width: 100%;">
+                                <div class="complex"
+                                    *ngIf="convertStringToArray(value[item.field]).length && value[item.field] != '[{}]'">
+                    <tr>
+                        <th *ngFor="let complex of item.complexConfig">{{complex.title | translate}}</th>
+                    </tr>
+                    <tr *ngFor="let item2 of convertStringToArray(value[item.field]); let i = index">
+                        <td *ngFor="let config of item.complexConfig">{{item2[config.field + i]}}</td>
+                    </tr>
+            </div>
+
+            </td>
+
+        </div>
+
+        </tr>
+        </table>
+
+        <table cellspacing="0" rules="all" border="1" *ngIf="splitHeader">
+            <tr class="d-contents" *ngFor="let row of rows">
+                <div class="d-contents">
+            <tr>
+                <div *ngFor="let item of config.columns" class="d-contents">
+                    <th *ngIf="!item.template">{{item.title | translate}}</th>
+                </div>
+            </tr>
+    </div>
+    <div class="d-contents">
+        <tr *ngFor="let value of row">
+            <div *ngFor="let item of config.columns" class="d-contents">
+                <td *ngIf="item.type === 'date'">{{value[item.field] | date: item.format}}</td>
+                <td *ngIf="!item.template && item.type != 'date' && item.type !='complex'">
+                    {{value[item.field]}}</td>
+                <td *ngIf="item.type==='complex'" style="min-width: 100%;">
+                    <div class="complex"
+                        *ngIf="convertStringToArray(value[item.field]).length && value[item.field] != '[{}]'">
+        <tr>
+            <th *ngFor="let complex of item.complexConfig">{{complex.title | translate}}</th>
+        </tr>
+        <tr *ngFor="let item2 of convertStringToArray(value[item.field]); let i = index">
+            <td *ngFor="let config of item.complexConfig">{{item2[config.field + i]}}</td>
+        </tr>
+    </div>
+
+    </td>
+
+    </div>
+    </tr>
+    </div>
+    </tr>
+    </table>
+    </div>
+    </div>
+    </div>
+</ng-template>

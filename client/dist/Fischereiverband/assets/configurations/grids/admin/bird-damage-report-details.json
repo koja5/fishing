@@ -84,25 +84,13 @@
             }
         },
         {
-            "title": "birdDamage.sectionOneDailyFood",
+            "title": "birdDamage.sectionOneDamageInEuroPerKg",
             "filterable": true,
             "hideable": true,
             "filter": "date",
             "type": "string",
             "class": "text-align-right",
-            "field": "heron_daily_food",
-            "validation": {
-                "required": true
-            }
-        },
-        {
-            "title": "birdDamage.sectionOneQuantityRemoved",
-            "filterable": true,
-            "hideable": true,
-            "filter": "date",
-            "type": "string",
-            "class": "text-align-right",
-            "field": "heron_damage_in_euro_per_kg",
+            "field": "heron_sum_price",
             "validation": {
                 "required": true
             }
@@ -120,25 +108,13 @@
             }
         },
         {
-            "title": "birdDamage.sectionOneDailyFood",
+            "title": "birdDamage.sectionOneDamageInEuroPerKg",
             "filterable": true,
             "hideable": true,
             "filter": "date",
             "type": "string",
             "class": "text-align-right",
-            "field": "komorantage_daily_food",
-            "validation": {
-                "required": true
-            }
-        },
-        {
-            "title": "birdDamage.sectionOneQuantityRemoved",
-            "filterable": true,
-            "hideable": true,
-            "filter": "date",
-            "type": "string",
-            "class": "text-align-right",
-            "field": "komorantage_damage_in_euro_per_kg",
+            "field": "komorantage_sum_price",
             "validation": {
                 "required": true
             }

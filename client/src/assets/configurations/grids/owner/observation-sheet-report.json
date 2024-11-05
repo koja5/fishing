@@ -1,0 +1,197 @@
+{
+    "pageSize": 10,
+    "name": "Fischottermeldungen",
+    "request": {
+        "type": "GET",
+        "api": "/api/owner/getAllObservationSheet",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "formData": true,
+            "api": "/api/uploader/setObservationSheetAndUploadDocument",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "commonFields.fbz",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fbz",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.dateAndTime",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "date",
+            "format": "dd.MM.yyyy HH:mm",
+            "class": "text-align-right",
+            "field": "date_time",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.district",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "district",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.nameOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "water",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.orientation",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "orientation",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.typeOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "type_of_water",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.typeOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "visual_observation",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.findDead",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "find_dead",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.droveTraces",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "drove_traces",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.findLosing",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "find_losing",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "observationSheet.fishPrey",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fish_prey",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": []
+}

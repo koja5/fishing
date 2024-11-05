@@ -40,6 +40,7 @@ export class FishCatchComponent {
 
   public path = "grids/owner";
   public file = "fish-catch.json";
+  public fileExportReport = "fish-catch-report.json";
   public managementRegistersData: ManagementRegisterModel[];
   public data: FishCatchModel[];
   public allData: FishCatchModel[];

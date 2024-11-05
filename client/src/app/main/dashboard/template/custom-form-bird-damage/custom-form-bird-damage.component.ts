@@ -158,20 +158,20 @@ export class CustomFormBirdDamageComponent {
 
   calculateDamageOfSeedlings() {
     if (this.data.number_of_seedlings) {
-      return (
+      this.data.damage_of_seedlings =
         this.data.number_of_seedlings *
-        this._translate.instant("birdDamagePrice.pricePerItem")
-      );
+        this._translate.instant("birdDamagePrice.pricePerItem");
+      return this.data.damage_of_seedlings;
     }
     return "";
   }
 
   calculateDamageAmountOfInjured() {
     if (this.data.amount_of_injured_kg) {
-      return (
+      this.data.damage_amount_of_injured =
         this.data.amount_of_injured_kg *
-        this._translate.instant("birdDamagePrice.pricePerKg")
-      );
+        this._translate.instant("birdDamagePrice.pricePerKg");
+      return this.data.damage_amount_of_injured;
     }
     return "";
   }

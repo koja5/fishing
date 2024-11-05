@@ -1,0 +1,284 @@
+{
+    "pageSize": 10,
+    "name": "Vogelschaden",
+    "request": {
+        "type": "GET",
+        "api": "/api/owner/getBirdDamageForReport",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
+    },
+    "formDialog": {
+        "type": "sidebar",
+        "closeAfterExecute": false,
+        "size": "lg"
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "formData": true,
+            "api": "/api/uploader/setObservationSheetAndUploadDocument",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "commonFields.fbz",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fbz",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "heron_number",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneDamageInEuroPerKg",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "heron_sum_price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "komorantage_number",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneDamageInEuroPerKg",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "komorantage_sum_price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionTwoNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "number_of_seedlings",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionTwoDamageInEuro",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "damage_of_seedlings",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionTwoKg",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "amount_of_injured_kg",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionTwoDamageInEuro",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "damage_amount_of_injured",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionThreeTitle",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "complex",
+            "class": "text-align-right",
+            "field": "nest_and_sleeping",
+            "complexConfig": [
+                {
+                    "title": "birdDamage.sectionThreeColumnOne",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "name_of_water_",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "title": "birdDamage.sectionThreeColumnTwo",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "horste_",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "title": "birdDamage.sectionThreeColumnThree",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "kormoran_",
+                    "validation": {
+                        "required": true
+                    }
+                }
+            ],
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionFourTitleWithoutYear",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "complex",
+            "class": "text-align-right",
+            "field": "requested_for_next_year",
+            "complexConfig": [
+                {
+                    "title": "birdDamage.sectionFourColumnTwo",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "fbz_",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "title": "birdDamage.sectionFourColumnThree",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "wild_region_",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "title": "birdDamage.sectionFourColumnFour",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "heron_for_request_",
+                    "validation": {
+                        "required": true
+                    }
+                },
+                {
+                    "title": "birdDamage.sectionFourColumnFive",
+                    "filterable": true,
+                    "hideable": true,
+                    "filter": "date",
+                    "type": "string",
+                    "class": "text-align-right",
+                    "field": "kormoran_for_request",
+                    "validation": {
+                        "required": true
+                    }
+                }
+            ],
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": []
+}

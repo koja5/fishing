@@ -438,6 +438,40 @@ router.post(
   }
 );
 
+router.get("/getAllFishStockingForReport", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        console.log(req.user.user.id);
+        conn.query(
+          "select *, CONCAT(quantity, ' ', unit) as 'quantity_with_unit' from (select fsd.*, w.name as 'name_of_water' from fish_stocking_details fsd join waters w on fsd.id_water = w.id where fsd.id_owner = ? and fsd.year = ? union select fsd.*, wc.name as 'name_of_water' from fish_stocking_details fsd join waters_custom wc on fsd.id_water = wc.id where fsd.id_owner = ? and fsd.year = ?) as f order by f.fbz",
+          [
+            req.user.user.id,
+            new Date().getFullYear(),
+            req.user.user.id,
+            new Date().getFullYear(),
+          ],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 //#endregion ALL REPORT OCCUPATION
 
 //#region GET WATER FOR SPECIFIC FBZ
@@ -963,6 +997,40 @@ router.post(
   }
 );
 
+router.get("/getAllFishCatchForReport", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        console.log(req.user.user.id);
+        conn.query(
+          "select * from (select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join waters w on fcd.id_water = w.id where fcd.id_owner = ? and fcd.year = ? union select fcd.*, wc.name as 'name_of_water' from fish_catch_details fcd join waters_custom wc on fcd.id_water = wc.id where fcd.id_owner = ? and fcd.year = ?) as f order by f.fbz",
+          [
+            req.user.user.id,
+            new Date().getFullYear(),
+            req.user.user.id,
+            new Date().getFullYear(),
+          ],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 //#endregion
 
 //#region BIRD COUNT
@@ -1211,6 +1279,40 @@ router.post(
     });
   }
 );
+
+router.get("/getAllBirdCountForReport", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        console.log(req.user.user.id);
+        conn.query(
+          "select * from (select bcd.*, w.name as 'name_of_water' from bird_count_details bcd join waters w on bcd.id_water = w.id where bcd.id_owner = ? and bcd.year = ? union select bcd.*, wc.name as 'name_of_water' from bird_count_details bcd join waters_custom wc on bcd.id_water = wc.id where bcd.id_owner = ? and bcd.year = ?) as f group by f.fbz, f.name_of_water, f.date order by f.fbz asc, f.name_of_water asc, f.date asc",
+          [
+            req.user.user.id,
+            new Date().getFullYear(),
+            req.user.user.id,
+            new Date().getFullYear(),
+          ],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
 
 //#endregion
 
@@ -1496,6 +1598,34 @@ router.post(
     });
   }
 );
+
+router.get("/getBirdDamageForReport", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from bird_damage_details where id_owner = ? and year = ?",
+          [req.user.user.id, new Date().getFullYear()],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
 
 //#endregion
 

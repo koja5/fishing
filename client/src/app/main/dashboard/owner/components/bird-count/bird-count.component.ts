@@ -13,6 +13,9 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { HelpService } from "app/services/help.service";
 import { WaterCustomModel } from "app/main/dashboard/models/water-custom-model";
 import { TranslateService } from "@ngx-translate/core";
+import { takeUntil } from "rxjs/operators";
+import { ActivatedRoute } from "@angular/router";
+import { ConfigurationService } from "app/services/configuration.service";
 
 @Component({
   selector: "app-bird-count",
@@ -22,6 +25,7 @@ import { TranslateService } from "@ngx-translate/core";
 export class BirdCountComponent {
   public path = "grids/owner";
   public file = "bird-count.json";
+  public fileExportReport = "bird-count-report.json";
 
   @ViewChild("dialogConfirm")
   dialogConfirm: DialogConfirmComponent;
@@ -40,6 +44,8 @@ export class BirdCountComponent {
   public reportStatusEnum = ReportStatusEnum;
   public loading = false;
   public waterCustom = new WaterCustomModel();
+  public dataForReport: BirdCountModel[];
+  public configForReport: any;
 
   constructor(
     private _service: CallApiService,
@@ -47,11 +53,14 @@ export class BirdCountComponent {
     private _toastr: ToastrComponent,
     private _modalService: NgbModal,
     private _helpService: HelpService,
-    public _translate: TranslateService
+    public _translate: TranslateService,
+    private _configurationService: ConfigurationService,
+    private _activateRouter: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.getManagementRegistersData();
+    this.getDataForReport();
 
     if (this._storageService.getValueFromLocalStorage("bird-count-filter")) {
       this.filter =
@@ -64,6 +73,48 @@ export class BirdCountComponent {
     } else {
       this.filter = new BirdCountFilterModel();
     }
+  }
+
+  getDataForReport() {
+    this._configurationService
+      .getConfiguration(this.path, this.fileExportReport)
+      .subscribe((data: any) => {
+        this.configForReport = data;
+        if (this.configForReport.request) {
+          this._service
+            .callApi(this.configForReport, this._activateRouter)
+            .subscribe((data: BirdCountModel[]) => {
+              this.dataForReport = this.groupReportDataByNameOfWater(data);
+            });
+        }
+      });
+  }
+
+  groupReportDataByNameOfWater(data: BirdCountModel[]) {
+    let packData = [];
+    let group = [];
+    let i = 0;
+    let copyData = this._helpService.copyObject(data);
+    while (i < copyData.length - 1) {
+      group.push(copyData[i]);
+      let j = this._helpService.copyObject(i + 1);
+      for (j; j < copyData.length; j++) {
+        if (copyData[i].id_water === copyData[j].id_water) {
+          group.push(copyData[j]);
+        } else {
+          packData.push(group);
+          copyData.splice(i, j);
+          group = [];
+          i = 0;
+          break;
+        }
+      }
+      if (j === copyData.length && group.length) {
+        packData.push(group);
+        copyData = [];
+      }
+    }
+    return packData;
   }
 
   getManagementRegistersData() {

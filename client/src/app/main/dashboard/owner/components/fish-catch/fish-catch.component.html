@@ -52,8 +52,8 @@
             </ng-select>
 
         </div>
-        <div class="col-md-6" *ngIf="fishCatchFilter.managementRegister">
-            <div class="d-flex justify-content-end action">
+        <div class="col-md-5">
+            <div class="d-flex justify-content-end action" *ngIf="fishCatchFilter.managementRegister">
                 <button
                     *ngIf="allData && allData.length && (!fishCatchReport || fishCatchReport.status === fishCatchReportEnum.draft)"
                     class="btn btn-success mb-1" (click)="completeReportsDialog()"><span class="fa fa-check"></span>
@@ -71,8 +71,10 @@
                     translate}}</button>
             </div>
         </div>
+        <div class="col-md-1 p-0 d-flex-center">
+            <app-generate-pdf-report [path]="path" [file]="fileExportReport"></app-generate-pdf-report>
+        </div>
     </div>
-
 
     <app-no-data *ngIf="!fishCatchFilter.managementRegisterId" [text]="('general.selectFbzToGetData' | translate)"
         [image]="'../../../assets/images/icons/filter.png'"></app-no-data>

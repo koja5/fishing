@@ -25,6 +25,7 @@ export class FishStockingComponent implements OnInit {
 
   public path = "grids/owner";
   public file = "fish-stocking.json";
+  public fileExportReport = "fish-stocking-report.json";
   public managementRegistersData: ManagementRegisterModel[];
   public data: FishStockingModel[];
   public fishStockingReport = new FishStockingReportModel();

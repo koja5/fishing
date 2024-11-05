@@ -11,6 +11,7 @@ export class ObservationSheetComponent {
 
   public path = "grids/owner";
   public file = "observation-sheet.json";
+  public fileExportReport = "observation-sheet-report.json";
 
   unsavedChanges(): boolean {
     return this.grid.unsavedChanges();

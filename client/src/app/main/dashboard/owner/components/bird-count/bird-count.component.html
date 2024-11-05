@@ -51,8 +51,10 @@
                 </ng-template>
             </ng-select>
         </div>
-        <div class="col-md-6" *ngIf="filter">
-            <div class="d-flex justify-content-end action">
+
+        <div class="col-md-5">
+            <div class="d-flex justify-content-end action" *ngIf="filter">
+
                 <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
                     (click)="completeReportsDialog()"><span class="fa fa-check"></span>
                     {{'action.completeReport' |
@@ -68,11 +70,15 @@
                     translate}}</button>
             </div>
         </div>
+
+        <div class="col-md-1 p-0 d-flex-center" *ngIf="dataForReport">
+            <app-generate-pdf-report [data]="dataForReport" [config]="configForReport" [splitHeader]="true"></app-generate-pdf-report>
+        </div>
     </div>
 
     <app-dynamic-grid *ngIf="!loading&&data&&(filter && filter.water)" #grid [path]="path" [file]="file" [data]="data"
         [disableCRUD]="(filter && filter.water ? false : true)  || (report && report.status === reportStatusEnum.completed)"
-        [hideCreateNew]="true" [height]="'calc(100vh - 25vh)'" (submit)="submit($event)"
+        [hideCreateNew]="true" [height]="'calc(100vh - 30vh)'" (submit)="submit($event)"
         (refreshParentComponent)="refreshGrid()"></app-dynamic-grid>
 
     <app-no-data *ngIf="!filter || !filter.water" [text]="('general.pleaseSelectNameOfWater' | translate)"

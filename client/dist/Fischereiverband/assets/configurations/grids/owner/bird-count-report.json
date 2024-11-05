@@ -1,5 +1,13 @@
 {
     "pageSize": 10,
+    "name": "Vogelzählung",
+    "request": {
+        "type": "GET",
+        "api": "/api/owner/getAllBirdCountForReport",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
     "paging": {
         "enable": true,
         "settings": {
@@ -51,16 +59,27 @@
     },
     "columns": [
         {
-            "className": "justify-content-center",
-            "template": {
-                "type": "inlineEditing"
-            }
+            "title": "commonFields.fbz",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fbz"
+        },
+        {
+            "title": "commonFields.nameOfWater",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name_of_water"
         },
         {
             "title": "Zähldatum",
             "filterable": true,
             "hideable": true,
-            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "date",

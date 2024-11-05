@@ -9,6 +9,7 @@ import { LoaderComponent } from "./loader/loader.component";
 import { NoDataComponent } from "./no-data/no-data.component";
 import { GoBackComponent } from "./go-back/go-back.component";
 import { NeedToChoiceComponent } from "./need-to-choice/need-to-choice.component";
+import { GeneratePdfReportComponent } from "./generate-pdf-report/generate-pdf-report.component";
 
 const appRoutes: Routes = [];
 
@@ -21,6 +22,7 @@ const appRoutes: Routes = [];
     NoDataComponent,
     GoBackComponent,
     NeedToChoiceComponent,
+    GeneratePdfReportComponent,
   ],
   imports: [CommonModule, TranslateModule],
   providers: [],
@@ -33,6 +35,7 @@ const appRoutes: Routes = [];
     NoDataComponent,
     GoBackComponent,
     NeedToChoiceComponent,
+    GeneratePdfReportComponent,
   ],
 })
 export class MainCoreCommonModule {}

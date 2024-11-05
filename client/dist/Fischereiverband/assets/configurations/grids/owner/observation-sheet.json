@@ -102,7 +102,7 @@
             "field": "allow_online"
         },
         {
-            "title": "observationSheet.district",
+            "title": "commonFields.fbz",
             "filterable": true,
             "hideable": true,
             "filter": "date",
