@@ -214,6 +214,34 @@ router.get("/getAllObservationSheet", auth, async (req, res, next) => {
   }
 });
 
+router.get("/getAllObservationSheetForReport", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select os.* from observation_sheet os where os.id_owner = ? order by os.fbz asc",
+          [req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 router.post("/setObservationSheet", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
@@ -1006,7 +1034,7 @@ router.get("/getAllFishCatchForReport", auth, async (req, res, next) => {
       } else {
         console.log(req.user.user.id);
         conn.query(
-          "select * from (select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join waters w on fcd.id_water = w.id where fcd.id_owner = ? and fcd.year = ? union select fcd.*, wc.name as 'name_of_water' from fish_catch_details fcd join waters_custom wc on fcd.id_water = wc.id where fcd.id_owner = ? and fcd.year = ?) as f order by f.fbz",
+          "select * from (select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join waters w on fcd.id_water = w.id where fcd.id_owner = ? and fcd.year = ? union select fcd.*, wc.name as 'name_of_water' from fish_catch_details fcd join waters_custom wc on fcd.id_water = wc.id where fcd.id_owner = ? and fcd.year = ?) as f order by f.fbz, f.name_of_water",
           [
             req.user.user.id,
             new Date().getFullYear(),
@@ -1044,7 +1072,7 @@ router.get("/getBirdCountForSelectedWater", auth, async (req, res, next) => {
       } else {
         if (req.query.id_water != "undefined" && req.query.id_water != "null") {
           conn.query(
-            "select * from bird_count_details  where fbz = ? and id_water = ?",
+            "select * from bird_count_details where fbz = ? and id_water = ?",
             [req.query.fbz, req.query.id_water],
             function (err, rows, fields) {
               conn.release();
@@ -1607,7 +1635,7 @@ router.get("/getBirdDamageForReport", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from bird_damage_details where id_owner = ? and year = ?",
+          "select * from bird_damage_details where id_owner = ? and year = ? order by fbz asc",
           [req.user.user.id, new Date().getFullYear()],
           function (err, rows, fields) {
             conn.release();

@@ -52,7 +52,7 @@
             </ng-select>
 
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 pr-0">
             <div class="d-flex justify-content-end action" *ngIf="fishCatchFilter.managementRegister">
                 <button
                     *ngIf="allData && allData.length && (!fishCatchReport || fishCatchReport.status === fishCatchReportEnum.draft)"
@@ -72,7 +72,8 @@
             </div>
         </div>
         <div class="col-md-1 p-0 d-flex-center">
-            <app-generate-pdf-report [path]="path" [file]="fileExportReport"></app-generate-pdf-report>
+            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                [groupBy]="'id_water'"></app-generate-pdf-report>
         </div>
     </div>
 
@@ -82,7 +83,7 @@
 
 
     <div *ngIf="!loading&&fishCatchFilter.managementRegisterId">
-        <app-dynamic-grid #grid [path]="path" [file]="file" [data]="data"
+        <app-dynamic-grid #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport" [data]="data"
             [disableCRUD]="(fishCatchFilter && fishCatchFilter.water ? false : true) || (fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed)"
             [template]="customForm" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
             (refreshParentComponent)="refreshGrid()"

@@ -60,7 +60,7 @@ export class BirdCountComponent {
 
   ngOnInit() {
     this.getManagementRegistersData();
-    this.getDataForReport();
+    // this.getDataForReport();
 
     if (this._storageService.getValueFromLocalStorage("bird-count-filter")) {
       this.filter =
@@ -84,37 +84,10 @@ export class BirdCountComponent {
           this._service
             .callApi(this.configForReport, this._activateRouter)
             .subscribe((data: BirdCountModel[]) => {
-              this.dataForReport = this.groupReportDataByNameOfWater(data);
+              this.data = data;
             });
         }
       });
-  }
-
-  groupReportDataByNameOfWater(data: BirdCountModel[]) {
-    let packData = [];
-    let group = [];
-    let i = 0;
-    let copyData = this._helpService.copyObject(data);
-    while (i < copyData.length - 1) {
-      group.push(copyData[i]);
-      let j = this._helpService.copyObject(i + 1);
-      for (j; j < copyData.length; j++) {
-        if (copyData[i].id_water === copyData[j].id_water) {
-          group.push(copyData[j]);
-        } else {
-          packData.push(group);
-          copyData.splice(i, j);
-          group = [];
-          i = 0;
-          break;
-        }
-      }
-      if (j === copyData.length && group.length) {
-        packData.push(group);
-        copyData = [];
-      }
-    }
-    return packData;
   }
 
   getManagementRegistersData() {
@@ -141,6 +114,7 @@ export class BirdCountComponent {
         this.allWaters = data;
         if (data.length === 1) {
           this.filter.water = data[0].id;
+          this.filter.name_of_water = data[0].name;
           this.getBirdCountForSelectedWater();
         }
         this.getBirdCountReport();
@@ -159,6 +133,7 @@ export class BirdCountComponent {
       )
       .subscribe((data: BirdCountModel[]) => {
         this.prepackedData(data);
+        this.setFilteredValue();
         this.loading = false;
       });
   }
@@ -206,8 +181,10 @@ export class BirdCountComponent {
     }
   }
 
-  onChangeWater() {
+  onChangeWater(event: any) {
+    console.log(event);
     this.getBirdCountForSelectedWater();
+    this.filter.name_of_water = event.name;
     this._storageService.setValueInLocalStorage(
       "bird-count-filter",
       this.filter
@@ -233,6 +210,13 @@ export class BirdCountComponent {
           break;
         }
       }
+    }
+  }
+
+  setFilteredValue() {
+    for (let i = 0; i < this.data.length; i++) {
+      this.data[i].fbz = this.filter.managementRegister.fbz;
+      this.data[i].name_of_water = this.filter.name_of_water;
     }
   }
 

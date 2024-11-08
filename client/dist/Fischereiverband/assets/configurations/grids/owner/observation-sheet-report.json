@@ -3,7 +3,7 @@
     "name": "Fischottermeldungen",
     "request": {
         "type": "GET",
-        "api": "/api/owner/getAllObservationSheet",
+        "api": "/api/owner/getAllObservationSheetForReport",
         "parameters": [],
         "fields": "",
         "root": ""

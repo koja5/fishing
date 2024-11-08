@@ -69,9 +69,9 @@
                         <span class="fa fa-file-excel-o cursor-pointer options excel-icon"
                             title="{{'actionMessage.exportToCsv' | translate}}" (click)="exportToCsv()"></span>
                     </div>
-                    <div *ngIf="rows && rows.length" class="flex-grow-0">
+                    <!-- <div *ngIf="rows && rows.length" class="flex-grow-0">
                         <span class="fa fa-print cursor-pointer options print-icon" (click)="print()"></span>
-                    </div>
+                    </div> -->
                 </div>
 
 
@@ -439,5 +439,8 @@
             </tr>
         </table>
     </div>
+
+    <app-generate-pdf-report #generatePdfReport [path]="path" [file]="fileExportReport" [groupBy]="groupBy"
+        [data]="rows" [hideExportButton]="false"></app-generate-pdf-report>
 
 </div>

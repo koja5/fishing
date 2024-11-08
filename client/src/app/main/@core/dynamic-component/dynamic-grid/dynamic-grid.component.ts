@@ -33,6 +33,7 @@ import { DialogConfirmComponent } from "../../common/dialog-confirm/dialog-confi
 import { ToastrComponent } from "../../common/toastr/toastr.component";
 import { ExportAsConfig, ExportAsService } from "ngx-export-as";
 import { MessageService } from "app/services/message.service";
+import { GeneratePdfReportComponent } from "../../common/generate-pdf-report/generate-pdf-report.component";
 
 @Component({
   selector: "app-dynamic-grid",
@@ -43,6 +44,8 @@ import { MessageService } from "app/services/message.service";
 export class DynamicGridComponent implements CanComponentDeactivate {
   @Input() public path: string;
   @Input() public file: string;
+  @Input() public fileExportReport: string;
+  @Input() public groupBy: string;
   @Input() public data: any;
   @Input() externalAccounts: any;
   @Input() disabledCreateNew: boolean = false;
@@ -67,6 +70,8 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   dialogUnsavedContentConfirm: DialogConfirmComponent;
   @ViewChild(DynamicFormsComponent) form!: DynamicFormsComponent;
   @ViewChild("form") form1: DynamicFormsComponent;
+  @ViewChild(GeneratePdfReportComponent)
+  generatePdfReport: GeneratePdfReportComponent;
 
   exportAsConfigToPdf: ExportAsConfig = {
     type: "pdf",
@@ -653,18 +658,19 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   }
 
   exportToPdf() {
-    this.showExportGrid = true;
-    setTimeout(() => {
-      this.showExportGrid = false;
-    }, 1);
-    this.exportAsService
-      .save(this.exportAsConfigToPdf, "data")
-      .subscribe(() => {});
+    // this.showExportGrid = true;
+    // setTimeout(() => {
+    //   this.showExportGrid = false;
+    // }, 1);
+    // this.exportAsService
+    //   .save(this.exportAsConfigToPdf, "data")
+    //   .subscribe(() => {});
+    this.generatePdfReport.exportToPdf();
   }
 
   exportToCsv() {
     this.exportAsService
-      .save(this.exportAsConfigToCsv, "data")
+      .save(this.exportAsConfigToCsv, this.generatePdfReport.getReportName())
       .subscribe(() => {
         // save started
       });

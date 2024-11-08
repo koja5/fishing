@@ -36,7 +36,7 @@
             </ng-select>
 
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 pr-0">
             <div class="d-flex justify-content-end action" *ngIf="selectedManagementRegistryId">
                 <button
                     *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"
@@ -59,7 +59,8 @@
         </div>
 
         <div class="col-md-1 p-0 d-flex-center">
-            <app-generate-pdf-report [path]="path" [file]="fileExportReport"></app-generate-pdf-report>
+            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                [groupBy]="'fbz'"></app-generate-pdf-report>
         </div>
     </div>
 
@@ -67,8 +68,8 @@
         [image]="'../../../assets/images/icons/filter.png'"></app-no-data>
 
     <div *ngIf="selectedManagementRegistry">
-        <app-dynamic-grid #grid *ngIf="!loading" [path]="path" [file]="file" [data]="data"
-            [additionalData]="selectedRegistry" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
+        <app-dynamic-grid #grid *ngIf="!loading" [path]="path" [file]="file" [fileExportReport]="fileExportReport"
+            [data]="data" [additionalData]="selectedRegistry" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
             (refreshParentComponent)="refreshGrid()"
             [disableCRUD]="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"></app-dynamic-grid>
     </div>

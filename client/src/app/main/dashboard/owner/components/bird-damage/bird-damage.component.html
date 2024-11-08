@@ -36,7 +36,7 @@
                 </ng-template>
             </ng-select>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 pr-0">
             <div class="d-flex justify-content-end action" *ngIf="filter.managementRegister">
                 <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
                     (click)="completeReportsDialog()"><span class="fa fa-check"></span>
@@ -55,11 +55,13 @@
         </div>
 
         <div class="col-md-1 p-0 d-flex-center">
-            <app-generate-pdf-report [path]="path" [file]="fileExportReport"></app-generate-pdf-report>
+            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                [groupBy]="'fbz'"></app-generate-pdf-report>
         </div>
     </div>
 
-    <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [data]="data"
+    <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport"
+        [data]="data"
         [disableCRUD]="(filter && filter.managementRegisterId ? false : true) || (report && report.status === reportStatusEnum.completed)"
         [template]="customFormBirdDamage" [modalDialogSize]="'modal-dialog-large'" [height]="'calc(100vh - 32vh)'"
         (emitValueForCustomForm)="emitValueForCustomForm($event)"

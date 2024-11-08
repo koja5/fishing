@@ -5,6 +5,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserModel } from "app/models/user";
 import { CallApiService } from "app/services/call-api.service";
 import { ConfigurationService } from "app/services/configuration.service";
+import { HelpService } from "app/services/help.service";
 import { StorageService } from "app/services/storage.service";
 import { ExportAsConfig, ExportAsService } from "ngx-export-as";
 import { Subject } from "rxjs";
@@ -20,7 +21,8 @@ export class GeneratePdfReportComponent {
   @Input() file: string;
   @Input() data: any;
   @Input() config: any;
-  @Input() splitHeader = false;
+  @Input() groupBy: string;
+  @Input() hideExportButton: boolean = true;
   @ViewChild("modal") modal: TemplateRef<any>;
   public modalDialog: any;
   private exportAsConfigToPdf: ExportAsConfig = {
@@ -46,7 +48,8 @@ export class GeneratePdfReportComponent {
     private _service: CallApiService,
     private _activateRouter: ActivatedRoute,
     private _storageService: StorageService,
-    private _modalService: NgbModal
+    private _modalService: NgbModal,
+    private _helpService: HelpService
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -71,23 +74,71 @@ export class GeneratePdfReportComponent {
   }
 
   initialize() {
+    if (this.data) {
+      if (this.groupBy) {
+        this.data = this.data.sort(
+          (a: any, b: any) => a[this.groupBy] - b[this.groupBy]
+        );
+        if (this.data.length > 1)
+          this.rows = this.groupReportByField(this.data, this.groupBy);
+      } else {
+        this.rows = this.data;
+      }
+    }
+
     if (this.path && this.file) {
       this._configurationService
         .getConfiguration(this.path, this.file)
         .pipe(takeUntil(this._unsubscribeAll))
         .subscribe((data) => {
           this.config = data;
-          if (this.config.request) {
+          if (this.config.request && !this.data) {
             this._service
               .callApi(this.config, this._activateRouter)
-              .subscribe((data) => {
-                this.rows = data;
+              .subscribe((data: any[]) => {
+                if (this.groupBy) {
+                  this.rows = this.groupReportByField(data, this.groupBy);
+                } else {
+                  this.rows = data;
+                }
               });
           }
         });
-    } else if (this.data) {
-      this.rows = this.data;
     }
+  }
+
+  groupReportByField(data: any[], groupBy: string) {
+    let packData = [];
+    let group = [];
+    let i = 0;
+    let copyData = this._helpService.copyObject(data);
+    while (copyData.length > 0) {
+      group.push(copyData[i]);
+      if (i + 1 < copyData.length) {
+        let j = this._helpService.copyObject(i + 1);
+        while (copyData.length > 1) {
+          if (copyData[i][groupBy] === copyData[j][groupBy]) {
+            group.push(copyData[j]);
+            copyData.splice(j, 1);
+          } else {
+            packData.push(group);
+            copyData.splice(i, 1);
+            group = [];
+            i = 0;
+            break;
+          }
+        }
+
+        // if (copyData.length === 1) {
+        //   packData.push(group);
+        //   copyData = [];
+        // }
+      } else {
+        packData.push(group);
+        copyData = [];
+      }
+    }
+    return packData;
   }
 
   exportToPdf() {
@@ -112,7 +163,18 @@ export class GeneratePdfReportComponent {
   }
 
   convertStringToArray(value) {
-    console.log(JSON.parse(value));
-    return JSON.parse(value);
+    if (value.indexOf("{") != -1 || value.indexOf("[") !== -1) {
+      return JSON.parse(value);
+    } else {
+      return value;
+    }
+  }
+
+  getReportName() {
+    if (this.config) {
+      return this.config.name + " - " + new Date().getFullYear();
+    } else {
+      return "report";
+    }
   }
 }

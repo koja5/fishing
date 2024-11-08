@@ -1,4 +1,5 @@
-<button class="btn btn-outline-primary" (click)="exportToPdf()"><span class="fa fa-download"></span>
+<button *ngIf="hideExportButton" class="btn btn-outline-primary" (click)="exportToPdf()"><span
+        class="fa fa-download"></span>
     {{'action.exportToPdf' | translate}}</button>
 
 <!-- <div id="export-grid">
@@ -63,7 +64,7 @@
                     <h6>{{user.street}}<span *ngIf="user.street && user.location">,</span> {{user.location}}</h6>
                     <h6>{{user.birthday | date: 'dd.MM.YYYY'}}</h6>
                 </div>
-                <table cellspacing="0" rules="all" border="1" *ngIf="!splitHeader">
+                <table cellspacing="0" rules="all" border="1" *ngIf="!groupBy">
                     <tr>
                         <div *ngFor="let item of config.columns" class="d-contents">
                             <th *ngIf="!item.template">{{item.title | translate}}</th>
@@ -92,7 +93,7 @@
         </tr>
         </table>
 
-        <table cellspacing="0" rules="all" border="1" *ngIf="splitHeader">
+        <table cellspacing="0" rules="all" border="1" *ngIf="groupBy">
             <tr class="d-contents" *ngFor="let row of rows">
                 <div class="d-contents">
             <tr>
