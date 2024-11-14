@@ -74,6 +74,78 @@ export class GeneratePdfReportComponent {
   }
 
   initialize() {
+    if (this.path && this.file) {
+      this._configurationService
+        .getConfiguration(this.path, this.file)
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((data) => {
+          this.config = data;
+        });
+    }
+  }
+
+  groupReportByField(data: any[], groupBy: string) {
+    let packData = [];
+    let group = [];
+    let i = 0;
+    let copyData = this._helpService.copyObject(data);
+
+    if (copyData.length > 1) {
+      while (i < copyData.length - 1) {
+        let j = i + 1;
+        group.push(copyData[i]);
+        let ind = true;
+        while (ind) {
+          if (
+            j < copyData.length &&
+            copyData[i][groupBy] === copyData[j][groupBy]
+          ) {
+            group.push(copyData[j]);
+            j++;
+          } else {
+            ind = false;
+          }
+        }
+        i = j;
+        packData.push(group);
+        group = [];
+        if (i === copyData.length - 1) {
+          group.push(copyData[i]);
+          packData.push(group);
+          break;
+        }
+      }
+    } else {
+      group.push(copyData[i]);
+      packData.push(group);
+    }
+
+    // while (copyData.length > 0) {
+    //   group.push(copyData[i]);
+    //   if (i + 1 < copyData.length) {
+    //     let j = this._helpService.copyObject(i + 1);
+    //     while (copyData.length > 1) {
+    //       if (copyData[i][groupBy] === copyData[j][groupBy]) {
+    //         group.push(copyData[j]);
+    //         copyData.splice(j, 1);
+    //       } else {
+    //         packData.push(group);
+    //         copyData.splice(i, 1);
+    //         group = [];
+    //         i = 0;
+    //         break;
+    //       }
+    //     }
+    //   } else {
+    //     packData.push(group);
+    //     copyData = [];
+    //   }
+    // }
+
+    return packData;
+  }
+
+  exportToPdf() {
     if (this.data) {
       if (this.groupBy) {
         this.data = this.data.sort(
@@ -84,64 +156,22 @@ export class GeneratePdfReportComponent {
       } else {
         this.rows = this.data;
       }
-    }
-
-    if (this.path && this.file) {
-      this._configurationService
-        .getConfiguration(this.path, this.file)
-        .pipe(takeUntil(this._unsubscribeAll))
-        .subscribe((data) => {
-          this.config = data;
-          if (this.config.request && !this.data) {
-            this._service
-              .callApi(this.config, this._activateRouter)
-              .subscribe((data: any[]) => {
-                if (this.groupBy) {
-                  this.rows = this.groupReportByField(data, this.groupBy);
-                } else {
-                  this.rows = data;
-                }
-              });
+      this.saveToPdf();
+    } else if (this.config.request && !this.data) {
+      this._service
+        .callApi(this.config, this._activateRouter)
+        .subscribe((data: any[]) => {
+          if (this.groupBy) {
+            this.rows = this.groupReportByField(data, this.groupBy);
+          } else {
+            this.rows = data;
           }
+          this.saveToPdf();
         });
     }
   }
 
-  groupReportByField(data: any[], groupBy: string) {
-    let packData = [];
-    let group = [];
-    let i = 0;
-    let copyData = this._helpService.copyObject(data);
-    while (copyData.length > 0) {
-      group.push(copyData[i]);
-      if (i + 1 < copyData.length) {
-        let j = this._helpService.copyObject(i + 1);
-        while (copyData.length > 1) {
-          if (copyData[i][groupBy] === copyData[j][groupBy]) {
-            group.push(copyData[j]);
-            copyData.splice(j, 1);
-          } else {
-            packData.push(group);
-            copyData.splice(i, 1);
-            group = [];
-            i = 0;
-            break;
-          }
-        }
-
-        // if (copyData.length === 1) {
-        //   packData.push(group);
-        //   copyData = [];
-        // }
-      } else {
-        packData.push(group);
-        copyData = [];
-      }
-    }
-    return packData;
-  }
-
-  exportToPdf() {
+  saveToPdf() {
     this.loader = true;
     this.modalDialog = this._modalService.open(this.modal, {
       centered: true,

@@ -58,6 +58,203 @@
             "root": ""
         }
     },
+    "splitTable": [
+        [
+            {
+                "title": "commonFields.fbz",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "fbz",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.dateAndTime",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "date",
+                "format": "dd.MM.yyyy HH:mm",
+                "class": "text-align-right",
+                "field": "date_time",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.district",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "district",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.nameOfWater",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "water",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.orientation",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "orientation",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.typeOfWater",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "type_of_water",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.visualObservation",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "visual_observation",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.findDead",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "find_dead",
+                "validation": {
+                    "required": true
+                }
+            }
+        ],
+        [
+            {
+                "title": "commonFields.fbz",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "fbz",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.dateAndTime",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "date",
+                "format": "dd.MM.yyyy HH:mm",
+                "class": "text-align-right",
+                "field": "date_time",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.droveTraces",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "drove_traces",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.findLosing",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "find_losing",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.fishPrey",
+                "filterable": true,
+                "hideable": true,
+                "filter": "date",
+                "type": "string",
+                "class": "text-align-right",
+                "field": "fish_prey",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.tracesColor",
+                "filterable": true,
+                "hideable": true,
+                "type": "string",
+                "class": "text-align-right",
+                "field": "traces_color",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.photoTrap",
+                "filterable": true,
+                "hideable": true,
+                "type": "string",
+                "class": "text-align-right",
+                "field": "photo_trap",
+                "validation": {
+                    "required": true
+                }
+            },
+            {
+                "title": "observationSheet.estimationInventory",
+                "filterable": true,
+                "hideable": true,
+                "type": "string",
+                "class": "text-align-right",
+                "field": "estimation_inventory",
+                "validation": {
+                    "required": true
+                }
+            }
+        ]
+    ],
     "columns": [
         {
             "title": "commonFields.fbz",

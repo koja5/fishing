@@ -93,7 +93,7 @@
         </tr>
         </table>
 
-        <table cellspacing="0" rules="all" border="1" *ngIf="groupBy">
+        <table cellspacing="0" rules="all" border="1" *ngIf="groupBy && !config.splitTable">
             <tr class="d-contents" *ngFor="let row of rows">
                 <div class="d-contents">
             <tr>
@@ -126,6 +126,42 @@
     </div>
     </tr>
     </table>
+
+    <div *ngIf="groupBy && config.splitTable">
+        <table *ngFor="let columns of config.splitTable" cellspacing="0" rules="all" border="1" class="mt-3">
+            <tr class="d-contents" *ngFor="let row of rows">
+                <div class="d-contents">
+            <tr>
+                <div *ngFor="let item of columns" class="d-contents">
+                    <th *ngIf="!item.template">{{item.title | translate}}</th>
+                </div>
+            </tr>
+    </div>
+    <div class="d-contents">
+        <tr *ngFor="let value of row">
+            <div *ngFor="let item of columns" class="d-contents">
+                <td *ngIf="item.type === 'date'">{{value[item.field] | date: item.format}}</td>
+                <td *ngIf="!item.template && item.type != 'date' && item.type !='complex'">
+                    {{value[item.field]}}</td>
+                <td *ngIf="item.type==='complex'" style="min-width: 100%;">
+                    <div class="complex"
+                        *ngIf="convertStringToArray(value[item.field]).length && value[item.field] != '[{}]'">
+        <tr>
+            <th *ngFor="let complex of item.complexConfig">{{complex.title | translate}}</th>
+        </tr>
+        <tr *ngFor="let item2 of convertStringToArray(value[item.field]); let i = index">
+            <td *ngFor="let config of item.complexConfig">{{item2[config.field + i]}}</td>
+        </tr>
+    </div>
+
+    </td>
+
+    </div>
+    </tr>
+    </div>
+    </tr>
+    </table>
+    </div>
     </div>
     </div>
     </div>

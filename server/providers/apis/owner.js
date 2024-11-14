@@ -222,7 +222,7 @@ router.get("/getAllObservationSheetForReport", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select os.* from observation_sheet os where os.id_owner = ? order by os.fbz asc",
+          "select distinct os.* from observation_sheet os where os.id_owner = ? order by os.fbz asc",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();
@@ -722,7 +722,12 @@ router.get(
           ) {
             conn.query(
               "select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join (select w.id, w.name from waters w where fbz = ? union select wc.id, wc.name from waters_custom wc where wc.fbz = ?) as w on fcd.id_water = w.id where fcd.fbz = ? and fcd.id_water = ?",
-              [req.query.fbz, req.query.fbz, req.query.fbz, req.query.id_water],
+              [
+                splitFBZ(req.query.fbz),
+                splitFBZ(req.query.fbz),
+                req.query.fbz,
+                req.query.id_water,
+              ],
               function (err, rows, fields) {
                 conn.release();
                 if (err) {
@@ -736,7 +741,7 @@ router.get(
           } else {
             conn.query(
               "select fcd.*, w.name as 'name_of_water' from fish_catch_details fcd join (select w.id, w.name from waters w where fbz = ? union select wc.id, wc.name from waters_custom wc where wc.fbz = ?) as w on fcd.id_water = w.id where fcd.fbz = ?",
-              [req.query.fbz, req.query.fbz, req.query.fbz],
+              [splitFBZ(req.query.fbz), splitFBZ(req.query.fbz), req.query.fbz],
               function (err, rows, fields) {
                 conn.release();
                 if (err) {
@@ -788,6 +793,7 @@ router.post("/setFishCatch", auth, function (req, res, next) {
     }
 
     req.body.id_owner = req.user.user.id;
+    delete req.body.name_of_water;
 
     conn.query(
       "INSERT INTO fish_catch_details set ? ON DUPLICATE KEY UPDATE ?",
