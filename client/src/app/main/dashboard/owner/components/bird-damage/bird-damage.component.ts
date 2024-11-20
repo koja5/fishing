@@ -67,7 +67,7 @@ export class BirdDamageComponent {
 
   getManagementRegistersData() {
     this._service
-      .callGetMethod("/api/owner/getManagementRegistersData", "")
+      .callGetMethod("/api/owner/getManagementRegistersData")
       .subscribe((data: ManagementRegisterModel[]) => {
         this.managementRegistersData = data;
       });
@@ -78,8 +78,11 @@ export class BirdDamageComponent {
     this._service
       .callGetMethod(
         "api/owner/getBirdDamage?fbz=" +
-          (this.filter.managementRegister &&
-            this.filter.managementRegister.fbz) ?? null + " "
+          (this.filter &&
+          this.filter.managementRegister &&
+          this.filter.managementRegister.fbz
+            ? this.filter.managementRegister.fbz
+            : null + " ")
       )
       .subscribe((data: BirdDamageModel[]) => {
         this.data = data;
@@ -91,7 +94,11 @@ export class BirdDamageComponent {
     this._service
       .callGetMethod(
         "/api/owner/getBirdDamageReport?fbz=" +
+          (this.filter &&
+          this.filter.managementRegister &&
           this.filter.managementRegister.fbz
+            ? this.filter.managementRegister.fbz
+            : null)
       )
       .subscribe((data: BirdDamageReportModel) => {
         if (data) {

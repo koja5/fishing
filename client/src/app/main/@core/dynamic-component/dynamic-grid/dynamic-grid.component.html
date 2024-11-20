@@ -61,7 +61,8 @@
                         <span *ngIf="config.options" class="fa fa-cog cursor-pointer options"
                             (click)="showModalOptionsDialog()"></span>
                     </div>
-                    <div *ngIf="rows && rows.length && (!config.export || !config.export.disablePdf)" class="flex-grow-0 mr-1">
+                    <div *ngIf="rows && rows.length && (!config.export || !config.export.disablePdf)"
+                        class="flex-grow-0 mr-1">
                         <span class="fa fa-file-pdf-o cursor-pointer options pdf-icon"
                             title="{{'actionMessage.exportToPng' | translate}}" (click)="exportToPdf()"></span>
                     </div>
@@ -440,7 +441,7 @@
         </table>
     </div>
 
-    <app-generate-pdf-report #generatePdfReport [path]="path" [file]="fileExportReport" [groupBy]="groupBy"
-        [data]="rows" [hideExportButton]="false"></app-generate-pdf-report>
+    <app-generate-pdf-report #generatePdfReport [path]="path" [file]="fileExportReport ? fileExportReport : file"
+        [groupBy]="groupBy" [data]="rows" [hideExportButton]="false"></app-generate-pdf-report>
 
 </div>

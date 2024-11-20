@@ -182,9 +182,12 @@ export class BirdCountComponent {
   }
 
   onChangeWater(event: any) {
-    console.log(event);
-    this.getBirdCountForSelectedWater();
-    this.filter.name_of_water = event.name;
+    if (event && event.name) {
+      this.getBirdCountForSelectedWater();
+      this.filter.name_of_water = event.name;
+    } else {
+      this.filter.name_of_water = null;
+    }
     this._storageService.setValueInLocalStorage(
       "bird-count-filter",
       this.filter

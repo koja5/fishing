@@ -189,7 +189,9 @@ export class GeneratePdfReportComponent {
   }
 
   generateReportName() {
-    return this.config.name + " - " + new Date().getFullYear();
+    return this.config && this.config.name
+      ? this.config.name + " - " + new Date().getFullYear()
+      : "Report";
   }
 
   convertStringToArray(value) {
@@ -204,7 +206,7 @@ export class GeneratePdfReportComponent {
     if (this.config) {
       return this.config.name + " - " + new Date().getFullYear();
     } else {
-      return "report";
+      return "Report";
     }
   }
 }

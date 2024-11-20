@@ -218,4 +218,24 @@ export class StorageService {
       localStorage.setItem("values", JSON.stringify(values));
     }
   }
+
+  setFilterForGrid(key: string, value: string) {
+    let gridConfig = this.getLocalStorage(key);
+    if (gridConfig) {
+      gridConfig["filter"] = value;
+    } else {
+      gridConfig = { filter: value };
+    }
+    this.setLocalStorage(key, gridConfig);
+  }
+
+  setOffsetForGrid(key: string, value: string) {
+    let gridConfig = this.getLocalStorage(key);
+    if (gridConfig) {
+      gridConfig["offset"] = value;
+    } else {
+      gridConfig = { offset: value };
+    }
+    this.setLocalStorage(key, gridConfig);
+  }
 }

@@ -1,5 +1,8 @@
 import {
+  ChangeDetectorRef,
   Component,
+  ContentChild,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
@@ -9,6 +12,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from "@angular/core";
+import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
@@ -24,22 +28,12 @@ import { DynamicFormsComponent } from "../dynamic-forms/dynamic-forms.component"
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
 import { CanComponentDeactivate } from "app/services/guards/dirtycheck.guard";
+import { MethodRequest } from "app/main/enums/method-request";
 import { DialogConfirmComponent } from "../../common/dialog-confirm/dialog-confirm.component";
 import { ToastrComponent } from "../../common/toastr/toastr.component";
 import { ExportAsConfig, ExportAsService } from "ngx-export-as";
-import { ColumnMode, DatatableComponent } from "@swimlane/ngx-datatable";
 import { MessageService } from "app/services/message.service";
-import { StorageService } from "app/services/storage.service";
-import { MethodRequest } from "app/main/enums/method-request";
 import { GeneratePdfReportComponent } from "../../common/generate-pdf-report/generate-pdf-report.component";
-
-export class GridConfigModel {
-  filter?: string;
-  offset?: number;
-  filterOption?: string;
-  region?: any;
-  fbz?: any;
-}
 
 @Component({
   selector: "app-dynamic-grid",
@@ -92,7 +86,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   // Public
   public sidebarToggleRef = false;
   public rows;
-  public selectedOption = 11;
+  public selectedOption = 20;
   public ColumnMode = ColumnMode;
   public temp = [];
   public previousRoleFilter = "";
@@ -104,7 +98,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   public modalOptionsDialog: any;
   public modalGoogleContactsDialog: any;
   public innerWidth: any;
-  public loader = false;
+  public loader = true;
   public loaderContent = false;
   public googleContacts: any;
   public createNewRecords = true;
@@ -112,7 +106,6 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   public editing = null;
   public scrollbarH = false;
   public showExportGrid = false;
-  public gridConfig = new GridConfigModel();
 
   public selectRole: any = [
     { name: "All", value: "" },
@@ -142,23 +135,6 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = "";
-
-  //SPECIAL VARIABLES
-  public searchRegionValue = {
-    id: null,
-    name: null,
-  };
-  public searchFbzValue = {
-    id: null,
-    name: null,
-  };
-  public selectedDropdownFilter: string;
-  public allFbz: any;
-  public allRegions: any;
-  public allDropdownFilterOptions = ["Bezirksverwaltung", "FBZ"];
-
-  //END SPECIAL VARIABLES
-
   public config: any;
 
   // Decorator
@@ -187,7 +163,8 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     private _translate: TranslateService,
     private exportAsService: ExportAsService,
     private _messageService: MessageService,
-    private _storageService: StorageService
+    private element: ElementRef,
+    private cdr: ChangeDetectorRef
   ) {
     this._unsubscribeAll = new Subject();
     this._modalService.dismissAll();
@@ -201,15 +178,15 @@ export class DynamicGridComponent implements CanComponentDeactivate {
    *
    * @param event
    */
-  filterUpdate(event, checkOtherParameters = true, rows?: any) {
-    const val = event.target ? event.target.value.toLowerCase() : event;
-    this.searchValue = val;
+  filterUpdate(event) {
+    // Reset ng-select on search
+    this.selectedRole = this.selectRole[0];
+    this.selectedPlan = this.selectPlan[0];
+    this.selectedStatus = this.selectStatus[0];
 
-    this._storageService.setFilterForGrid(
-      window.location.pathname,
-      this.searchValue
-    );
+    const val = event.target.value.toLowerCase();
 
+    // Filter Our Data
     let tempFilter = [];
     const temp = this.tempData.filter(function (d) {
       if (
@@ -223,21 +200,8 @@ export class DynamicGridComponent implements CanComponentDeactivate {
 
     // Update The Rows
     this.rows = tempFilter;
-  }
-
-  setPage(event) {
-    console.log(event);
-    if (!this.gridConfig && this.gridConfig != null) {
-      this.gridConfig.offset = event.offset;
-    } else {
-      this.gridConfig = {
-        offset: event.offset,
-      };
-    }
-    this._storageService.setOffsetForGrid(
-      window.location.pathname,
-      event.offset
-    );
+    // Whenever The Filter Changes, Always Go Back To The First Page
+    this.table.offset = 0;
   }
 
   /**
@@ -364,36 +328,6 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       });
   }
 
-  checkGridConfigStorage() {
-    this.gridConfig = this._storageService.getLocalStorage(
-      window.location.pathname
-    );
-
-    if (this.gridConfig) {
-      if (this.gridConfig.filter) {
-        this.searchValue = this.gridConfig.filter;
-      }
-
-      if (this.gridConfig.filterOption) {
-        this.selectedDropdownFilter = this.gridConfig.filterOption;
-      }
-
-      if (this.gridConfig.region) {
-        this.searchRegionValue = this.gridConfig.region;
-      }
-
-      if (this.gridConfig.fbz) {
-        this.searchFbzValue = this.gridConfig.fbz;
-      }
-
-      if (this.gridConfig.offset) {
-        this.setPage(this.gridConfig);
-      }
-    }
-
-    this.filterUpdate(this.searchValue);
-  }
-
   @HostListener("window:resize", ["$event"])
   onWindowResize() {
     this.checkScrollbarHVisibility();
@@ -426,36 +360,33 @@ export class DynamicGridComponent implements CanComponentDeactivate {
         .getConfiguration(this.path, this.file)
         .subscribe((data) => {
           this.config = data;
-
           this.checkScrollbarHVisibility();
 
-          if (!this.data || this.data === undefined) {
-            if (this.config.regionFilter) {
-              this.checkGridConfigStorage();
-              this.getItemsForSpecialFilter();
-            } else {
-              this._coreConfigService.config
-                .pipe(takeUntil(this._unsubscribeAll))
-                .subscribe((config) => {
-                  if (config.layout.animation === "zoomIn") {
-                    setTimeout(() => {
-                      this._service
-                        .callApi(this.config, this._activateRouter)
-                        .subscribe((data) => {
-                          this.rows = data;
-                          this.tempData = this.rows;
-                          this.loader = false;
-                        });
-                    }, 450);
-                  } else {
-                    this.getData();
-                  }
-                });
-            }
+          if (this.config.request) {
+            this._coreConfigService.config
+              .pipe(takeUntil(this._unsubscribeAll))
+              .subscribe((config) => {
+                if (config.layout.animation === "zoomIn") {
+                  setTimeout(() => {
+                    this._service
+                      .callApi(this.config, this._activateRouter)
+                      .subscribe((data) => {
+                        this.rows = data;
+                        this.tempData = this.rows;
+                        this.loader = false;
+                        this.changeHeight();
+                      });
+                  }, 450);
+                } else {
+                  this.getData();
+                }
+              });
           } else if (this.data) {
             this.rows = this.data;
             this.tempData = this.rows;
-            this.checkGridConfigStorage();
+            this.loader = false;
+            this.changeHeight();
+          } else {
             this.loader = false;
           }
         });
@@ -463,28 +394,8 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       this.rows = this.data;
       this.tempData = this.rows;
       this.loader = false;
+      this.changeHeight();
     }
-  }
-
-  getItemsForSpecialFilter() {
-    if (this.config.regionFilter) {
-      this.getRegions();
-      this.getAllFbz();
-    }
-  }
-
-  getRegions() {
-    this._service
-      .callGetMethod("/api/admin/getAllRegions")
-      .subscribe((data) => {
-        this.allRegions = data;
-      });
-  }
-
-  getAllFbz() {
-    this._service.callGetMethod("/api/admin/getAllFbz").subscribe((data) => {
-      this.allFbz = data;
-    });
   }
 
   getData() {
@@ -494,8 +405,8 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       .subscribe((data) => {
         this.rows = data;
         this.tempData = this.rows;
-        this.checkGridConfigStorage();
         this.loader = false;
+        this.changeHeight();
       });
   }
 
@@ -512,11 +423,13 @@ export class DynamicGridComponent implements CanComponentDeactivate {
         this.closeEditForm(noCloseEditForm);
         this.submit.emit(event);
       } else if (this.config.editSettingsRequest.add.type) {
-        this.callServerMethod(
-          this.config.editSettingsRequest.add,
-          event,
-          noCloseEditForm
-        );
+        setTimeout(() => {
+          this.callServerMethod(
+            this.config.editSettingsRequest.add,
+            event,
+            noCloseEditForm
+          );
+        }, 20);
       }
     }
   }
@@ -561,7 +474,6 @@ export class DynamicGridComponent implements CanComponentDeactivate {
         .subscribe((data) => {
           this.loader = false;
           this.setResponseData(data);
-          this.checkGridConfigStorage();
         });
     } else {
       this.refreshParentComponent.emit();
@@ -571,7 +483,6 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   setResponseData(data: any) {
     if (this.config.request.type === "GET") {
       this.rows = data;
-      this.tempData = data;
       this.submit.emit({
         rows: this.rows,
         total: this.rows.length,
@@ -839,75 +750,11 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     //   });
   }
 
-  sortByLastname(data) {
-    const sortedData = data.sort((a, b) => {
-      return a.nachname.localeCompare(b.nachname);
-    });
-    return sortedData;
-  }
+  /** the data table 'body' element */
+  private body: any;
 
-  exportBirthdayAndFortbildung() {
-    this.loaderContent = true;
-    this._service
-      .callPostMethod("/api/admin/exportBirthdayAndFortbildung", this.rows)
-      .subscribe((data) => {
-        this.loaderContent = false;
-        this.downloadFile(data, "Geburtstag und Fortbildung");
-      });
-  }
-
-  exportAllPersonalInformationAndFortbildungen() {
-    this.loaderContent = true;
-    this._service
-      .callPostMethod(
-        "/api/admin/exportAllPersonalInformationAndFortbildungen",
-        this.rows
-      )
-      .subscribe((data) => {
-        this.loaderContent = false;
-        this.downloadFile(
-          data,
-          "Alle persönlichen Informationen und Fortbildungen"
-        );
-      });
-  }
-
-  exportAllPersonalInformationAndFortbildungenAndBestellungen() {
-    this.loaderContent = true;
-    this._service
-      .callPostMethod(
-        "/api/admin/exportAllPersonalInformationAndFortbildungenAndBestellungen",
-        this.rows
-      )
-      .subscribe((data) => {
-        this.loaderContent = false;
-        this.downloadFile(
-          data,
-          "Alle persönlichen Informationen, Fortbildungen und Bestellungen"
-        );
-      });
-  }
-
-  downloadFile(data: any, fileName?: string) {
-    const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
-    const header = Object.keys(data[0]);
-    let csv = data.map((row) =>
-      header
-        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
-        .join(",")
-    );
-    csv.unshift(header.join(","));
-    let csvArray = csv.join("\r\n");
-
-    var link = window.document.createElement("a");
-    link.setAttribute(
-      "href",
-      "data:text/csv;charset=utf-8,%EF%BB%BF" + encodeURI(csvArray)
-    );
-    link.setAttribute("download", fileName ?? "myFile.csv");
-    link.click();
-
-    // var blob = new Blob([csvArray], { type: "text/csv" });
-    // saveAs(blob, fileName ?? "myFile.csv");
+  changeHeight() {
+    // this.body = this.element.nativeElement.querySelector(".datatable-body");
+    // this.body.style.height = "calc(" + this.height + " - 18vh)";
   }
 }
