@@ -57,7 +57,9 @@ export class CustomFormFishCatchComponent {
       if (this.data.quantity >= this.data.edible_fish_quantity) {
         this.data.stocked_fish_quantity =
           this.data.quantity - this.data.edible_fish_quantity;
-        return this.data.stocked_fish_quantity;
+        return this.data.stocked_fish_quantity % 1 == 0
+          ? this.data.stocked_fish_quantity
+          : this.data.stocked_fish_quantity.toFixed(2);
       } else {
         return "";
       }

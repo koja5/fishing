@@ -1,0 +1,42 @@
+{
+    "template": "send_notification_to_admin_for_completed_observation_sheet_report.hjs",
+    "language": {
+        "en": {
+            "subject": "Completed fish stocking report for #fbz from #name",
+            "body": {
+                "greetings": "Hey 👋",
+                "message": "User #name completed report #fbz",
+                "nameLabel": "Owner name",
+                "fbzLabel": "FBZ",
+                "yearLabel": "Year",
+                "checkReport": "Check report details",
+                "notSureWhyReceived": "Not sure why you got this email? Please ingorize this email.",
+                "letUsKnow": "let us know",
+                "greetingsEnd": "Thanks,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Use of our service and website is subject to our",
+                "terms": "Terms of Use",
+                "and": "and",
+                "privacyPolicy": "Privacy Policy"
+            }
+        },
+        "de": {
+            "subject": "Ausgefüllter Fischottermeldungen für #year von #name",
+            "body": {
+                "greetings": "Hey 👋",
+                "message": "der Manager #name hat seinen Beobachtungsbericht für #year fertiggestellt",
+                "nameLabel": "Besitzername",
+                "fbzLabel": "FBZ",
+                "yearLabel": "Jahr",
+                "checkReport": "Überprüfen Sie die Berichtsdetails",
+                "notSureWhyReceived": "Sie sind sich nicht sicher, warum Sie diese E-Mail erhalten haben? Bitte ignorieren Sie diese E-Mail.",
+                "greetingsEnd": "Danke,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Die Nutzung unseres Dienstes und unserer Website unterliegt unseren",
+                "terms": "Nutzungsbedingungen",
+                "and": "und",
+                "privacyPolicy": "Datenschutzrichtlinie"
+            }
+        }
+    }
+}

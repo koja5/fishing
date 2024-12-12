@@ -1,0 +1,35 @@
+{
+    "template": "send_reminder_owner_to_complete_observation_sheet_report.hjs",
+    "language": {
+        "en": {
+            "subject": "Please complete your fish stocking report for #fbz",
+            "body": {
+                "greetings": "Hey #name 👋",
+                "message": "Your report for #fbz is not yet completed. Please complete your report.",
+                "resetPassword": "Reset Password →",
+                "notSureWhyReceived": "Not sure why you got this email? Please ingorize this email.",
+                "letUsKnow": "let us know",
+                "greetingsEnd": "Thanks,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Use of our service and website is subject to our",
+                "terms": "Terms of Use",
+                "and": "and",
+                "privacyPolicy": "Privacy Policy"
+            }
+        },
+        "de": {
+            "subject": "Bitte füllen Sie Ihren Beobachtungsbericht für #year aus",
+            "body": {
+                "greetings": "Hey #name 👋",
+                "message": "Ihr Bericht für #year ist noch nicht abgeschlossen. Bitte vervollständigen Sie Ihren Bericht.",
+                "notSureWhyReceived": "Sie sind sich nicht sicher, warum Sie diese E-Mail erhalten haben? Bitte ignorieren Sie diese E-Mail.",
+                "greetingsEnd": "Danke,",
+                "team": "Fischereiverband",
+                "acceptOurTerms": "Die Nutzung unseres Dienstes und unserer Website unterliegt unseren",
+                "terms": "Nutzungsbedingungen",
+                "and": "und",
+                "privacyPolicy": "Datenschutzrichtlinie"
+            }
+        }
+    }
+}

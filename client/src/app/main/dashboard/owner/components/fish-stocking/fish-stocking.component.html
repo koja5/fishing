@@ -17,50 +17,53 @@
                 <app-explanation-mark [mainExplanation]="'fishStocking.mainExplanation'"></app-explanation-mark>
             </div>
         </div>
-        <div class="mb-2 col-md-3">
-            <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
-                    [explanation]="'fishStocking.explanation'"></app-explanation-mark></label>
-            <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
-                [(ngModel)]="selectedManagementRegistryId"
-                [placeholder]="'commonFields.chooseManagementRegistry' | translate" (change)="onChange($event)"
-                [searchable]="true">
-                <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                    <span>{{item.fbz}} - {{item.year}}</span>
-                </ng-template>
-                <ng-template ng-value-tmp let-item="item">
-                    <span>{{item.fbz}} - {{item.year}}</span>
-                </ng-template>
-                <ng-template ng-option-tmp let-item="item">
-                    <span>{{item.fbz}} - {{item.year}}</span>
-                </ng-template>
-            </ng-select>
+        <div class="full-width row m-auto pb-1">
+            <div class="col-md-3">
+                <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
+                        [explanation]="'fishStocking.explanation'"></app-explanation-mark></label>
+                <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
+                    [(ngModel)]="selectedManagementRegistryId"
+                    [placeholder]="'commonFields.chooseManagementRegistry' | translate" (change)="onChange($event)"
+                    [searchable]="true">
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span>{{item.fbz}} - {{item.year}}</span>
+                    </ng-template>
+                    <ng-template ng-value-tmp let-item="item">
+                        <span>{{item.fbz}} - {{item.year}}</span>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <span>{{item.fbz}} - {{item.year}}</span>
+                    </ng-template>
+                </ng-select>
 
-        </div>
-        <div class="col-md-8 pr-0">
-            <div class="d-flex justify-content-end action" *ngIf="selectedManagementRegistryId">
-                <button
-                    *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"
-                    class="btn btn-success mb-1" (click)="completeReports()"><span class="fa fa-check"></span>
-                    {{'action.completeReport' |
-                    translate}}</button>
-
-                <button *ngIf="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"
-                    class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
-                        class="fa fa-question-circle-o"></span>
-                    {{'action.requestAdminToChangeStatus' |
-                    translate}}</button>
-
-                <button *ngIf="!fishStockingReport || fishStockingReport.status !== fishStockingReportEnum.completed"
-                    class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishStockingEntryDialog()"><span
-                        class="fa fa-times"></span>
-                    {{'action.noHaveEntry' |
-                    translate}}</button>
             </div>
-        </div>
+            <div class="col-md-8">
+                <div class="d-flex justify-content-end action" *ngIf="selectedManagementRegistryId">
+                    <button
+                        *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"
+                        class="btn btn-success mb-1" (click)="completeReports()"><span class="fa fa-check"></span>
+                        {{'action.completeReport' |
+                        translate}}</button>
 
-        <div class="col-md-1 p-0 d-flex-center">
-            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                [groupBy]="'fbz'"></app-generate-pdf-report>
+                    <button *ngIf="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"
+                        class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
+                            class="fa fa-question-circle-o"></span>
+                        {{'action.requestAdminToChangeStatus' |
+                        translate}}</button>
+
+                    <button
+                        *ngIf="!fishStockingReport || fishStockingReport.status !== fishStockingReportEnum.completed"
+                        class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishStockingEntryDialog()"><span
+                            class="fa fa-times"></span>
+                        {{'action.noHaveEntry' |
+                        translate}}</button>
+                </div>
+            </div>
+
+            <div class="col-md-1 p-0 d-flex-center">
+                <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                    [groupBy]="'fbz'"></app-generate-pdf-report>
+            </div>
         </div>
     </div>
 

@@ -61,6 +61,10 @@ export class FishStockingComponent implements OnInit {
               );
           } else {
             this.selectedManagementRegistry = data[0];
+            this._storageService.setLocalStorage(
+              "selectedManagementRegistry",
+              this.selectedManagementRegistry
+            );
           }
           this.selectedManagementRegistryId =
             this.selectedManagementRegistry.id;

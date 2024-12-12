@@ -694,6 +694,147 @@ router.post(
 
 //#endregion
 
+//#region OBSERVATION SHEET
+router.post(
+  "/sendNotificationToAdminForCompletedObservationSheetReport",
+  function (req, res, next) {
+    var configuration = JSON.parse(
+      fs.readFileSync(
+        __dirname +
+          "/i18n/send_notification_to_admin_for_completed_observation_sheet_report.json",
+        "utf-8"
+      )
+    );
+
+    let subject = configuration.language.de.subject;
+    let body = configuration.language.de.body;
+
+    body.message = body.message
+      .replaceAll("#year", req.body.year)
+      .replaceAll("#name", req.body.firstname + " " + req.body.lastname);
+
+    body["name"] = req.body.firstname + " " + req.body.lastname;
+    body["year"] = req.body.year;
+
+    body["checkReportLink"] =
+      process.env.link_client + "/dashboard/owner/observation-sheet";
+
+    subject = subject
+      .replaceAll("#year", req.body.year)
+      .replaceAll("#name", req.body.firstname + " " + req.body.lastname);
+
+    sendMail(
+      process.env.admin_email,
+      subject,
+      body,
+      configuration.template,
+      res
+    );
+  }
+);
+
+router.post(
+  "/sendRequestToAdminForAdditionalObservationSheetReportChanges",
+  function (req, res, next) {
+    var configuration = JSON.parse(
+      fs.readFileSync(
+        __dirname +
+          "/i18n/send_request_to_admin_for_additional_observation_sheet_report_changes.json",
+        "utf-8"
+      )
+    );
+
+    let subject = configuration.language.de.subject;
+    let body = configuration.language.de.body;
+
+    body.message = body.message
+      .replaceAll("#year", req.body.year)
+      .replaceAll("#name", req.body.firstname + " " + req.body.lastname);
+
+    body["name"] = req.body.firstname + " " + req.body.lastname;
+    body["year"] = req.body.year;
+
+    body["checkReportDetailsLink"] =
+      process.env.link_client + "/dashboard/admin/all-observation-sheets";
+
+    subject = subject
+      .replaceAll("#year", req.body.year)
+      .replaceAll("#name", req.body.firstname + " " + req.body.lastname);
+
+    sendMail(
+      process.env.admin_email,
+      subject,
+      body,
+      configuration.template,
+      res
+    );
+  }
+);
+
+router.post(
+  "/reminderOwnerToCompleteObservationSheetReport",
+  function (req, res, next) {
+    var configuration = JSON.parse(
+      fs.readFileSync(
+        __dirname +
+          "/i18n/send_reminder_owner_to_complete_observation_sheet_report.json",
+        "utf-8"
+      )
+    );
+
+    let subject = configuration.language.de.subject;
+    let body = configuration.language.de.body;
+
+    body.greetings = body.greetings.replace(
+      "#name",
+      req.body.userProfile.firstname
+    );
+    body.message = body.message.replaceAll("#year", req.body.report.fbz);
+    subject = subject.replaceAll("#year", req.body.report.fbz);
+
+    sendMail(
+      req.body.userProfile.email,
+      subject,
+      body,
+      configuration.template,
+      res
+    );
+  }
+);
+
+router.post(
+  "/sendNotificationToOwnerForBackBirdCountReport",
+  function (req, res, next) {
+    var configuration = JSON.parse(
+      fs.readFileSync(
+        __dirname +
+          "/i18n/send_notification_to_owner_for_back_bird_count_report.json",
+        "utf-8"
+      )
+    );
+
+    let subject = configuration.language.de.subject;
+    let body = configuration.language.de.body;
+
+    body.greetings = body.greetings.replace(
+      "#name",
+      req.body.userProfile.firstname
+    );
+    body.message = body.message.replaceAll("#fbz", req.body.report.fbz);
+    subject = subject.replaceAll("#fbz", req.body.report.fbz);
+
+    sendMail(
+      req.body.userProfile.email,
+      subject,
+      body,
+      configuration.template,
+      res
+    );
+  }
+);
+
+//#endregion
+
 //#region HELPFUL SERVICE
 
 function getSubject(configuration, lang) {

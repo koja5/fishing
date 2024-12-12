@@ -189,8 +189,15 @@ export class GeneratePdfReportComponent {
   }
 
   generateReportName() {
+    const date = new Date();
     return this.config && this.config.name
-      ? this.config.name + " - " + new Date().getFullYear()
+      ? this.config.name +
+          " - " +
+          date.getFullYear() +
+          " " +
+          date.getHours() +
+          "-" +
+          date.getMinutes()
       : "Report";
   }
 
@@ -204,7 +211,16 @@ export class GeneratePdfReportComponent {
 
   getReportName() {
     if (this.config) {
-      return this.config.name + " - " + new Date().getFullYear();
+      const date = new Date();
+      return (
+        this.config.name +
+        " - " +
+        date.getFullYear() +
+        " " +
+        date.getHours() +
+        "-" +
+        date.getMinutes()
+      );
     } else {
       return "Report";
     }

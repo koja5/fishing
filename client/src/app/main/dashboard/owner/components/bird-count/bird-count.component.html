@@ -18,62 +18,64 @@
                 <app-explanation-mark [mainExplanation]="'birdCount.mainExplanation'"></app-explanation-mark>
             </div>
         </div>
-        <div class="mb-2 col-md-3">
-            <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
-                    [explanation]="'birdCount.explanation'"></app-explanation-mark></label>
-            <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
-                [(ngModel)]="filter.managementRegisterId"
-                [placeholder]="'commonFields.chooseManagementRegistry' | translate"
-                (change)="onChangeManagementRegister($event)" [searchable]="true">
-                <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                    <span>{{item.fbz}} - {{item.year}}</span>
-                </ng-template>
-                <ng-template ng-value-tmp let-item="item">
-                    <span>{{item.fbz}} - {{item.year}}</span>
-                </ng-template>
-                <ng-template ng-option-tmp let-item="item">
-                    <span>{{item.fbz}} - {{item.year}}</span>
-                </ng-template>
-            </ng-select>
+        <div class="full-width row m-auto pb-1">
+            <div class="col-md-3">
+                <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
+                        [explanation]="'birdCount.explanation'"></app-explanation-mark></label>
+                <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
+                    [(ngModel)]="filter.managementRegisterId"
+                    [placeholder]="'commonFields.chooseManagementRegistry' | translate"
+                    (change)="onChangeManagementRegister($event)" [searchable]="true">
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span>{{item.fbz}} - {{item.year}}</span>
+                    </ng-template>
+                    <ng-template ng-value-tmp let-item="item">
+                        <span>{{item.fbz}} - {{item.year}}</span>
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        <span>{{item.fbz}} - {{item.year}}</span>
+                    </ng-template>
+                </ng-select>
 
-        </div>
-        <div class="mb-2 col-md-3">
-            <label>{{'commonFields.nameOfWater' | translate}} <app-explanation-mark
-                    [explanation]="'birdCount.explanationSecond'"></app-explanation-mark></label>
-            <ng-select [items]="allWaters" bindLabel="name" bindValue="id" [(ngModel)]="filter.water"
-                [placeholder]="'commonFields.chooseNameOfWater' | translate" (change)="onChangeWater($event)"
-                [searchable]="true">
-                <ng-template ng-footer-tmp *ngIf="filter.managementRegisterId">
-                    <p class="m-0 font-weight-bold cursor-pointer" (click)="openModalNewEntrie()"><span
-                            class="fa fa-plus-circle"></span> {{
-                        'commonFields.createNew' | translate
-                        }} </p>
-                </ng-template>
-            </ng-select>
-        </div>
-
-        <div class="col-md-5 pr-0">
-            <div class="d-flex justify-content-end action" *ngIf="filter">
-
-                <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
-                    (click)="completeReportsDialog()"><span class="fa fa-check"></span>
-                    {{'action.completeReport' |
-                    translate}}</button>
-                <button *ngIf="report && report.status === reportStatusEnum.completed" class="btn btn-primary mb-1"
-                    (click)="requestForAdditionalChanges()"><span class="fa fa-question-circle-o"></span>
-                    {{'action.requestAdminToChangeStatus' |
-                    translate}}</button>
-                <button *ngIf="!report || report.status !== reportStatusEnum.completed"
-                    class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveEntryDialog()"><span
-                        class="fa fa-times"></span>
-                    {{'action.noHaveEntry' |
-                    translate}}</button>
             </div>
-        </div>
+            <div class="col-md-3">
+                <label>{{'commonFields.nameOfWater' | translate}} <app-explanation-mark
+                        [explanation]="'birdCount.explanationSecond'"></app-explanation-mark></label>
+                <ng-select [items]="allWaters" bindLabel="name" bindValue="id" [(ngModel)]="filter.water"
+                    [placeholder]="'commonFields.chooseNameOfWater' | translate" (change)="onChangeWater($event)"
+                    [searchable]="true">
+                    <ng-template ng-footer-tmp *ngIf="filter.managementRegisterId">
+                        <p class="m-0 font-weight-bold cursor-pointer" (click)="openModalNewEntrie()"><span
+                                class="fa fa-plus-circle"></span> {{
+                            'commonFields.createNew' | translate
+                            }} </p>
+                    </ng-template>
+                </ng-select>
+            </div>
 
-        <div class="col-md-1 p-0 d-flex-center">
-            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                [groupBy]="'id_water'"></app-generate-pdf-report>
+            <div class="col-md-5">
+                <div class="d-flex justify-content-end action" *ngIf="filter">
+
+                    <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
+                        (click)="completeReportsDialog()"><span class="fa fa-check"></span>
+                        {{'action.completeReport' |
+                        translate}}</button>
+                    <button *ngIf="report && report.status === reportStatusEnum.completed" class="btn btn-primary mb-1"
+                        (click)="requestForAdditionalChanges()"><span class="fa fa-question-circle-o"></span>
+                        {{'action.requestAdminToChangeStatus' |
+                        translate}}</button>
+                    <button *ngIf="!report || report.status !== reportStatusEnum.completed"
+                        class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveEntryDialog()"><span
+                            class="fa fa-times"></span>
+                        {{'action.noHaveEntry' |
+                        translate}}</button>
+                </div>
+            </div>
+
+            <div class="col-md-1 p-0 d-flex-center">
+                <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                    [groupBy]="'id_water'"></app-generate-pdf-report>
+            </div>
         </div>
     </div>
 

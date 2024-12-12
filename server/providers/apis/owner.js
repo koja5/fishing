@@ -294,6 +294,119 @@ router.post("/deleteObservationSheet", auth, function (req, res) {
   });
 });
 
+router.get("/getObservationSheetReport", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from observation_sheet_reports where id_owner = ? and year = ?",
+          [req.user.user.id, new Date().getFullYear()],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/completeObservationSheetReport", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    req.body.id_owner = req.user.user.id;
+
+    conn.query(
+      "select * from observation_sheet_reports where year = ?",
+      [req.body.fbz, req.body.year],
+      function (err, rows) {
+        if (!err) {
+          if (rows.length) {
+            conn.query(
+              "UPDATE observation_sheet_reports set ? where id = ?",
+              [req.body, rows[0].id],
+              function (err, rows) {
+                conn.release();
+                if (!err) {
+                  req.body["firstname"] = req.user.user.firstname;
+                  req.body["lastname"] = req.user.user.lastname;
+                  makeRequest(
+                    req.body,
+                    "mail/sendNotificationToAdminForCompletedObservationSheetReport",
+                    res
+                  );
+                } else {
+                  logger.log("error", err.sql + ". " + err.sqlMessage);
+                  res.json(false);
+                }
+              }
+            );
+          } else {
+            conn.query(
+              "INSERT INTO observation_sheet_reports set ?",
+              [req.body],
+              function (err, rows) {
+                conn.release();
+                if (!err) {
+                  req.body["firstname"] = req.user.user.firstname;
+                  req.body["lastname"] = req.user.user.lastname;
+                  makeRequest(
+                    req.body,
+                    "mail/sendNotificationToAdminForCompletedObservationSheetReport",
+                    res
+                  );
+                } else {
+                  logger.log("error", err.sql + ". " + err.sqlMessage);
+                  res.json(false);
+                }
+              }
+            );
+          }
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post(
+  "/requestToAdminForAdditionalObservationSheetReportChanges",
+  auth,
+  function (req, res) {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+
+      req.body["firstname"] = req.user.user.firstname;
+      req.body["lastname"] = req.user.user.lastname;
+      makeRequest(
+        req.body,
+        "mail/sendRequestToAdminForAdditionalObservationSheetReportChanges",
+        res
+      );
+    });
+  }
+);
+
 //#endregion
 
 //#region FBZ REGISTER

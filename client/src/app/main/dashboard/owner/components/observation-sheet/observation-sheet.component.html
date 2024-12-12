@@ -1,11 +1,71 @@
-<div class="alert-message col-md-12 text-center mb-1">
-    <div class="explanation">
-        <app-explanation-mark [mainExplanation]="'observationSheet.mainExplanation'"></app-explanation-mark>
+<div class="alert-message col-md-12 text-center">
+    <div class="alert-message col-md-12 text-center">
+        <div *ngIf="observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed">
+            <ngb-alert [type]="'success'" [dismissible]="false">
+                <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
+                    {{observationSheetReport.date_completed | date: 'dd.MM.yyyy. HH:mm'}}</div>
+            </ngb-alert>
+        </div>
+        <div *ngIf="data && data.length && (!observationSheetReport || observationSheetReport.status ===
+            observationSheetReportEnum.draft)">
+            <ngb-alert [type]="'warning'" [dismissible]="false">
+                <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+            </ngb-alert>
+        </div>
+        <div class="explanation">
+            <app-explanation-mark [mainExplanation]="'observationSheet.mainExplanation'"></app-explanation-mark>
+        </div>
     </div>
 </div>
 
-<div class="mb-1 d-flex align-items-center justify-content-end">
-    <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'fbz'"></app-generate-pdf-report>
+<div class="row justify-content-end mb-1">
+
+    <div class="col-md-8">
+        <div class="d-flex justify-content-end action">
+            <button
+                *ngIf="data && data.length && (!observationSheetReport || observationSheetReport.status === observationSheetReportEnum.draft)"
+                class="btn btn-success mb-1" (click)="completeReports()"><span class="fa fa-check"></span>
+                {{'action.completeReport' |
+                translate}}</button>
+
+            <button
+                *ngIf="observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed"
+                class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
+                    class="fa fa-question-circle-o"></span>
+                {{'action.requestAdminToChangeStatus' |
+                translate}}</button>
+
+            <button
+                *ngIf="!observationSheetReport || observationSheetReport.status !== observationSheetReportEnum.completed"
+                class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishStockingEntryDialog()"><span
+                    class="fa fa-times"></span>
+                {{'action.noHaveEntry' |
+                translate}}</button>
+        </div>
+    </div>
+
+    <div class="col-md-1 p-0 d-flex-center">
+        <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'fbz'"></app-generate-pdf-report>
+    </div>
 </div>
-<app-dynamic-grid #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport" [groupBy]="'fbz'"
-    [height]="'calc(100vh - 25vh)'"></app-dynamic-grid>
+
+<app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [data]="data" [fileExportReport]="fileExportReport"
+    [groupBy]="'fbz'" [height]="'calc(100vh - 32vh)'"></app-dynamic-grid>
+
+<app-dialog-confirm #dialogConfirm [title]="('actionMessage.dialogCompleteReportQuestionTitle' | translate)"
+    [content]="('actionMessage.dialogCompleteReportQuestionText' | translate)"
+    [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionYes' | translate)"
+    [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionNo' | translate)"
+    (confirm)="confirmCompleteReport()"></app-dialog-confirm>
+
+
+<app-dialog-confirm #dialogNoHaveEntry [title]="('actionMessage.dialogNoHaveReportsTitle' | translate)"
+    [content]="('actionMessage.dialogNoHaveReportsText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="confirmNoHaveFishStockingEntry()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogRequestForAdditionalChanges
+    [title]="('actionMessage.dialogRequestForAdditionalChangesTitle' | translate)"
+    [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
+    [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
+    (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>

@@ -25,12 +25,12 @@ export class HelpService {
     if (parameters) {
       if (!parameterType || parameterType === ParameterType.params) {
         for (let i = 0; i < parameters.length; i++) {
-          value += data[parameters[i]] + "/";
+          value += (data ? data[parameters[i]] : null) + "/";
         }
       } else {
         value = "?";
         for (let i = 0; i < parameters.length; i++) {
-          value += parameters[i] + "=" + data[parameters[i]];
+          value += parameters[i] + "=" + (data ? data[parameters[i]] : null);
 
           if (i + 1 < parameters.length) {
             value += "&";
