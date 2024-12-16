@@ -12,6 +12,7 @@ import { CoreConfigService } from "@core/services/config.service";
 import { CallApiService } from "app/services/call-api.service";
 import { StorageService } from "app/services/storage.service";
 import { UserTypes } from "app/main/enums/user-types";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-login",
@@ -43,7 +44,8 @@ export class LoginComponent {
     private _route: ActivatedRoute,
     private _router: Router,
     private _service: CallApiService,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    public _translate: TranslateService
   ) {
     this._unsubscribeAll = new Subject();
 

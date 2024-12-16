@@ -1,11 +1,11 @@
 {
-    "template": "send_reminder_owner_to_complete_observation_sheet_report.hjs",
+    "template": "send_notification_to_owner_for_back_observation_sheet_report.hjs",
     "language": {
         "en": {
-            "subject": "Please complete your fish stocking report for #fbz",
+            "subject": "Your fish stocking report status for FBZ is back",
             "body": {
-                "greetings": "Hey #name 👋",
-                "message": "Your report for #fbz is not yet completed. Please complete your report.",
+                "greetings": "Hey 👋",
+                "message": "Use this link to reset your password and login.",
                 "resetPassword": "Reset Password →",
                 "notSureWhyReceived": "Not sure why you got this email? Please ingorize this email.",
                 "letUsKnow": "let us know",
@@ -18,10 +18,10 @@
             }
         },
         "de": {
-            "subject": "Bitte füllen Sie Ihren Fischottermeldungen für #year aus",
+            "subject": "Status Ihres Fischottermeldungen für #year wurde zurückgesetzt",
             "body": {
                 "greetings": "Hey #name 👋",
-                "message": "Ihr Bericht für #year ist noch nicht abgeschlossen. Bitte vervollständigen Sie Ihren Bericht.",
+                "message": "der Bearbeitungs-Status für die Besatzmeldung für #year ist zurück gesetzt worden. Sie können Ihre Besatzmeldung wieder bearbeiten.",
                 "notSureWhyReceived": "Sie sind sich nicht sicher, warum Sie diese E-Mail erhalten haben? Bitte ignorieren Sie diese E-Mail.",
                 "greetingsEnd": "Danke,",
                 "team": "Fischereiverband",

@@ -2,7 +2,7 @@
     "pageSize": 10,
     "request": {
         "type": "GET",
-        "api": "/api/admin/getAllObservationSheets",
+        "api": "/api/admin/getAllObservationSheetReports",
         "parameters": [],
         "fields": "",
         "root": ""
@@ -69,24 +69,11 @@
                         "newTab": false,
                         "link": "/dashboard/admin/observation-sheet-details",
                         "parameters": [
-                            "fbz",
                             "year",
                             "id_owner"
                         ]
                     }
                 }
-            }
-        },
-        {
-            "title": "commonFields.fbz",
-            "filterable": true,
-            "hideable": true,
-            "filter": "date",
-            "type": "string",
-            "class": "text-align-right",
-            "field": "fbz",
-            "validation": {
-                "required": true
             }
         },
         {

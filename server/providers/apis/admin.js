@@ -876,6 +876,7 @@ router.get(
 //#endregion
 
 //#region OBSERVATION SHEETS
+
 router.get("/getAllObservationSheets", authAdmin, async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -911,8 +912,8 @@ router.get("/getObservationSheetDetails", authAdmin, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select os.*, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name' from observation_sheet os join users u on os.id_owner = u.id_owner where os.fbz = ? and os.year = ? order by os.date_time desc",
-          [req.query.fbz, req.query.year],
+          "select os.*, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name' from observation_sheet os join users u on os.id_owner = u.id_owner where os.id_owner = ? and os.year = ? order by os.date_time desc",
+          [req.query.id_owner, req.query.year],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -930,6 +931,96 @@ router.get("/getObservationSheetDetails", authAdmin, async (req, res, next) => {
     res.json(ex);
   }
 });
+
+router.get(
+  "/getAllObservationSheetReports",
+  authAdmin,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select distinct osr.year, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name', u.id_owner from observation_sheet_reports osr join users u on osr.id_owner = u.id_owner order by osr.date_completed desc",
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
+            }
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
+router.get("/getObservationSheetReport", authAdmin, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select osr.*, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name' from observation_sheet_reports osr join users u on osr.id_owner = u.id_owner where osr.id_owner = ? and osr.year = ?",
+          [req.query.id_owner, req.query.year],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows.length ? rows[0] : rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post(
+  "/backObservationSheetReportToOwner",
+  authAdmin,
+  function (req, res) {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+
+      conn.query(
+        "update observation_sheet_reports set status = 1 where id = ?",
+        [req.body.report.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            makeRequest(
+              req.body,
+              "mail/sendNotificationToOwnerForBackObservationSheetReport",
+              res
+            );
+          } else {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(false);
+          }
+        }
+      );
+    });
+  }
+);
 
 //#endregion
 

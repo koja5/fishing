@@ -76,11 +76,14 @@
           <button [disabled]="loading" class="btn btn-primary btn-block" tabindex="4" rippleEffect>
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>{{'login.signIn' | translate}}
           </button>
+          <!-- {{_translate.instant('login.areYouNeedAHelp')}} -->
+          <div class="need-a-help"
+            *ngIf="_translate.instant('login.helpPageLink') != 'login.helpPageLink'">
+            <a href="{{'login.helpPageLink' | translate}}" target="_blank"><span class="fa fa-info-circle"></span> {{'login.areYouNeedAHelp' | translate}}</a>
+          </div>
         </form>
-
-
-
       </div>
+
     </div>
     <!-- /Login-->
   </div>

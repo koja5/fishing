@@ -123,7 +123,7 @@ export class ObservationSheetComponent {
     };
     this._service
       .callPostMethod(
-        "/api/owner/noHaveFishStockingEntry",
+        "/api/owner/noHaveObservationSheetEntry",
         this.observationSheetReport
       )
       .subscribe((data) => {

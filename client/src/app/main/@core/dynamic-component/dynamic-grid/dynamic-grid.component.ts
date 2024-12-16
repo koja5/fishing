@@ -564,6 +564,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
           this.checkGridConfigStorage();
         });
     } else {
+      this.loader = false;
       this.refreshParentComponent.emit();
     }
   }

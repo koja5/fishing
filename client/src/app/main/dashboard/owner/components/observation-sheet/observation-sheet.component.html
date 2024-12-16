@@ -50,7 +50,9 @@
 </div>
 
 <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [data]="data" [fileExportReport]="fileExportReport"
-    [groupBy]="'fbz'" [height]="'calc(100vh - 32vh)'"></app-dynamic-grid>
+    [groupBy]="'fbz'" [height]="'calc(100vh - 32vh)'"
+    [disableCRUD]="(observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed)"
+    (refreshParentComponent)="getAllObservationSheet()"></app-dynamic-grid>
 
 <app-dialog-confirm #dialogConfirm [title]="('actionMessage.dialogCompleteReportQuestionTitle' | translate)"
     [content]="('actionMessage.dialogCompleteReportQuestionText' | translate)"

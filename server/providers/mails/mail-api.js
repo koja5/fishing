@@ -755,7 +755,11 @@ router.post(
     body["year"] = req.body.year;
 
     body["checkReportDetailsLink"] =
-      process.env.link_client + "/dashboard/admin/all-observation-sheets";
+      process.env.link_client +
+      "/dashboard/admin/observation-sheet-details?year=" +
+      req.body.year +
+      "&id_owner=" +
+      req.body.id_owner;
 
     subject = subject
       .replaceAll("#year", req.body.year)
@@ -789,8 +793,8 @@ router.post(
       "#name",
       req.body.userProfile.firstname
     );
-    body.message = body.message.replaceAll("#year", req.body.report.fbz);
-    subject = subject.replaceAll("#year", req.body.report.fbz);
+    body.message = body.message.replaceAll("#year", req.body.report.year);
+    subject = subject.replaceAll("#year", req.body.report.year);
 
     sendMail(
       req.body.userProfile.email,
@@ -803,12 +807,12 @@ router.post(
 );
 
 router.post(
-  "/sendNotificationToOwnerForBackBirdCountReport",
+  "/sendNotificationToOwnerForBackObservationSheetReport",
   function (req, res, next) {
     var configuration = JSON.parse(
       fs.readFileSync(
         __dirname +
-          "/i18n/send_notification_to_owner_for_back_bird_count_report.json",
+          "/i18n/send_notification_to_owner_for_observation_sheet_report.json",
         "utf-8"
       )
     );
@@ -820,8 +824,8 @@ router.post(
       "#name",
       req.body.userProfile.firstname
     );
-    body.message = body.message.replaceAll("#fbz", req.body.report.fbz);
-    subject = subject.replaceAll("#fbz", req.body.report.fbz);
+    body.message = body.message.replaceAll("#year", req.body.report.year);
+    subject = subject.replaceAll("#year", req.body.report.year);
 
     sendMail(
       req.body.userProfile.email,
