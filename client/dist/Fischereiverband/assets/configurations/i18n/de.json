@@ -158,7 +158,9 @@
       "notExistsError": "Das Konto existiert nicht!",
       "or": "oder",
       "signInWithGoogle": "Über Google anmelden",
-      "signInWithMicrosoft": "Über Microsoft anmelden"
+      "signInWithMicrosoft": "Über Microsoft anmelden",
+      "helpPageLink": "https://www.google.com/",
+      "areYouNeedAHelp": "Für Hilfe und kurze Einleitung zur Nutzung hier klicken"
    },
    "navigations": {
       "allUsers": "Nutzer",

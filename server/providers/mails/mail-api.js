@@ -717,7 +717,11 @@ router.post(
     body["year"] = req.body.year;
 
     body["checkReportLink"] =
-      process.env.link_client + "/dashboard/owner/observation-sheet";
+      process.env.link_client +
+      "/dashboard/admin/observation-sheet-details?year=" +
+      req.body.year +
+      "&id_owner=" +
+      req.body.id_owner;
 
     subject = subject
       .replaceAll("#year", req.body.year)

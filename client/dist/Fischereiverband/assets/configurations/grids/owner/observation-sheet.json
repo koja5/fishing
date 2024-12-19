@@ -8,7 +8,13 @@
         }
     },
     "sorting": {
-        "enable": true
+        "enable": true,
+        "fields": [
+            {
+                "prop": "date_time",
+                "dir": "desc"
+            }
+        ]
     },
     "grouping": {
         "enable": true,

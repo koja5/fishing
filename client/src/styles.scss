@@ -334,3 +334,13 @@
 .export-pdf-modal {
   max-width: fit-content !important;
 }
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button span {
+  margin-right: 5px;
+}

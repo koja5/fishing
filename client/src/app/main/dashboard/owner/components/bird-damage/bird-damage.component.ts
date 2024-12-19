@@ -194,7 +194,7 @@ export class BirdDamageComponent {
   requestToAdminForAdditionalChanges() {
     this._service
       .callPostMethod(
-        "/api/owner/requestToAdminForAdditionalBirdCountReportChanges",
+        "/api/owner/requestToAdminForAdditionalBirdDamageReportChanges",
         this.report
       )
       .subscribe((data) => {

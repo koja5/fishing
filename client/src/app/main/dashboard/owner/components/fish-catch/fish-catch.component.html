@@ -1,6 +1,6 @@
 <div *ngIf="managementRegistersData && managementRegistersData.length">
     <div class="row">
-        <div class="alert-message col-md-12 text-center" *ngIf="fishCatchFilter.managementRegisterId">
+        <div class="alert-message col-md-12 text-center" *ngIf="filter.managementRegisterId">
             <div *ngIf=" fishCatchReport && fishCatchReport.status===fishCatchReportEnum.completed">
                 <ngb-alert [type]="'success'" [dismissible]="false">
                     <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
@@ -23,7 +23,7 @@
                 <label>{{'commonFields.fbz' | translate}} <app-explanation-mark
                         [explanation]="'fishCatch.explanation'"></app-explanation-mark></label>
                 <ng-select [items]="managementRegistersData" bindLabel="fbz" bindValue="id"
-                    [(ngModel)]="fishCatchFilter.managementRegisterId"
+                    [(ngModel)]="filter.managementRegisterId"
                     [placeholder]="'commonFields.chooseManagementRegistry' | translate"
                     (change)="onChangeManagementRegister($event)" [searchable]="true">
                     <ng-template ng-label-tmp let-item="item" let-clear="clear">
@@ -41,10 +41,10 @@
             <div class="col-md-3">
                 <label>{{'commonFields.nameOfWater' | translate}} <app-explanation-mark
                         [explanation]="'fishCatch.explanationSecond'"></app-explanation-mark></label>
-                <ng-select [items]="allWaters" bindLabel="name" bindValue="id" [(ngModel)]="fishCatchFilter.water"
+                <ng-select [items]="allWaters" bindLabel="name" bindValue="id" [(ngModel)]="filter.water"
                     [placeholder]="'commonFields.chooseNameOfWater' | translate" (change)="onChangeWater($event)"
                     [searchable]="true">
-                    <ng-template ng-footer-tmp *ngIf="fishCatchFilter.managementRegisterId">
+                    <ng-template ng-footer-tmp *ngIf="filter.managementRegisterId">
                         <p class="m-0 font-weight-bold cursor-pointer" (click)="openModalNewEntrie()"><span
                                 class="fa fa-plus-circle"></span> {{
                             'commonFields.createNew' | translate
@@ -53,40 +53,40 @@
                 </ng-select>
 
             </div>
-            <div class="col-md-5">
-                <div class="d-flex justify-content-end action" *ngIf="fishCatchFilter.managementRegister">
-                    <button
-                        *ngIf="allData && allData.length && (!fishCatchReport || fishCatchReport.status === fishCatchReportEnum.draft)"
-                        class="btn btn-success mb-1" (click)="completeReportsDialog()"><span class="fa fa-check"></span>
-                        {{'action.completeReport' |
-                        translate}}</button>
-                    <button *ngIf="fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed"
-                        class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
-                            class="fa fa-question-circle-o"></span>
-                        {{'action.requestAdminToChangeStatus' |
-                        translate}}</button>
-                    <button *ngIf="!fishCatchReport || fishCatchReport.status !== fishCatchReportEnum.completed"
-                        class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishCatchEntryDialog()"><span
-                            class="fa fa-times"></span>
-                        {{'action.noHaveEntry' |
-                        translate}}</button>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end action">
+                    <div class="d-flex" *ngIf="filter.managementRegister">
+                        <button *ngIf="(!fishCatchReport || fishCatchReport.status === fishCatchReportEnum.draft)"
+                            class="btn btn-success mb-1" (click)="completeReportsDialog()"><span
+                                class="fa fa-check"></span>
+                            {{'action.completeReport' |
+                            translate}}</button>
+                        <button *ngIf="fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed"
+                            class="btn btn-primary mb-1 mr-1" (click)="requestForAdditionalChanges()"><span
+                                class="fa fa-question-circle-o"></span>
+                            {{'action.requestAdminToChangeStatus' |
+                            translate}}</button>
+                        <button *ngIf="!fishCatchReport || fishCatchReport.status !== fishCatchReportEnum.completed"
+                            class="btn btn-outline-danger mb-1 ml-1 mr-1" (click)="noHaveFishCatchEntryDialog()"><span
+                                class="fa fa-times"></span>
+                            {{'action.noHaveEntry' |
+                            translate}}</button>
+                    </div>
+                    <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                        [groupBy]="'id_water'"></app-generate-pdf-report>
                 </div>
-            </div>
-            <div class="col-md-1 p-0 d-flex-center">
-                <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                    [groupBy]="'id_water'"></app-generate-pdf-report>
             </div>
         </div>
     </div>
 
-    <app-no-data *ngIf="!fishCatchFilter.managementRegisterId" [text]="('general.selectFbzToGetData' | translate)"
+    <app-no-data *ngIf="!filter.managementRegisterId" [text]="('general.selectFbzToGetData' | translate)"
         [image]="'../../../assets/images/icons/filter.png'"></app-no-data>
 
 
 
-    <div *ngIf="!loading&&fishCatchFilter.managementRegisterId">
+    <div *ngIf="!loading&&filter.managementRegisterId">
         <app-dynamic-grid #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport" [data]="data"
-            [disableCRUD]="(fishCatchFilter && fishCatchFilter.water ? false : true) || (fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed)"
+            [disableCRUD]="(filter && filter.water ? false : true) || (fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed)"
             [template]="customForm" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
             (refreshParentComponent)="refreshGrid()"
             (emitValueForCustomForm)="emitValueForCustomForm($event)"></app-dynamic-grid>
@@ -114,8 +114,8 @@
 </ng-template>
 
 <ng-template #customForm>
-    <app-custom-form-fish-catch *ngIf="itemData" [data]="itemData" [config]="config"
-        [fishCatchFilter]="this.fishCatchFilter" (submit)=" handleSubmit($event)"></app-custom-form-fish-catch>
+    <app-custom-form-fish-catch *ngIf="itemData" [data]="itemData" [config]="config" [filter]="this.filter"
+        (submit)=" handleSubmit($event)"></app-custom-form-fish-catch>
 </ng-template>
 
 <app-dialog-confirm #dialogConfirm [title]="('actionMessage.dialogCompleteReportQuestionTitle' | translate)"

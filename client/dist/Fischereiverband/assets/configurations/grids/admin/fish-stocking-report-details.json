@@ -8,7 +8,13 @@
         }
     },
     "sorting": {
-        "enable": true
+        "enable": true,
+        "fields": [
+            {
+                "prop": "date",
+                "dir": "desc"
+            }
+        ]
     },
     "grouping": {
         "enable": true,
@@ -77,41 +83,6 @@
             "validation": {
                 "required": true
             }
-        },
-        {
-            "title": "commonFields.typeOfWater",
-            "template": {
-                "choices": [
-                    {
-                        "field": "type_of_water",
-                        "value": "river",
-                        "operator": "==",
-                        "apart": {
-                            "title": "typeOfWater.river",
-                            "badge": "badge badge-pill badge-light-success"
-                        }
-                    },
-                    {
-                        "field": "type_of_water",
-                        "value": "lake",
-                        "operator": "==",
-                        "apart": {
-                            "title": "typeOfWater.lake",
-                            "badge": "badge badge-pill badge-light-success"
-                        }
-                    },
-                    {
-                        "field": "type_of_water",
-                        "value": "smallLake",
-                        "operator": "==",
-                        "apart": {
-                            "title": "typeOfWater.smallLake",
-                            "badge": "badge badge-pill badge-light-success"
-                        }
-                    }
-                ]
-            },
-            "field": "type_of_water"
         },
         {
             "title": "commonFields.nameOfFish",

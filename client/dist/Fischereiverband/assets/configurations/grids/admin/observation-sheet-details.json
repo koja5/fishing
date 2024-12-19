@@ -8,7 +8,13 @@
         }
     },
     "sorting": {
-        "enable": true
+        "enable": true,
+        "fields": [
+            {
+                "prop": "date_time",
+                "dir": "desc"
+            }
+        ]
     },
     "grouping": {
         "enable": true,
@@ -51,6 +57,17 @@
                         }
                     }
                 }
+            }
+        },
+        {
+            "title": "commonFields.fbz",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "fbz",
+            "validation": {
+                "required": true
             }
         },
         {

@@ -30,23 +30,26 @@
 
             <button
                 *ngIf="observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed"
-                class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
+                class="btn btn-primary mb-1 mr-1" (click)="requestForAdditionalChanges()"><span
                     class="fa fa-question-circle-o"></span>
                 {{'action.requestAdminToChangeStatus' |
                 translate}}</button>
 
             <button
                 *ngIf="!observationSheetReport || observationSheetReport.status !== observationSheetReportEnum.completed"
-                class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishStockingEntryDialog()"><span
+                class="btn btn-outline-danger mb-1 ml-1 mr-1" (click)="noHaveFishStockingEntryDialog()"><span
                     class="fa fa-times"></span>
                 {{'action.noHaveEntry' |
                 translate}}</button>
-        </div>
-    </div>
 
-    <div class="col-md-1 p-0 d-flex-center">
-        <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'fbz'"></app-generate-pdf-report>
+            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                [groupBy]="'fbz'"></app-generate-pdf-report>
+        </div>
+
     </div>
+    <!-- 
+    <div class="col-md-1 p-0 d-flex-center">
+    </div> -->
 </div>
 
 <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [data]="data" [fileExportReport]="fileExportReport"

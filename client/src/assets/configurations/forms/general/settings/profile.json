@@ -14,6 +14,7 @@
             "name": "firstname",
             "title": "commonFields.firstname",
             "field": "firstname",
+            "readonly": true,
             "required": true
         },
         {
@@ -23,6 +24,26 @@
             "name": "lastname",
             "title": "commonFields.lastname",
             "field": "lastname",
+            "readonly": true,
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "username",
+            "title": "commonFields.username",
+            "field": "username",
+            "readonly": true,
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "email",
+            "title": "commonFields.email",
+            "field": "email",
             "required": true
         },
         {
@@ -49,25 +70,7 @@
             "name": "birthday",
             "title": "commonFields.birthday",
             "field": "birthday",
-            "required": true
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "email",
-            "title": "commonFields.email",
-            "field": "email",
             "readonly": true,
-            "required": true
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "username",
-            "title": "commonFields.username",
-            "field": "username",
             "required": true
         },
         {

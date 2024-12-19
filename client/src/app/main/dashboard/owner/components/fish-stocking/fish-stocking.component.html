@@ -37,32 +37,34 @@
                 </ng-select>
 
             </div>
-            <div class="col-md-8">
-                <div class="d-flex justify-content-end action" *ngIf="selectedManagementRegistryId">
-                    <button
-                        *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"
-                        class="btn btn-success mb-1" (click)="completeReports()"><span class="fa fa-check"></span>
-                        {{'action.completeReport' |
-                        translate}}</button>
+            <div class="col-md-9">
+                <div class="d-flex justify-content-end action">
+                    <div class="d-flex" *ngIf="selectedManagementRegistryId">
+                        <button
+                            *ngIf="data && data.length && (!fishStockingReport || fishStockingReport.status === fishStockingReportEnum.draft)"
+                            class="btn btn-success mb-1" (click)="completeReports()"><span class="fa fa-check"></span>
+                            {{'action.completeReport' |
+                            translate}}</button>
 
-                    <button *ngIf="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"
-                        class="btn btn-primary mb-1" (click)="requestForAdditionalChanges()"><span
-                            class="fa fa-question-circle-o"></span>
-                        {{'action.requestAdminToChangeStatus' |
-                        translate}}</button>
+                        <button
+                            *ngIf="fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed"
+                            class="btn btn-primary mb-1 mr-1" (click)="requestForAdditionalChanges()"><span
+                                class="fa fa-question-circle-o"></span>
+                            {{'action.requestAdminToChangeStatus' |
+                            translate}}</button>
 
-                    <button
-                        *ngIf="!fishStockingReport || fishStockingReport.status !== fishStockingReportEnum.completed"
-                        class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveFishStockingEntryDialog()"><span
-                            class="fa fa-times"></span>
-                        {{'action.noHaveEntry' |
-                        translate}}</button>
+                        <button
+                            *ngIf="!fishStockingReport || fishStockingReport.status !== fishStockingReportEnum.completed"
+                            class="btn btn-outline-danger mb-1 ml-1 mr-1" (click)="noHaveFishStockingEntryDialog()"><span
+                                class="fa fa-times"></span>
+                            {{'action.noHaveEntry' |
+                            translate}}</button>
+                    </div>
+
+                    <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                        [groupBy]="'fbz'"></app-generate-pdf-report>
                 </div>
-            </div>
 
-            <div class="col-md-1 p-0 d-flex-center">
-                <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                    [groupBy]="'fbz'"></app-generate-pdf-report>
             </div>
         </div>
     </div>

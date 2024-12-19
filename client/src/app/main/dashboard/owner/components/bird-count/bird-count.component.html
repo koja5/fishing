@@ -53,28 +53,28 @@
                 </ng-select>
             </div>
 
-            <div class="col-md-5">
-                <div class="d-flex justify-content-end action" *ngIf="filter && filter.managementRegister">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end action">
+                    <div class="d-flex" *ngIf="filter && filter.managementRegister">
+                        <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
+                            (click)="completeReportsDialog()"><span class="fa fa-check"></span>
+                            {{'action.completeReport' |
+                            translate}}</button>
+                        <button *ngIf="report && report.status === reportStatusEnum.completed"
+                            class="btn btn-primary mb-1 mr-1" (click)="requestForAdditionalChanges()"><span
+                                class="fa fa-question-circle-o"></span>
+                            {{'action.requestAdminToChangeStatus' |
+                            translate}}</button>
+                        <button *ngIf="!report || report.status !== reportStatusEnum.completed"
+                            class="btn btn-outline-danger mb-1 ml-1 mr-1" (click)="noHaveEntryDialog()"><span
+                                class="fa fa-times"></span>
+                            {{'action.noHaveEntry' |
+                            translate}}</button>
+                    </div>
+                    <app-generate-pdf-report [path]="path" [file]="fileExportReport"
+                        [groupBy]="'id_water'"></app-generate-pdf-report>
 
-                    <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
-                        (click)="completeReportsDialog()"><span class="fa fa-check"></span>
-                        {{'action.completeReport' |
-                        translate}}</button>
-                    <button *ngIf="report && report.status === reportStatusEnum.completed" class="btn btn-primary mb-1"
-                        (click)="requestForAdditionalChanges()"><span class="fa fa-question-circle-o"></span>
-                        {{'action.requestAdminToChangeStatus' |
-                        translate}}</button>
-                    <button *ngIf="!report || report.status !== reportStatusEnum.completed"
-                        class="btn btn-outline-danger mb-1 ml-1" (click)="noHaveEntryDialog()"><span
-                            class="fa fa-times"></span>
-                        {{'action.noHaveEntry' |
-                        translate}}</button>
                 </div>
-            </div>
-
-            <div class="col-md-1 p-0 d-flex-center">
-                <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                    [groupBy]="'id_water'"></app-generate-pdf-report>
             </div>
         </div>
     </div>
