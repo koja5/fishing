@@ -1,5 +1,12 @@
 {
     "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/owner/getAllObservationSheet",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
     "paging": {
         "enable": true,
         "settings": {

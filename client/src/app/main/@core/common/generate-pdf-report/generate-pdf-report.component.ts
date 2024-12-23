@@ -115,7 +115,7 @@ export class GeneratePdfReportComponent {
           break;
         }
       }
-    } else {
+    } else if (copyData.length === 1) {
       group.push(copyData[i]);
       packData.push(group);
     }
