@@ -7,4 +7,5 @@ export class BirdDamageReportModel {
   year: number;
   status: ReportStatusEnum;
   date_completed: Date;
+  empty?: number = 0;
 }

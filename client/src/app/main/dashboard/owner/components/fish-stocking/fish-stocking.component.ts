@@ -203,6 +203,7 @@ export class FishStockingComponent implements OnInit {
       year: this.selectedManagementRegistry.year,
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
+      empty: 1,
     };
     this._service
       .callPostMethod(

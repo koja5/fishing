@@ -137,6 +137,32 @@
             }
         },
         {
+            "title": "commonFields.content",
+            "field": "empty",
+            "template": {
+                "choices": [
+                    {
+                        "field": "empty",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.haveEntry",
+                            "badge": "badge badge-pill badge-light-primary"
+                        }
+                    },
+                    {
+                        "field": "empty",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.noEntry",
+                            "badge": "badge badge-pill badge-light-warning"
+                        }
+                    }
+                ]
+            }
+        },
+        {
             "title": "commonFields.date",
             "filterable": true,
             "hideable": true,

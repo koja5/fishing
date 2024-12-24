@@ -10,7 +10,7 @@ export class AllObservationSheetsComponent {
   @ViewChild("grid") grid: DynamicGridComponent;
 
   public path = "grids/admin";
-  public file = "all-observation-sheets.json";
+  public file = "all-observation-sheets-report.json";
 
   unsavedChanges(): boolean {
     return this.grid.unsavedChanges();

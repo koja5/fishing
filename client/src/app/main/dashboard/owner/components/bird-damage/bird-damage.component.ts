@@ -176,6 +176,7 @@ export class BirdDamageComponent {
       year: this.filter.managementRegister.year,
       status: this.reportStatusEnum.completed,
       date_completed: new Date(),
+      empty: 1,
     };
     this._service
       .callPostMethod("/api/owner/noHaveBirdDamageEntry", this.report)

@@ -99,6 +99,67 @@
             "validation": {
                 "required": true
             }
+        },
+        {
+            "title": "commonFields.status",
+            "field": "status",
+            "template": {
+                "choices": [
+                    {
+                        "field": "status",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.empty",
+                            "badge": "badge badge-pill badge-light-default"
+                        }
+                    },
+                    {
+                        "field": "status",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.default",
+                            "badge": "badge badge-pill badge-light-warning"
+                        }
+                    },
+                    {
+                        "field": "status",
+                        "value": 2,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.completed",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "title": "commonFields.content",
+            "field": "empty",
+            "template": {
+                "choices": [
+                    {
+                        "field": "empty",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.haveEntry",
+                            "badge": "badge badge-pill badge-light-primary"
+                        }
+                    },
+                    {
+                        "field": "empty",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.noEntry",
+                            "badge": "badge badge-pill badge-light-warning"
+                        }
+                    }
+                ]
+            }
         }
     ],
     "config": []

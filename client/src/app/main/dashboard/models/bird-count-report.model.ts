@@ -7,4 +7,5 @@ export class BirdCountReportModel {
   year: number;
   status: ReportStatusEnum;
   date_completed: Date;
+  empty?: number = 0;
 }

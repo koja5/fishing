@@ -943,7 +943,7 @@ router.get(
           res.json(err);
         } else {
           conn.query(
-            "select distinct osr.year, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name', u.id_owner from observation_sheet_reports osr join users u on osr.id_owner = u.id_owner order by osr.date_completed desc",
+            "select distinct osr.year, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name', u.id_owner, osr.status, osr.empty from observation_sheet_reports osr join users u on osr.id_owner = u.id_owner order by osr.date_completed desc",
             function (err, rows, fields) {
               conn.release();
               if (err) {

@@ -128,7 +128,8 @@
       "edibleFishQuantity": "als Speisefisch",
       "stockedFishQuantity": "als Besatzfisch",
       "unit": "Einheit",
-      "generateNewPassword": "Neues Passwort generieren"
+      "generateNewPassword": "Neues Passwort generieren",
+      "content": "Inhalt"
    },
    "userTypes": {
       "superadmin": "Superadmin",
@@ -139,7 +140,9 @@
    "status": {
       "empty": "Leer",
       "default": "Beginnend mit der Anfrage",
-      "completed": "Fertige Meldung"
+      "completed": "Fertige Meldung",
+      "haveEntry": "ES HAT INHALT",
+      "noEntry": "KEIN INHALT"
    },
    "login": {
       "title": "Willkommen beim Fischereiverband! 👋",

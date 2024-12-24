@@ -6,4 +6,5 @@ export class ObservationSheetReportModel {
   year: number;
   status: ObservationSheetReportEnum;
   date_completed: Date;
+  empty?: number = 0;
 }

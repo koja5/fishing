@@ -120,6 +120,7 @@ export class ObservationSheetComponent {
       year: new Date().getFullYear(),
       status: ObservationSheetReportEnum.completed,
       date_completed: new Date(),
+      empty: 1,
     };
     this._service
       .callPostMethod(

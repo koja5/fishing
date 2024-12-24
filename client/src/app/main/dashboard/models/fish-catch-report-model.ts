@@ -7,4 +7,5 @@ export class FishCatchReportModel {
   year: number;
   status: FishCatchReportEnum;
   date_completed: Date;
+  empty?: number = 0;
 }

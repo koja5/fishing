@@ -275,6 +275,7 @@ export class BirdCountComponent {
       year: this.filter.managementRegister.year,
       status: this.reportStatusEnum.completed,
       date_completed: new Date(),
+      empty: 1,
     };
     this._service
       .callPostMethod("/api/owner/noHaveBirdCountEntry", this.report)
