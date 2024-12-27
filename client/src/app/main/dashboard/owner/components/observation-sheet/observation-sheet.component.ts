@@ -27,7 +27,7 @@ export class ObservationSheetComponent {
   public data: ObservationSheetModel[];
   public observationSheetReport: ObservationSheetReportModel;
   public observationSheetReportEnum = ObservationSheetReportEnum;
-  public loading = true;
+  public loading = false;
 
   constructor(
     private _service: CallApiService,
@@ -39,7 +39,7 @@ export class ObservationSheetComponent {
   }
 
   initialize() {
-    this.getAllObservationSheet();
+    // this.getAllObservationSheet();
     this.getObservationSheetReport();
   }
 
@@ -78,6 +78,7 @@ export class ObservationSheetComponent {
       year: new Date().getFullYear(),
       status: ObservationSheetReportEnum.completed,
       date_completed: new Date(),
+      empty: 0,
     };
     this._service
       .callPostMethod(
@@ -133,5 +134,10 @@ export class ObservationSheetComponent {
           this._toastr.showSuccess();
         }
       });
+  }
+
+  refreshParentComponent(data) {
+    this.data = data;
+    this.getObservationSheetReport();
   }
 }

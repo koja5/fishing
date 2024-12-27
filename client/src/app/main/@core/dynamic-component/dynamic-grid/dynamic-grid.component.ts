@@ -495,8 +495,15 @@ export class DynamicGridComponent implements CanComponentDeactivate {
         this.rows = data;
         this.tempData = this.rows;
         this.checkGridConfigStorage();
+        this.checkRefreshParentComponentChanges(data);
         this.loader = false;
       });
+  }
+
+  checkRefreshParentComponentChanges(data: any) {
+    if (this.config.refreshParentComponentWithNewChanges) {
+      this.refreshParentComponent.emit(data);
+    }
   }
 
   submitEmitter(event: any, noCloseEditForm?: boolean) {
@@ -562,6 +569,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
           this.loader = false;
           this.setResponseData(data);
           this.checkGridConfigStorage();
+          this.checkRefreshParentComponentChanges(this.rows);
         });
     } else {
       this.loader = false;

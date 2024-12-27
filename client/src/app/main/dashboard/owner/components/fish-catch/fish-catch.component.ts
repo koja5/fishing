@@ -248,6 +248,7 @@ export class FishCatchComponent {
       year: this.filter.managementRegister.year,
       status: FishCatchReportEnum.completed,
       date_completed: new Date(),
+      empty: 0,
     };
     this._service
       .callPostMethod(
