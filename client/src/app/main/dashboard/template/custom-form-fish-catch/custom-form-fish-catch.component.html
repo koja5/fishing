@@ -1,4 +1,4 @@
-<form>
+<form *ngIf="data">
     <div class="col-md-12 mb-1">
         <label>{{'commonFields.nameOfFish' | translate }}</label>
         <ng-select *ngIf="allFishes" [items]="allFishes" [bindLabel]="'name'" [bindValue]="'name'" name="fish"

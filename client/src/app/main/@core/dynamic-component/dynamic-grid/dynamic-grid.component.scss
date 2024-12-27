@@ -107,6 +107,41 @@
   align-items: center;
 }
 
+.dark-layout .ngx-datatable.material .datatable-header .datatable-header-cell {
+  background: none !important;
+  color: #fff;
+}
+
+.dark-layout
+  .ngx-datatable.fixed-row
+  .datatable-scroll
+  .datatable-body-row
+  .datatable-body-cell,
+.ngx-datatable.fixed-row
+  .datatable-scroll
+  .datatable-body-row
+  .datatable-body-group-cell {
+  color: #fff;
+}
+
+.dark-layout .ngx-datatable.material .datatable-footer {
+  background: #283046 !important;
+  color: #fff;
+}
+
+.dark-layout .ngx-datatable .datatable-footer .datatable-pager .pager li a,
+.dark-layout
+  .ngx-datatable.material
+  .datatable-footer
+  .datatable-pager
+  .datatable-icon-left {
+  color: #fff;
+}
+
+.dark-layout .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover, .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+  background: none !important;
+}
+
 // .ngx-datatable.fixed-row
 //   .datatable-scroll
 //   .datatable-body-row

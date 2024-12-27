@@ -22,7 +22,7 @@ import { HelpService } from "app/services/help.service";
 export class CustomFormFishCatchComponent {
   @Input() config: any;
   @Input() data: FishCatchModel;
-  @Input() fishCatchFilter: any;
+  @Input() filter: any;
   @Output() submit = new EventEmitter();
   @ViewChild("modalNewEntrie") modal: TemplateRef<any>;
 
@@ -41,9 +41,9 @@ export class CustomFormFishCatchComponent {
     this._service
       .callGetMethod(
         "/api/owner/getAllFishes?fbz=" +
-          this.fishCatchFilter.managementRegister.fbz +
+          this.filter.managementRegister.fbz +
           "&year=" +
-          this.fishCatchFilter.managementRegister.year
+          this.filter.managementRegister.year
       )
       .subscribe((data) => {
         this.allFishes = data;
@@ -102,8 +102,8 @@ export class CustomFormFishCatchComponent {
     ) {
       let body = {
         name: event.name,
-        fbz: this.fishCatchFilter.managementRegister.fbz,
-        year: this.fishCatchFilter.managementRegister.year,
+        fbz: this.filter.managementRegister.fbz,
+        year: this.filter.managementRegister.year,
       };
 
       this._service
@@ -112,9 +112,9 @@ export class CustomFormFishCatchComponent {
           this._service
             .callGetMethod(
               "/api/owner/getAllFishes?fbz=" +
-                this.fishCatchFilter.managementRegister.fbz +
+                this.filter.managementRegister.fbz +
                 "&year=" +
-                this.fishCatchFilter.managementRegister.year
+                this.filter.managementRegister.year
             )
             .subscribe(
               (data) => {

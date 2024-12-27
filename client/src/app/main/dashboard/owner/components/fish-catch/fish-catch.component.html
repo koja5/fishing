@@ -114,7 +114,7 @@
 </ng-template>
 
 <ng-template #customForm>
-    <app-custom-form-fish-catch *ngIf="itemData" [data]="itemData" [config]="config" [filter]="this.filter"
+    <app-custom-form-fish-catch [data]="itemData" [config]="config" [filter]="this.filter"
         (submit)=" handleSubmit($event)"></app-custom-form-fish-catch>
 </ng-template>
 
