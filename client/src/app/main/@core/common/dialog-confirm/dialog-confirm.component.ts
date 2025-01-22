@@ -20,6 +20,8 @@ export class DialogConfirmComponent {
   @Input() cancelButton = true;
   @Input() confirmButtonText: string;
   @Input() cancelButtonText: string;
+  @Input() hideCloseButton = false;
+  @Input() disableOutsideClose = false;
   @Output() confirm = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
@@ -39,6 +41,8 @@ export class DialogConfirmComponent {
       this.modalDialog = this._modalService.open(this.modal, {
         centered: true,
         windowClass: "modal modal-danger",
+        backdrop: this.disableOutsideClose ? "static" : true,
+        keyboard: this.disableOutsideClose ? false : true,
       });
     }, 20);
   }

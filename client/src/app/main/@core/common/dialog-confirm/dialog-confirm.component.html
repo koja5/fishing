@@ -1,7 +1,9 @@
 <ng-template #modal let-modal>
     <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' | translate}}</h5>
-        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+        <h5 class="modal-title text-success" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' |
+            translate}}</h5>
+        <button *ngIf="!hideCloseButton" type="button" class="close" (click)="modal.dismiss('Cross click')"
+            aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
@@ -9,7 +11,7 @@
         {{content ? content : 'generalDialog.deleteQuestion' | translate}}
     </div>
     <div class="modal-footer">
-        <button *ngIf="confirmButton" type="button" class="btn btn-danger" (click)="confirmAction()" rippleEffect>
+        <button *ngIf="confirmButton" type="button" class="btn btn-success" (click)="confirmAction()" rippleEffect>
             {{confirmButtonText ? confirmButtonText : 'generalDialog.yes' | translate}}
         </button>
         <button *ngIf="cancelButton" type="button" class="btn btn-default" (click)="cancelAction()" rippleEffect>

@@ -139,6 +139,32 @@
             }
         },
         {
+            "title": "commonFields.shareData",
+            "field": "share_data",
+            "template": {
+                "choices": [
+                    {
+                        "field": "share_data",
+                        "value": 0,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.notAllowed",
+                            "badge": "badge badge-pill badge-light-danger"
+                        }
+                    },
+                    {
+                        "field": "share_data",
+                        "value": 1,
+                        "operator": "==",
+                        "apart": {
+                            "title": "status.allowed",
+                            "badge": "badge badge-pill badge-light-success"
+                        }
+                    }
+                ]
+            }
+        },
+        {
             "title": "commonFields.content",
             "field": "empty",
             "template": {

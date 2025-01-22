@@ -1,4 +1,5 @@
 import { FishStockingReportEnum } from "../enums/fish-stocking-enum";
+import { ShareDataEnum } from "../enums/share-data-enum";
 
 export class FishStockingReportModel {
   id?: number;
@@ -8,4 +9,5 @@ export class FishStockingReportModel {
   status: FishStockingReportEnum;
   date_completed: Date;
   empty?: number = 0;
+  share_data: ShareDataEnum
 }

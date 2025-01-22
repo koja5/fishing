@@ -145,6 +145,17 @@ export class CustomFormBirdDamageComponent {
     return "";
   }
 
+  calculatePriceForGoosander() {
+    if (this.data.goosander_number) {
+      this.data.goosander_sum_price =
+        this.data.goosander_number *
+        this._translate.instant("birdDamagePrice.goosanderForKg") *
+        this._translate.instant("birdDamagePrice.pricePerKgGoosander");
+      return this.data.goosander_sum_price;
+    }
+    return "";
+  }
+
   calculatePriceForHeronDemage() {
     if (this.data.heron_number) {
       this.data.heron_sum_price =

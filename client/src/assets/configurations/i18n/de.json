@@ -38,7 +38,7 @@
       "reminderOwnerToCompleteReport": "Bewirtschafter  Erinnerung",
       "requestAdminToChangeStatus": "Bereits gesendete Meldung wieder Aktivieren",
       "exportToPdf": "Export"
-   },
+  },
    "actionMessage": {
       "successExecuteActionTitleDefault": "Erfolgreich geändert!",
       "successExecuteActionTextDefault": "Aktion erfolgreich ausgeführt!",
@@ -49,6 +49,10 @@
       "dialogCompleteReportQuestionText": "Möchten Sie den Meldung abschließen und senden? Beachten Sie bitte, dass  die Meldung danach nicht mehr geändert werden kann.",
       "dialogCompleteReportQuestionYes": "Ja, Meldung abschließen und senden!",
       "dialogCompleteReportQuestionNo": "NEIN",
+      "dialogCompleteReportQuestionForShareDataTitle": "Sind Sie sicher?",
+      "dialogCompleteReportQuestionForShareDataText": "Erlauben Sie eine Weitergabe dieser Besatzdaten zur statistischen Auswertung zur EU-WRRL?",
+      "dialogCompleteReportQuestionForShareDataYes": "Ja",
+      "dialogCompleteReportQuestionForShareDataNo": "NEIN",
       "reportCompletedNotYet": "Die Meldung wurde noch nicht fertiggestellt und gesendet.",
       "reportCompleted": "Diese Meldung wurde abgeschlossen am/um",
       "dialogBackReportToOwnerTitle": "Sind sie sicher?",
@@ -66,8 +70,10 @@
       "dialogGenerateNewPasswordTitle": "Sind Sie sicher?",
       "dialogGenerateNewPasswordText": "Möchten Sie für diesen Benutzer ein neues Passwort generieren? Das neue Passwort wird per E-Mail an den Benutzer gesendet.",
       "dialogGenerateNewPasswordYes": "Ja, neues Passwort generieren",
-      "dialogGenerateNewPasswordNo": "NEIN"
-   },
+      "dialogGenerateNewPasswordNo": "NEIN",
+      "needToSaveAfterEachLine": "Bitte SPEICHERN Sie nach jeder Zeile!!",
+      "noSavedValueOnPreviousPage": "Sie haben den Wert auf der vorherigen Seite nicht gespeichert!"
+  },
    "commonFields": {
       "name": "Name",
       "firstname": "Vorname",
@@ -122,6 +128,7 @@
       "countStatus": "Zählstatus",
       "otterStatus": "Otter-Status",
       "status": "Status",
+      "shareData": "Daten teilen",
       "preview": "Vorschau",
       "chooseNameOfWater": "Wählen Sie den Namen des Gewässers",
       "chooseManagementRegistry": "Wählen Sie die Verwaltungsregistrierung",
@@ -130,7 +137,7 @@
       "unit": "Einheit",
       "generateNewPassword": "Neues Passwort generieren",
       "content": "Inhalt"
-   },
+  },
    "userTypes": {
       "superadmin": "Superadmin",
       "admin": "Admin",
@@ -142,9 +149,11 @@
       "default": "Beginnend mit der Anfrage",
       "completed": "Fertige Meldung",
       "haveEntry": "ES HAT INHALT",
-      "noEntry": "KEIN INHALT"
+      "noEntry": "KEIN INHALT",
+      "allowed": "Erlaubt",
+      "notAllowed": "Nicht erlaubt"
    },
-   "login": {
+  "login": {
       "title": "Willkommen beim Fischereiverband! 👋",
       "subtitle": "Melden Sie sich bei Ihrem Konto an.",
       "email": "Email / Nutzername",
@@ -165,7 +174,7 @@
       "signInWithMicrosoft": "Über Microsoft anmelden",
       "helpPageLink": "https://www.google.com/",
       "areYouNeedAHelp": "Für Hilfe und kurze Einleitung zur Nutzung hier klicken"
-   },
+  },
    "navigations": {
       "allUsers": "Nutzer",
       "allFishes": "Fischarten",
@@ -316,7 +325,7 @@
       "reportCompleted": "Diese AUSFANGmeldung wurde abgeschlossen am/um",
       "reportCompletedNotYet": "Die AUSFANGmeldung wurde noch nicht fertiggestellt und gesendet.",
       "backReportToOwner": "Ausfangemeldung wieder zum Ändern freigeben."
-   },
+  },
    "birdCount": {
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "explanationSecond": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
@@ -326,32 +335,44 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-   },
+  },
    "birdDamagePrice": {
       "heronForKg": 0.3,
       "pricePerKg": 14.00,
       "pricePerItem": 0.80,
-      "komorantageForKg": 0.5
+      "komorantageForKg": 0.5,
+      "pricePerKgGoosander": 14.00,
+      "goosanderForKg": 0.5
    },
-   "birdDamage": {
+  "birdDamage": {
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "addNewRow": "Neue Zeile hinzufügen",
       "sectionOneTitle": "Schaden durch fischfressende Vögel",
       "sectionOneHeron": "Reihertage",
       "sectionOneNumber": "Anzahl",
+      "sectionOneNumberForHeron": "Anzahl",
+      "sectionOneNumberForKomorantage": "Anzahl",
       "sectionOneDailyFood": "tägl. Nahrung je Vogel",
       "sectionOneQuantityRemoved": "entnommene Menge in kg",
       "sectionOneDamageInEuroPerKg": "Schaden in € je kg € 14,00",
+      "sectionOneDamageInEuroPerKgForHeron": "Schaden in € je kg € 14,00",
+      "sectionOneDamageInEuroPerKgForKomorantage": "Schaden in € je kg € 14,00",
+      "sectionOneDamageInEuroPerKgForGoosander": "Schaden in € je kg € 14,00",
       "sectionOneKomorantage": "Komorantage",
+      "sectionOneGoosander": "Gänsesäger",
       "sectionTwoTitle": "Schaden im Aufzuchtgewässer durch Minderausfang",
       "sectionTwoNumberOfSeedlings": "Anzahl der Setzlinge à € 0,80 = Schaden in €",
       "sectionTwoNumber": "Anzahl",
+      "sectionThreeNumber": "Anzahl",
       "sectionTwoAt80Cent": "à € 0,80",
       "sectionTwoDamageInEuro": "Schaden in €",
       "sectionTwoAmountInInjured": "Menge der aufgefundenen verletzten od. toten Fische in kg",
       "sectionTwoKg": "kg",
       "sectionTwoEuro": "€ =",
+      "sectionThreeEuro": "€ =",
       "sectionTwoX": "x",
+      "sectionThreeX": "x",
+      "sectionThreeKg": "kg",
       "sectionTwo14EuroPerKg": "€ 14,00 pro kg",
       "sectionThreeTitle": "Horst- und Schlafplatzmeldung",
       "sectionThreeColumnOne": "Gewässer (genaue Ortsbeschreibung)",
@@ -367,7 +388,7 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-   },
+  },
    "explanation": {
       "date": "Geben Sie bitte das Datum des Besatzes ein - z.B. 23.04.2024",
       "nameOfWater": "Wählen Sie bitte ein Gewässer aus in das die Fische besetzt wurden. Wird ein gewünschtes Gewässer nicht angeführt oder gefunden, können Sie auch beim Aufklappmenü auf 'Eintrag hinzufügen' klicken und ein neues Gewässer mit Ihrer Bezeichnung anlegen.",

@@ -7,8 +7,6 @@
             "pageSize": 20
         }
     },
-
-    
     "sorting": {
         "enable": true
     },
@@ -140,6 +138,30 @@
             "type": "string",
             "class": "text-align-right",
             "field": "komorantage_sum_price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "goosander_number",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "birdDamage.sectionOneDamageInEuroPerKg",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "goosander_sum_price",
             "validation": {
                 "required": true
             }

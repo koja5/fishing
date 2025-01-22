@@ -8,6 +8,7 @@ import { FishStockingReportModel } from "../../../models/fish-stocking-report-mo
 import { FishStockingReportEnum } from "../../../enums/fish-stocking-enum";
 import { StorageService } from "app/services/storage.service";
 import { DialogConfirmComponent } from "app/main/@core/common/dialog-confirm/dialog-confirm.component";
+import { ShareDataEnum } from "app/main/dashboard/enums/share-data-enum";
 
 @Component({
   selector: "app-fish-stocking",
@@ -18,6 +19,8 @@ export class FishStockingComponent implements OnInit {
   @ViewChild("grid") grid: DynamicGridComponent;
   @ViewChild("dialogConfirm")
   dialogConfirm: DialogConfirmComponent;
+  @ViewChild("dialogConfirmForShareData")
+  dialogConfirmForShareData: DialogConfirmComponent;
   @ViewChild("dialogRequestForAdditionalChanges")
   dialogRequestForAdditionalChanges: DialogConfirmComponent;
   @ViewChild("dialogNoHaveEntry")
@@ -158,14 +161,35 @@ export class FishStockingComponent implements OnInit {
     this.dialogRequestForAdditionalChanges.showQuestionModal();
   }
 
-  confirmCompleteReport() {
+  showQuestionForConfirmReport() {
+    this.dialogConfirmForShareData.showQuestionModal();
+  }
+
+  confirmCompleteReportAndShareData() {
     this.fishStockingReport = {
       fbz: this.selectedManagementRegistry.fbz,
       year: this.selectedManagementRegistry.year,
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
       empty: 0,
+      share_data: ShareDataEnum.yes,
     };
+    this.executeCompleteReportAction();
+  }
+
+  confirmCompleteReportAndNoShareData() {
+    this.fishStockingReport = {
+      fbz: this.selectedManagementRegistry.fbz,
+      year: this.selectedManagementRegistry.year,
+      status: FishStockingReportEnum.completed,
+      date_completed: new Date(),
+      empty: 0,
+      share_data: ShareDataEnum.no,
+    };
+    this.executeCompleteReportAction();
+  }
+
+  executeCompleteReportAction() {
     this._service
       .callPostMethod(
         "/api/owner/completeFishStockingReport",
@@ -205,6 +229,7 @@ export class FishStockingComponent implements OnInit {
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
       empty: 1,
+      share_data: ShareDataEnum.no,
     };
     this._service
       .callPostMethod(

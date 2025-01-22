@@ -9,7 +9,7 @@
 
                     <div class="row align-items-baseline">
                         <div class="col-md-5">
-                            <label>{{'birdDamage.sectionOneNumber' | translate }}
+                            <label>{{'birdDamage.sectionOneNumberForHeron' | translate }}
                                 <app-explanation-mark [explanation]="('explanation.sectionOneNumber' | translate)">
                                 </app-explanation-mark>
                             </label>
@@ -27,7 +27,7 @@
                             <label>
                                 {{'birdDamage.sectionOneDamageInEuroPerKg' | translate }}
                                 <app-explanation-mark
-                                    [explanation]="('explanation.sectionOneDamageInEuroPerKg' | translate)">
+                                    [explanation]="('explanation.sectionOneDamageInEuroPerKgForHeron' | translate)">
                                 </app-explanation-mark>
                             </label>
                             <input class="form-control" name="heron_sum_price" [value]="calculatePriceForHeronDemage()"
@@ -42,7 +42,7 @@
                     <div class="row align-items-baseline">
                         <div class="col-md-5">
                             <label>
-                                {{'birdDamage.sectionOneNumber' | translate }}
+                                {{'birdDamage.sectionOneNumberForKomorantage' | translate }}
                                 <app-explanation-mark [explanation]="('explanation.sectionOneNumber' | translate)">
                                 </app-explanation-mark>
                             </label>
@@ -60,11 +60,44 @@
                             <label>
                                 {{'birdDamage.sectionOneDamageInEuroPerKg' | translate }}
                                 <app-explanation-mark
-                                    [explanation]="('explanation.sectionOneDamageInEuroPerKg' | translate)">
+                                    [explanation]="('explanation.sectionOneDamageInEuroPerKgForKomorantage' | translate)">
                                 </app-explanation-mark>
                             </label>
                             <input class="form-control" name="komorantage_sum_price"
                                 [value]="calculatePriceForKomorantage()" [readOnly]="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-2">
+                    <h5 class="mb-1 border-bottom">{{'birdDamage.sectionOneGoosander' | translate}}</h5>
+
+                    <div class="row align-items-baseline">
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionThreeNumber' | translate }}
+                                <app-explanation-mark [explanation]="('explanation.sectionThreeNumber' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="goosander_number" [(ngModel)]="data.goosander_number">
+                        </div>
+                        <div class="col-md-2">
+                            <label></label>
+                            <p class="price-variable">{{'birdDamage.sectionThreeX' | translate}}
+                                {{'birdDamagePrice.goosanderForKg' | translate}}
+                                {{'birdDamage.sectionThreeKg' | translate}} {{'birdDamage.sectionThreeX' | translate}}
+                                {{'birdDamagePrice.pricePerKgGoosander' | translate}}
+                                {{'birdDamage.sectionThreeEuro' | translate}} </p>
+                        </div>
+                        <div class="col-md-5">
+                            <label>
+                                {{'birdDamage.sectionOneDamageInEuroPerKgForGoosander' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionOneDamageInEuroPerKg' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class="form-control" name="goosander_sum_price"
+                                [value]="calculatePriceForGoosander()" [readOnly]="true">
                         </div>
                     </div>
                 </div>

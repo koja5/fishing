@@ -8,9 +8,11 @@ export class BirdDamageModel {
   heron_damage_in_euro_per_kg: number;
   heron_sum_price: number;
   komorantage_number: number;
+  goosander_number: number;
   komorantage_daily_food: number;
   komorantage_damage_in_euro_per_kg: number;
   komorantage_sum_price: number;
+  goosander_sum_price: number;
   number_of_seedlings: number;
   damage_of_seedlings: number;
   amount_of_injured_kg: number;

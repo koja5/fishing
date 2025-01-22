@@ -65,7 +65,7 @@
                     <h6>{{user.birthday | date: 'dd.MM.YYYY'}}</h6>
                 </div>
 
-                <div *ngIf="!loader && (rows || rows.length)">
+                <div *ngIf="(rows || rows.length)">
 
                     <table cellspacing=" 0" rules="all" *ngIf="!groupBy">
                         <tr>

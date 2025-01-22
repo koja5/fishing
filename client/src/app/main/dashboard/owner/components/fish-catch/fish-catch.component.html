@@ -122,7 +122,17 @@
     [content]="('actionMessage.dialogCompleteReportQuestionText' | translate)"
     [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionYes' | translate)"
     [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionNo' | translate)"
-    (confirm)="confirmCompleteReport()"></app-dialog-confirm>
+    (confirm)="showQuestionForConfirmReport()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogConfirmForShareData
+    [title]="('actionMessage.dialogCompleteReportQuestionForShareDataTitle' | translate)"
+    [content]="('actionMessage.dialogCompleteReportQuestionForShareDataText' | translate)"
+    [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionForShareDataYes' | translate)"
+    [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionForShareDataNo' | translate)"
+    [hideCloseButton]="true" [disableOutsideClose]="true" (confirm)="confirmCompleteReportAndShareData()"
+    (cancel)="confirmCompleteReportAndNoShareData()"></app-dialog-confirm>
+
+
 
 <app-dialog-confirm #dialogNoHaveEntry [title]="('actionMessage.dialogNoHaveReportsTitle' | translate)"
     [content]="('actionMessage.dialogNoHaveReportsText' | translate)"

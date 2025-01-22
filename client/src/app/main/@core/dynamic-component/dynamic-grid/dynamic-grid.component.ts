@@ -417,6 +417,11 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
+    if (this.editing) {
+      this._toastr.showErrorCustom(
+        this._translate.instant("actionMessage.noSavedValueOnPreviousPage")
+      );
+    }
   }
 
   initialize() {
@@ -826,6 +831,16 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     printWindow.document.write("</html>");
     printWindow.document.close();
     printWindow.print();
+  }
+
+  editRow(rowIndex: number) {
+    if (!this.editing) {
+      this.editing = rowIndex;
+    } else {
+      this._toastr.showErrorCustom(
+        this._translate.instant("actionMessage.needToSaveAfterEachLine")
+      );
+    }
   }
 
   updateRow(rowIndex: number) {

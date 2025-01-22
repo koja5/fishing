@@ -149,7 +149,7 @@
                                     <button *ngIf="editing != rowIndex"
                                         class="btn-sm btn-outline-primary {{disableCRUD || disabledCreateNew ? 'cursor-not-allowed' : ''}}"
                                         title="{{disableCRUD || disabledCreateNew ? ('actionMessage.actionNotAllowed' | translate) : ''}}"
-                                        (click)="editing = rowIndex" [disabled]="disableCRUD">
+                                        (click)="editRow(rowIndex)" [disabled]="disableCRUD">
                                         <span class="fa fa-pencil-square-o"></span>
                                         {{'general.edit' | translate}}</button>
                                     <button *ngIf="editing == rowIndex" class="btn-sm btn-outline-success"

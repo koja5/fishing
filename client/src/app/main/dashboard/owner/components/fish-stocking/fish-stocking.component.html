@@ -55,8 +55,8 @@
 
                         <button
                             *ngIf="!fishStockingReport || fishStockingReport.status !== fishStockingReportEnum.completed"
-                            class="btn btn-outline-danger mb-1 ml-1 mr-1" (click)="noHaveFishStockingEntryDialog()"><span
-                                class="fa fa-times"></span>
+                            class="btn btn-outline-danger mb-1 ml-1 mr-1"
+                            (click)="noHaveFishStockingEntryDialog()"><span class="fa fa-times"></span>
                             {{'action.noHaveEntry' |
                             translate}}</button>
                     </div>
@@ -90,7 +90,15 @@
     [content]="('actionMessage.dialogCompleteReportQuestionText' | translate)"
     [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionYes' | translate)"
     [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionNo' | translate)"
-    (confirm)="confirmCompleteReport()"></app-dialog-confirm>
+    (confirm)="showQuestionForConfirmReport()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogConfirmForShareData
+    [title]="('actionMessage.dialogCompleteReportQuestionForShareDataTitle' | translate)"
+    [content]="('actionMessage.dialogCompleteReportQuestionForShareDataText' | translate)"
+    [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionForShareDataYes' | translate)"
+    [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionForShareDataNo' | translate)"
+    [hideCloseButton]="true" [disableOutsideClose]="true" (confirm)="confirmCompleteReportAndShareData()"
+    (cancel)="confirmCompleteReportAndNoShareData()"></app-dialog-confirm>
 
 
 <app-dialog-confirm #dialogNoHaveEntry [title]="('actionMessage.dialogNoHaveReportsTitle' | translate)"

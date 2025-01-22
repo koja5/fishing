@@ -68,6 +68,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "birthday",
+            "format": "dd.MM.yyyy",
             "title": "commonFields.birthday",
             "field": "birthday",
             "readonly": true,

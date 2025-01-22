@@ -20,6 +20,7 @@ import { FishCatchReportEnum } from "app/main/dashboard/enums/fish-catch-enum";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { HelpService } from "app/services/help.service";
 import { WaterCustomModel } from "app/main/dashboard/models/water-custom-model";
+import { ShareDataEnum } from "app/main/dashboard/enums/share-data-enum";
 
 @Component({
   selector: "app-fish-catch",
@@ -31,6 +32,8 @@ export class FishCatchComponent {
   @ViewChild("grid") grid: DynamicGridComponent;
   @ViewChild("dialogConfirm")
   dialogConfirm: DialogConfirmComponent;
+  @ViewChild("dialogConfirmForShareData")
+  dialogConfirmForShareData: DialogConfirmComponent;
   @ViewChild("dialogRequestForAdditionalChanges")
   dialogRequestForAdditionalChanges: DialogConfirmComponent;
   @ViewChild("dialogNoHaveEntry")
@@ -241,15 +244,57 @@ export class FishCatchComponent {
     this.dialogRequestForAdditionalChanges.showQuestionModal();
   }
 
-  confirmCompleteReport() {
-    this.loading = true;
+  // confirmCompleteReport() {
+  //   this.loading = true;
+  //   this.fishCatchReport = {
+  //     fbz: this.filter.managementRegister.fbz,
+  //     year: this.filter.managementRegister.year,
+  //     status: FishCatchReportEnum.completed,
+  //     date_completed: new Date(),
+  //     empty: 0,
+  //   };
+  //   this._service
+  //     .callPostMethod(
+  //       "/api/owner/completeFishCatchReport",
+  //       this.fishCatchReport
+  //     )
+  //     .subscribe((data) => {
+  //       if (data) {
+  //         this._toastr.showSuccess();
+  //         this.refreshGrid();
+  //       }
+  //     });
+  // }
+
+  showQuestionForConfirmReport() {
+    this.dialogConfirmForShareData.showQuestionModal();
+  }
+
+  confirmCompleteReportAndShareData() {
     this.fishCatchReport = {
       fbz: this.filter.managementRegister.fbz,
       year: this.filter.managementRegister.year,
       status: FishCatchReportEnum.completed,
       date_completed: new Date(),
       empty: 0,
+      share_data: ShareDataEnum.yes,
     };
+    this.executeCompleteReportAction();
+  }
+
+  confirmCompleteReportAndNoShareData() {
+    this.fishCatchReport = {
+      fbz: this.filter.managementRegister.fbz,
+      year: this.filter.managementRegister.year,
+      status: FishCatchReportEnum.completed,
+      date_completed: new Date(),
+      empty: 0,
+      share_data: ShareDataEnum.no,
+    };
+    this.executeCompleteReportAction();
+  }
+
+  executeCompleteReportAction() {
     this._service
       .callPostMethod(
         "/api/owner/completeFishCatchReport",
@@ -288,6 +333,7 @@ export class FishCatchComponent {
       status: FishCatchReportEnum.completed,
       date_completed: new Date(),
       empty: 1,
+      share_data: ShareDataEnum.no,
     };
     this._service
       .callPostMethod("/api/owner/noHaveFishCatchEntry", this.fishCatchReport)
