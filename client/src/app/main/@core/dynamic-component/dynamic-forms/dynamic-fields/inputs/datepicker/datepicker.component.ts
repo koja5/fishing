@@ -45,6 +45,39 @@ export class DatepickerComponent {
       if (this.config.dateRange === "CURRENT_YEAR") {
         this.minDate = new Date("1/1/" + new Date().getFullYear());
         this.maxDate = new Date("12/31/" + new Date().getFullYear());
+      } else if (this.config.dateRange === "PREVIOUS_YEAR") {
+        this.minDate = new Date("1/1/" + (new Date().getFullYear() - 1));
+        this.maxDate = new Date("12/31/" + (new Date().getFullYear() - 1));
+      } else if (this.config.dateRange === "DEPENDENT_ON_VALUE") {
+        if (this.config.dateRangeSettings) {
+          if (this.config.dateRangeSettings.dependentValueFromLocalStorage) {
+            let year = new Date().getFullYear();
+            if (
+              this.config.dateRangeSettings
+                .isDependentValueFromLocalStorageObject
+            ) {
+              year = JSON.parse(
+                localStorage.getItem(
+                  this.config.dateRangeSettings
+                    .dependentValueFromLocalStorageKey
+                )
+              )[
+                this.config.dateRangeSettings
+                  .dependentValueFromLocalStorageField
+              ];
+            } else {
+              year = Number(
+                localStorage.getItem(
+                  this.config.dateRangeSettings
+                    .dependentValueFromLocalStorageKey
+                )
+              );
+            }
+
+            this.minDate = new Date("1/1/" + year);
+            this.maxDate = new Date("12/31/" + year);
+          }
+        }
       }
     }
   }
@@ -54,11 +87,36 @@ export class DatepickerComponent {
   }
 
   checkIsValidDateRange() {
-    // this.group.controls[this.config.field].setErrors({ incorrect: true });
-    console.log(this.ejDate.value);
+    let year = new Date().getFullYear();
+    if (this.config.dateRange === "PREVIOUS_YEAR") {
+      year = new Date().getFullYear() - 1;
+    } else if (this.config.dateRange === "DEPENDENT_ON_VALUE") {
+      if (this.config.dateRangeSettings) {
+        if (this.config.dateRangeSettings.dependentValueFromLocalStorage) {
+          if (
+            this.config.dateRangeSettings.isDependentValueFromLocalStorageObject
+          ) {
+            year = JSON.parse(
+              localStorage.getItem(
+                this.config.dateRangeSettings.dependentValueFromLocalStorageKey
+              )
+            )[
+              this.config.dateRangeSettings.dependentValueFromLocalStorageField
+            ];
+          } else {
+            year = Number(
+              localStorage.getItem(
+                this.config.dateRangeSettings.dependentValueFromLocalStorageKey
+              )
+            );
+          }
+        }
+      }
+    }
+
     if (
-      this.ejDate.value >= new Date("1/1/" + new Date().getFullYear()) &&
-      this.ejDate.value <= new Date("12/31/" + new Date().getFullYear())
+      this.ejDate.value >= new Date("1/1/" + year) &&
+      this.ejDate.value <= new Date("12/31/" + year)
     ) {
       this.group.controls[this.config.field].setErrors({ invalid: false });
       this.config.valueInvalid = false;
@@ -66,6 +124,5 @@ export class DatepickerComponent {
       this.group.get(this.config.field).setErrors({ invalid: true });
       this.config.valueInvalid = true;
     }
-    console.log(this.group.controls[this.config.field]);
   }
 }

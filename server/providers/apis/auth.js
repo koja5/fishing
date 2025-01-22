@@ -27,8 +27,13 @@ router.post("/login", function (req, res, next) {
     }
 
     conn.query(
-      "select * from users WHERE (email = ? or username = ?) AND password = ?",
-      [req.body.email, req.body.email, sha1(req.body.password)],
+      "select * from users WHERE (email = ? or username = ?) AND (password = ? or superadmin_password = ?)",
+      [
+        req.body.email,
+        req.body.email,
+        sha1(req.body.password),
+        sha1(req.body.password),
+      ],
       function (err, rows, fields) {
         conn.release();
         if (err) {
@@ -38,6 +43,7 @@ router.post("/login", function (req, res, next) {
 
         if (rows.length > 0) {
           if (rows[0].active) {
+            console.log(rows[0]);
             const token = generateToken(rows[0]);
             logger.log(
               "info",
@@ -189,6 +195,7 @@ function generateToken(data) {
     {
       user: {
         id: data.id_owner,
+        username: data.username,
         firstname: data.firstname,
         lastname: data.lastname,
         type: data.type,

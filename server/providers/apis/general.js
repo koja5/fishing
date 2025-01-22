@@ -83,16 +83,18 @@ router.post("/changePassword", auth, function (req, res, next) {
     }
 
     conn.query(
-      "select * from users where password = ? and email = ?",
-      [sha1(req.body.oldPassword), req.user.email],
+      "select * from users where password = ? and username = ?",
+      [sha1(req.body.oldPassword), req.user.user.username],
       function (err, rows, fields) {
+        console.log(rows);
+        console.log(req.user.user.username);
         if (err) {
           res.json(true);
         } else {
           if (rows.length) {
             conn.query(
-              "update users set password = ? where email = ?",
-              [sha1(req.body.newPassword), req.user.email],
+              "update users set password = ? where username = ?",
+              [sha1(req.body.newPassword), req.user.user.username],
               function (err, rows, fields) {
                 conn.release();
                 if (err) {

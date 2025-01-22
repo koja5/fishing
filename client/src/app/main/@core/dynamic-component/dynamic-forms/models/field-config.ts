@@ -54,5 +54,11 @@ export class FieldConfig {
   minDate: string;
   maxDate: string;
   dateRange: string;
+  dateRangeSettings: {
+    dependentValueFromLocalStorage: boolean;
+    isDependentValueFromLocalStorageObject: boolean;
+    dependentValueFromLocalStorageKey: string;
+    dependentValueFromLocalStorageField: string;
+  };
   valueInvalid: boolean;
 }

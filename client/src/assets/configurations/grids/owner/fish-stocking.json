@@ -110,7 +110,7 @@
             "field": "date",
             "minDate": "",
             "maxDate": "",
-            "dateRange": "CURRENT_YEAR",
+            "dateRange": "PREVIOUS_YEAR",
             "validation": {
                 "required": true
             }
@@ -208,7 +208,13 @@
             "explanation": "explanation.date",
             "field": "date",
             "format": "dd.MM.yyyy",
-            "dateRange": "CURRENT_YEAR",
+            "dateRange": "DEPENDENT_ON_VALUE",
+            "dateRangeSettings": {
+                "dependentValueFromLocalStorage": true,
+                "isDependentValueFromLocalStorageObject": true,
+                "dependentValueFromLocalStorageKey": "selectedManagementRegistry",
+                "dependentValueFromLocalStorageField": "year"
+            },
             "required": true
         },
         {
