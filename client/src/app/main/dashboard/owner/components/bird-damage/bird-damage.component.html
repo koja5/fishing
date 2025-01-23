@@ -40,8 +40,9 @@
             <div class="col-md-9">
                 <div class="d-flex justify-content-end action">
                     <div class="d-flex" *ngIf="filter && filter.managementRegister">
-                        <button *ngIf="!report || report.status === reportStatusEnum.draft" class="btn btn-success mb-1"
-                            (click)="completeReportsDialog()"><span class="fa fa-check"></span>
+                        <button *ngIf="data && data.length && (!report || report.status === reportStatusEnum.draft)"
+                            class="btn btn-success mb-1" (click)="completeReportsDialog()"><span
+                                class="fa fa-check"></span>
                             {{'action.completeReport' |
                             translate}}</button>
                         <button *ngIf="report && report.status === reportStatusEnum.completed"

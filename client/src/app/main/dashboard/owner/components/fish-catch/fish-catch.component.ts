@@ -38,6 +38,8 @@ export class FishCatchComponent {
   dialogRequestForAdditionalChanges: DialogConfirmComponent;
   @ViewChild("dialogNoHaveEntry")
   dialogNoHaveEntry: DialogConfirmComponent;
+  @ViewChild("dialogConfirmNoHaveEntryForShareData")
+  dialogConfirmNoHaveEntryForShareData: DialogConfirmComponent;
   @ViewChild("modalNewEntrie") modal: TemplateRef<any>;
   public modalDialog: any;
 
@@ -325,7 +327,24 @@ export class FishCatchComponent {
     this.dialogNoHaveEntry.showQuestionModal();
   }
 
-  confirmNoHaveFishCatchEntry() {
+  showQuestionForNoHaveEntry() {
+    this.dialogConfirmNoHaveEntryForShareData.showQuestionModal();
+  }
+
+  confirmNoHaveEntryAndShareData() {
+    this.loading = true;
+    this.fishCatchReport = {
+      fbz: this.filter.managementRegister.fbz,
+      year: this.filter.managementRegister.year,
+      status: FishCatchReportEnum.completed,
+      date_completed: new Date(),
+      empty: 1,
+      share_data: ShareDataEnum.yes,
+    };
+    this.executeNoEntryReportAction();
+  }
+
+  confirmNoHaveEntryAndNoShareData() {
     this.loading = true;
     this.fishCatchReport = {
       fbz: this.filter.managementRegister.fbz,
@@ -335,6 +354,10 @@ export class FishCatchComponent {
       empty: 1,
       share_data: ShareDataEnum.no,
     };
+    this.executeNoEntryReportAction();
+  }
+
+  executeNoEntryReportAction() {
     this._service
       .callPostMethod("/api/owner/noHaveFishCatchEntry", this.fishCatchReport)
       .subscribe((data) => {

@@ -104,7 +104,15 @@
 <app-dialog-confirm #dialogNoHaveEntry [title]="('actionMessage.dialogNoHaveReportsTitle' | translate)"
     [content]="('actionMessage.dialogNoHaveReportsText' | translate)"
     [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
-    (confirm)="confirmNoHaveFishStockingEntry()"></app-dialog-confirm>
+    (confirm)="showQuestionForNoHaveEntry()"></app-dialog-confirm>
+
+<app-dialog-confirm #dialogConfirmNoHaveEntryForShareData
+    [title]="('actionMessage.dialogCompleteReportQuestionForShareDataTitle' | translate)"
+    [content]="('actionMessage.dialogCompleteReportQuestionForShareDataText' | translate)"
+    [confirmButtonText]="('actionMessage.dialogCompleteReportQuestionForShareDataYes' | translate)"
+    [cancelButtonText]="('actionMessage.dialogCompleteReportQuestionForShareDataNo' | translate)"
+    [hideCloseButton]="true" [disableOutsideClose]="true" (confirm)="confirmNoHaveEntryAndShareData()"
+    (cancel)="confirmNoHaveEntryAndNoShareData()"></app-dialog-confirm>
 
 <app-dialog-confirm #dialogRequestForAdditionalChanges
     [title]="('actionMessage.dialogRequestForAdditionalChangesTitle' | translate)"

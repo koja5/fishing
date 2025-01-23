@@ -25,6 +25,8 @@ export class FishStockingComponent implements OnInit {
   dialogRequestForAdditionalChanges: DialogConfirmComponent;
   @ViewChild("dialogNoHaveEntry")
   dialogNoHaveEntry: DialogConfirmComponent;
+  @ViewChild("dialogConfirmNoHaveEntryForShareData")
+  dialogConfirmNoHaveEntryForShareData: DialogConfirmComponent;
 
   public path = "grids/owner";
   public file = "fish-stocking.json";
@@ -221,7 +223,24 @@ export class FishStockingComponent implements OnInit {
     this.dialogNoHaveEntry.showQuestionModal();
   }
 
-  confirmNoHaveFishStockingEntry() {
+  showQuestionForNoHaveEntry() {
+    this.dialogConfirmNoHaveEntryForShareData.showQuestionModal();
+  }
+
+  confirmNoHaveEntryAndShareData() {
+    this.loading = true;
+    this.fishStockingReport = {
+      fbz: this.selectedManagementRegistry.fbz,
+      year: this.selectedManagementRegistry.year,
+      status: FishStockingReportEnum.completed,
+      date_completed: new Date(),
+      empty: 1,
+      share_data: ShareDataEnum.yes,
+    };
+    this.executeNoEntryReportAction();
+  }
+
+  confirmNoHaveEntryAndNoShareData() {
     this.loading = true;
     this.fishStockingReport = {
       fbz: this.selectedManagementRegistry.fbz,
@@ -231,6 +250,10 @@ export class FishStockingComponent implements OnInit {
       empty: 1,
       share_data: ShareDataEnum.no,
     };
+    this.executeNoEntryReportAction();
+  }
+
+  executeNoEntryReportAction() {
     this._service
       .callPostMethod(
         "/api/owner/noHaveFishStockingEntry",
