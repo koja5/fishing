@@ -27,7 +27,6 @@ export class CustomFormBirdDamageComponent {
 
   public managementRegistersData: any;
   public sectionFourTitle: string;
-  public year = new Date().getFullYear() + 1;
   objectKeys = Object.keys;
 
   constructor(
@@ -39,7 +38,7 @@ export class CustomFormBirdDamageComponent {
   ngOnInit() {
     this.sectionFourTitle = this._translate
       .instant("birdDamage.sectionFourTitle")
-      .replace("#year", this.year);
+      .replace("#year", this._translate.instant("birdDamage.nextYear"));
 
     this._service
       .callGetMethod("/api/owner/getManagementRegistersData")

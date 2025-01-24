@@ -18,7 +18,7 @@ import { CoreSidebarService } from "@core/components/core-sidebar/core-sidebar.s
 
 import { ConfigurationService } from "app/services/configuration.service";
 import { CallApiService } from "app/services/call-api.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, NavigationStart, Router } from "@angular/router";
 import { HelpService } from "app/services/help.service";
 import { DynamicFormsComponent } from "../dynamic-forms/dynamic-forms.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -191,6 +191,17 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   ) {
     this._unsubscribeAll = new Subject();
     this._modalService.dismissAll();
+
+    _router.events.forEach((event) => {
+      if (event instanceof NavigationStart) {
+        if (this.editing != null) {
+          this.editing = null;
+          this._toastr.showErrorCustom(
+            this._translate.instant("actionMessage.noSavedValueOnPreviousPage")
+          );
+        }
+      }
+    });
   }
 
   // Public Methods
@@ -417,11 +428,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     // Unsubscribe from all subscriptions
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
-    if (this.editing) {
-      this._toastr.showErrorCustom(
-        this._translate.instant("actionMessage.noSavedValueOnPreviousPage")
-      );
-    }
+    this.editing = null;
   }
 
   initialize() {
@@ -834,7 +841,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   }
 
   editRow(rowIndex: number) {
-    if (!this.editing) {
+    if (this.editing === null) {
       this.editing = rowIndex;
     } else {
       this._toastr.showErrorCustom(
@@ -845,6 +852,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
 
   updateRow(rowIndex: number) {
     this.submitEmitter(this.rows[rowIndex]);
+    this.editing = null;
     // this.callServerMethod(
     //   this.config.editSettingsRequest.add,
     //   this.rows[rowIndex]

@@ -38,7 +38,7 @@
       "reminderOwnerToCompleteReport": "Bewirtschafter  Erinnerung",
       "requestAdminToChangeStatus": "Bereits gesendete Meldung wieder Aktivieren",
       "exportToPdf": "Export"
-  },
+   },
    "actionMessage": {
       "successExecuteActionTitleDefault": "Erfolgreich geändert!",
       "successExecuteActionTextDefault": "Aktion erfolgreich ausgeführt!",
@@ -73,7 +73,7 @@
       "dialogGenerateNewPasswordNo": "NEIN",
       "needToSaveAfterEachLine": "Bitte SPEICHERN Sie nach jeder Zeile!!",
       "noSavedValueOnPreviousPage": "Sie haben den Wert auf der vorherigen Seite nicht gespeichert!"
-  },
+   },
    "commonFields": {
       "name": "Name",
       "firstname": "Vorname",
@@ -137,7 +137,7 @@
       "unit": "Einheit",
       "generateNewPassword": "Neues Passwort generieren",
       "content": "Inhalt"
-  },
+   },
    "userTypes": {
       "superadmin": "Superadmin",
       "admin": "Admin",
@@ -153,7 +153,7 @@
       "allowed": "Erlaubt",
       "notAllowed": "Nicht erlaubt"
    },
-  "login": {
+   "login": {
       "title": "Willkommen beim Fischereiverband! 👋",
       "subtitle": "Melden Sie sich bei Ihrem Konto an.",
       "email": "Email / Nutzername",
@@ -174,7 +174,7 @@
       "signInWithMicrosoft": "Über Microsoft anmelden",
       "helpPageLink": "https://www.google.com/",
       "areYouNeedAHelp": "Für Hilfe und kurze Einleitung zur Nutzung hier klicken"
-  },
+   },
    "navigations": {
       "allUsers": "Nutzer",
       "allFishes": "Fischarten",
@@ -325,7 +325,7 @@
       "reportCompleted": "Diese AUSFANGmeldung wurde abgeschlossen am/um",
       "reportCompletedNotYet": "Die AUSFANGmeldung wurde noch nicht fertiggestellt und gesendet.",
       "backReportToOwner": "Ausfangemeldung wieder zum Ändern freigeben."
-  },
+   },
    "birdCount": {
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "explanationSecond": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
@@ -335,16 +335,17 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-  },
+   },
    "birdDamagePrice": {
       "heronForKg": 0.3,
       "pricePerKg": 14.00,
       "pricePerItem": 0.80,
       "komorantageForKg": 0.5,
       "pricePerKgGoosander": 14.00,
-      "goosanderForKg": 0.5
+      "goosanderForKg": 0.3
    },
-  "birdDamage": {
+   "birdDamage": {
+      "nextYear": 2025,
       "explanation": "Bitte wählen sie eine Fischereibuchzahl und ein Gewässer aus und legen Sie dann mit ‘Neu’ Ausfangdaten für dieses Gewässer an.",
       "addNewRow": "Neue Zeile hinzufügen",
       "sectionOneTitle": "Schaden durch fischfressende Vögel",
@@ -388,7 +389,7 @@
       "mainExplanation": {
          "link": "https://google.rs"
       }
-  },
+   },
    "explanation": {
       "date": "Geben Sie bitte das Datum des Besatzes ein - z.B. 23.04.2024",
       "nameOfWater": "Wählen Sie bitte ein Gewässer aus in das die Fische besetzt wurden. Wird ein gewünschtes Gewässer nicht angeführt oder gefunden, können Sie auch beim Aufklappmenü auf 'Eintrag hinzufügen' klicken und ein neues Gewässer mit Ihrer Bezeichnung anlegen.",
