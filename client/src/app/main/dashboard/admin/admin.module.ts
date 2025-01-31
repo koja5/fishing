@@ -25,6 +25,7 @@ import { BirdCountReportDetailsComponent } from "./all-bird-count-reports/bird-c
 import { AllBirdDamageReportsComponent } from "./all-bird-damage-reports/all-bird-damage-reports.component";
 import { BirdDamageReportDetailsComponent } from "./all-bird-damage-reports/bird-damage-report-details/bird-damage-report-details.component";
 import { TemplateModule } from "../template/template.module";
+import { YearsComponent } from "./years/years.component";
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
   {
     path: "age-of-fishes",
     component: AgeOfFishesComponent,
+    canDeactivate: [DirtycheckGuard],
+  },
+  {
+    path: "years",
+    component: YearsComponent,
     canDeactivate: [DirtycheckGuard],
   },
   {
@@ -117,6 +123,7 @@ const routes = [
     BirdCountReportDetailsComponent,
     AllBirdDamageReportsComponent,
     BirdDamageReportDetailsComponent,
+    YearsComponent,
   ],
   imports: [
     CommonModule,

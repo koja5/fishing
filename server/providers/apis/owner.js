@@ -186,7 +186,7 @@ router.post("/noHaveFishStockingEntry", auth, function (req, res, next) {
 
 //#region OBSERVATION SHEET
 
-router.get("/getAllObservationSheet", auth, async (req, res, next) => {
+router.get("/getAllObservationSheet/:year?", auth, async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -194,8 +194,8 @@ router.get("/getAllObservationSheet", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select os.* from observation_sheet os where os.id_owner = ?",
-          [req.user.user.id],
+          "select os.* from observation_sheet os where os.id_owner = ? and os.year = ?",
+          [req.user.user.id, req.params.year],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -222,8 +222,8 @@ router.get("/getAllObservationSheetForReport", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select distinct os.* from observation_sheet os where os.id_owner = ? order by os.fbz asc",
-          [req.user.user.id],
+          "select distinct os.* from observation_sheet os where os.id_owner = ? and os.year = ? order by os.fbz asc",
+          [req.user.user.id, req.params.year],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -294,7 +294,7 @@ router.post("/deleteObservationSheet", auth, function (req, res) {
   });
 });
 
-router.get("/getObservationSheetReport", auth, async (req, res, next) => {
+router.get("/getObservationSheetReport/:year?", auth, async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -303,7 +303,7 @@ router.get("/getObservationSheetReport", auth, async (req, res, next) => {
       } else {
         conn.query(
           "select * from observation_sheet_reports where id_owner = ? and year = ?",
-          [req.user.user.id, new Date().getFullYear()],
+          [req.user.user.id, req.params.year],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -486,33 +486,38 @@ router.post("/noHaveObservationSheetEntry", auth, function (req, res, next) {
 
 //#region FBZ REGISTER
 
-router.get("/getManagementRegistersData", auth, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select * from management_registers where id_owner = ? or id_deputy = ?",
-          [req.user.user.id, req.user.user.id],
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getManagementRegistersData/:year?",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          console.log(req.params.year);
+          conn.query(
+            "select * from management_registers where (id_owner = ? or id_deputy = ?) and year = ?",
+            [req.user.user.id, req.user.user.id, req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 //#endregion
 

@@ -13,6 +13,7 @@ import { DynamicGridComponent } from "app/main/@core/dynamic-component/dynamic-g
 import { BirdDamageModel } from "app/main/dashboard/models/bird-damage.model";
 import { BirdDamageFilterModel } from "app/main/dashboard/models/bird-damage-filter.model";
 import { BirdDamageReportModel } from "app/main/dashboard/models/bird-damage-report.model";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-bird-damage",
@@ -23,6 +24,7 @@ export class BirdDamageComponent {
   public path = "grids/owner";
   public file = "bird-damage.json";
   public fileExportReport = "bird-damage-report.json";
+  subscription: Subscription;
 
   @ViewChild("grid") grid: DynamicGridComponent;
 
@@ -43,15 +45,24 @@ export class BirdDamageComponent {
   public report: BirdDamageReportModel;
   public reportStatusEnum = ReportStatusEnum;
   public loading = false;
+  public year: number;
+  public isReportEditable = true;
 
   constructor(
     private _service: CallApiService,
     private _storageService: StorageService,
     private _toastr: ToastrComponent,
     private _messageService: MessageService
-  ) {}
+  ) {
+    this.subscription = this._messageService.getYear().subscribe((year) => {
+      this._storageService.deleteValueFromLocalStorage("bird-damage-filter");
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
+    this.year = this._storageService.getYear();
+    this.isReportEditable = this._storageService.isReportForYearEditable();
     this.getManagementRegistersData();
 
     if (this._storageService.getValueFromLocalStorage("bird-damage-filter")) {
@@ -65,9 +76,13 @@ export class BirdDamageComponent {
     this.getReport();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   getManagementRegistersData() {
     this._service
-      .callGetMethod("/api/owner/getManagementRegistersData")
+      .callGetMethod("/api/owner/getManagementRegistersData", this.year)
       .subscribe((data: ManagementRegisterModel[]) => {
         this.managementRegistersData = data;
       });

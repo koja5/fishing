@@ -7,6 +7,7 @@ import { Observable, Subject } from "rxjs";
 export class MessageService {
   public configValue = new Subject<any>();
   public refreshAfterRemoveFile = new Subject<any>();
+  public year = new Subject<number>();
 
   constructor() {}
 
@@ -24,5 +25,13 @@ export class MessageService {
 
   getRefreshGrid(): Observable<any> {
     return this.refreshAfterRemoveFile.asObservable();
+  }
+
+  sendYear(year: any) {
+    this.year.next(year);
+  }
+
+  getYear(): Observable<number> {
+    return this.year.asObservable();
   }
 }

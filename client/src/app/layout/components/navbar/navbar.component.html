@@ -22,6 +22,9 @@
           <span [data-feather]="'menu'" [class]="'ficon'"></span>
         </a>
       </li>
+      <!-- <li class="nav-item">
+        <ng-select [items]="years"></ng-select>
+      </li> -->
     </ul>
     <!--/ Menu Toggler -->
 
@@ -30,6 +33,11 @@
       <a type="button" class="nav-link nav-link-style btn" (click)="toggleDarkSkin()">
         <span [ngClass]="currentSkin === 'dark' ? 'icon-sun' : 'icon-moon'" class="ficon font-medium-5 feather"></span>
       </a>
+    </li>
+    <li class="nav-item d-none d-lg-block">
+      <ng-select [items]="allYears" class="dropdown-years" [(ngModel)]="selectedYear" (change)="selectYear($event)"
+        [bindLabel]="'year'" [bindValue]="'year'"
+        [placeholder]="('commonFields.selectYearPlaceholder' | translate)"></ng-select>
     </li>
     <!--/ Toggle skin -->
   </div>

@@ -20,7 +20,7 @@
 
 <div class="row justify-content-end mb-1">
 
-    <div class="col-md-8">
+    <div class="col-md-8" *ngIf="isReportEditable">
         <div class="d-flex justify-content-end action">
             <button
                 *ngIf="data && data.length && (!observationSheetReport || observationSheetReport.status === observationSheetReportEnum.draft)"
@@ -54,7 +54,7 @@
 
 <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [data]="data" [fileExportReport]="fileExportReport"
     [groupBy]="'fbz'" [height]="'calc(100vh - 32vh)'"
-    [disableCRUD]="(observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed)"
+    [disableCRUD]="(observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed) || !isReportEditable"
     (refreshParentComponent)="refreshParentComponent($event)"></app-dynamic-grid>
 
 <app-dialog-confirm #dialogConfirm [title]="('actionMessage.dialogCompleteReportQuestionTitle' | translate)"

@@ -72,7 +72,9 @@
       "dialogGenerateNewPasswordYes": "Ja, neues Passwort generieren",
       "dialogGenerateNewPasswordNo": "NEIN",
       "needToSaveAfterEachLine": "Bitte SPEICHERN Sie nach jeder Zeile!!",
-      "noSavedValueOnPreviousPage": "Sie haben den Wert auf der vorherigen Seite nicht gespeichert!"
+      "noSavedValueOnPreviousPage": "Sie haben den Wert auf der vorherigen Seite nicht gespeichert!",
+      "turnOnEditableAllManagementRegisters": "Sie haben Ihre Änderungen erfolgreich gespeichert. Alle Berichte für das ausgewählte Jahr können geändert werden.",
+      "turnOffEditableAllManagementRegisters": "Sie haben Ihre Änderungen erfolgreich gespeichert. Alle Berichte für das ausgewählte Jahr können NICHT geändert werden."
    },
    "commonFields": {
       "name": "Name",
@@ -136,7 +138,10 @@
       "stockedFishQuantity": "als Besatzfisch",
       "unit": "Einheit",
       "generateNewPassword": "Neues Passwort generieren",
-      "content": "Inhalt"
+      "content": "Inhalt",
+      "noEditable": "Berichtbearbeitung nicht zulassen",
+      "editable": "Berichtbearbeitung zulassen",
+      "selectYearPlaceholder": "Jahr auswählen"
    },
    "userTypes": {
       "superadmin": "Superadmin",
@@ -186,6 +191,7 @@
       "allBirdCountReports": "Vogelzählung",
       "allBirdDamageReports": "Vogelschäden",
       "ageOfFishes": "Alter der Fische",
+      "years": "Jahre",
       "fishStocking": "Besatzmeldungen",
       "managementRegisters": "FBZs",
       "reportOccupation": "Besatzmeldungen",

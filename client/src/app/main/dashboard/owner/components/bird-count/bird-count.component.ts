@@ -16,6 +16,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { takeUntil } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 import { ConfigurationService } from "app/services/configuration.service";
+import { MessageService } from "app/services/message.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-bird-count",
@@ -25,6 +27,7 @@ import { ConfigurationService } from "app/services/configuration.service";
 export class BirdCountComponent {
   public path = "grids/owner";
   public file = "bird-count.json";
+  subscription: Subscription;
   public fileExportReport = "bird-count-report.json";
 
   @ViewChild("dialogConfirm")
@@ -46,6 +49,8 @@ export class BirdCountComponent {
   public waterCustom = new WaterCustomModel();
   public dataForReport: BirdCountModel[];
   public configForReport: any;
+  public year: number;
+  public isReportEditable = true;
 
   constructor(
     private _service: CallApiService,
@@ -55,10 +60,18 @@ export class BirdCountComponent {
     private _helpService: HelpService,
     public _translate: TranslateService,
     private _configurationService: ConfigurationService,
-    private _activateRouter: ActivatedRoute
-  ) {}
+    private _activateRouter: ActivatedRoute,
+    private _messageService: MessageService
+  ) {
+    this.subscription = this._messageService.getYear().subscribe((year) => {
+      this._storageService.deleteValueFromLocalStorage("bird-count-filter");
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
+    this.year = this._storageService.getYear();
+    this.isReportEditable = this._storageService.isReportForYearEditable();
     this.getManagementRegistersData();
     // this.getDataForReport();
 
@@ -73,6 +86,10 @@ export class BirdCountComponent {
     } else {
       this.filter = new BirdCountFilterModel();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   getDataForReport() {
@@ -92,7 +109,7 @@ export class BirdCountComponent {
 
   getManagementRegistersData() {
     this._service
-      .callGetMethod("/api/owner/getManagementRegistersData", "")
+      .callGetMethod("/api/owner/getManagementRegistersData", this.year)
       .subscribe((data: ManagementRegisterModel[]) => {
         this.managementRegistersData = data;
         if (data.length) {

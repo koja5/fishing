@@ -11,4 +11,5 @@ export class ManagementRegisterModel {
   bird_status: string;
   count_status: string;
   otter_status: string;
+  editable: boolean = false;
 }

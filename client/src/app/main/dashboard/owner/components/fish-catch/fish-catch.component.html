@@ -53,10 +53,11 @@
                 </ng-select>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" *ngIf="isReportEditable || (filter.managementRegister && filter.managementRegister.editable)">
                 <div class="d-flex justify-content-end action">
                     <div class="d-flex" *ngIf="filter.managementRegister">
-                        <button *ngIf="data && data.length && (!fishCatchReport || fishCatchReport.status === fishCatchReportEnum.draft)"
+                        <button
+                            *ngIf="data && data.length && (!fishCatchReport || fishCatchReport.status === fishCatchReportEnum.draft)"
                             class="btn btn-success mb-1" (click)="completeReportsDialog()"><span
                                 class="fa fa-check"></span>
                             {{'action.completeReport' |
@@ -86,7 +87,7 @@
 
     <div *ngIf="!loading&&filter.managementRegisterId">
         <app-dynamic-grid #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport" [data]="data"
-            [disableCRUD]="(filter && filter.water ? false : true) || (fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed)"
+            [disableCRUD]="(filter && filter.water ? false : true) || (fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed) || (!isReportEditable && (filter.managementRegister && !filter.managementRegister.editable))"
             [template]="customForm" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
             (refreshParentComponent)="refreshGrid()"
             (emitValueForCustomForm)="emitValueForCustomForm($event)"></app-dynamic-grid>

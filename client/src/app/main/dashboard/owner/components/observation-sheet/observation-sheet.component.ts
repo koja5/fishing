@@ -6,6 +6,9 @@ import { ObservationSheetReportEnum } from "app/main/dashboard/enums/observation
 import { ObservationSheetModel } from "app/main/dashboard/models/observation-sheet-model";
 import { ObservationSheetReportModel } from "app/main/dashboard/models/observation-sheet-report-model";
 import { CallApiService } from "app/services/call-api.service";
+import { MessageService } from "app/services/message.service";
+import { StorageService } from "app/services/storage.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-observation-sheet",
@@ -24,29 +27,44 @@ export class ObservationSheetComponent {
   public path = "grids/owner";
   public file = "observation-sheet.json";
   public fileExportReport = "observation-sheet-report.json";
+  subscription: Subscription;
   public data: ObservationSheetModel[];
   public observationSheetReport: ObservationSheetReportModel;
   public observationSheetReportEnum = ObservationSheetReportEnum;
   public loading = false;
+  public year: number;
+  public isReportEditable = true;
 
   constructor(
     private _service: CallApiService,
-    private _toastr: ToastrComponent
-  ) {}
+    private _toastr: ToastrComponent,
+    private _storageService: StorageService,
+    private _messageService: MessageService
+  ) {
+    this.subscription = this._messageService.getYear().subscribe((year) => {
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
     this.initialize();
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   initialize() {
-    // this.getAllObservationSheet();
+    this.year = this._storageService.getYear();
+    this.isReportEditable = this._storageService.isReportForYearEditable();
+    this.getAllObservationSheet();
     this.getObservationSheetReport();
   }
 
   getAllObservationSheet() {
     this.loading = true;
     this._service
-      .callGetMethod("/api/owner/getAllObservationSheet")
+      .callGetMethod("/api/owner/getAllObservationSheet", this.year)
       .subscribe((data: ObservationSheetModel[]) => {
         this.data = data;
         this.loading = false;
@@ -55,7 +73,7 @@ export class ObservationSheetComponent {
 
   getObservationSheetReport() {
     this._service
-      .callGetMethod("/api/owner/getObservationSheetReport")
+      .callGetMethod("/api/owner/getObservationSheetReport", this.year)
       .subscribe((data: ObservationSheetReportModel) => {
         if (data) {
           this.observationSheetReport = data[0];

@@ -9,6 +9,9 @@ import { FishStockingReportEnum } from "../../../enums/fish-stocking-enum";
 import { StorageService } from "app/services/storage.service";
 import { DialogConfirmComponent } from "app/main/@core/common/dialog-confirm/dialog-confirm.component";
 import { ShareDataEnum } from "app/main/dashboard/enums/share-data-enum";
+import { MessageService } from "app/services/message.service";
+import { Subscription } from "rxjs";
+import { FishStockingFilterModel } from "app/main/dashboard/models/fish-stocking-filter.model";
 
 @Component({
   selector: "app-fish-stocking",
@@ -31,19 +34,29 @@ export class FishStockingComponent implements OnInit {
   public path = "grids/owner";
   public file = "fish-stocking.json";
   public fileExportReport = "fish-stocking-report.json";
+  private subscription: Subscription;
   public managementRegistersData: ManagementRegisterModel[];
   public data: FishStockingModel[];
   public fishStockingReport = new FishStockingReportModel();
   public selectedManagementRegistry: ManagementRegisterModel;
   public selectedManagementRegistryId: number;
-  public loading = true;
+  public filter = new FishStockingFilterModel();
+  public loading = false;
   public fishStockingReportEnum = FishStockingReportEnum;
+  public year: number;
+  public isReportEditable = true;
 
   constructor(
     private _service: CallApiService,
     private _toastr: ToastrComponent,
-    private _storageService: StorageService
-  ) {}
+    private _storageService: StorageService,
+    private _messageService: MessageService
+  ) {
+    this.subscription = this._messageService.getYear().subscribe((year) => {
+      this._storageService.deleteValueFromLocalStorage("fish-stocking-filter");
+      this.ngOnInit();
+    });
+  }
 
   unsavedChanges(): boolean {
     if (this.grid) {
@@ -52,32 +65,50 @@ export class FishStockingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.year = this._storageService.getYear();
+    this.isReportEditable = this._storageService.isReportForYearEditable();
     this._service
-      .callGetMethod("/api/owner/getManagementRegistersData", "")
+      .callGetMethod("/api/owner/getManagementRegistersData", this.year)
       .subscribe((data: ManagementRegisterModel[]) => {
         this.managementRegistersData = data;
         if (data.length) {
+          // if (
+          //   this._storageService.getLocalStorage("selectedManagementRegistry")
+          // ) {
+          //   this.filter.managementRegister =
+          //     this._storageService.getLocalStorage(
+          //       "selectedManagementRegistry"
+          //     );
+          // } else {
+          //   this.filter.managementRegister = data[0];
+          //   this._storageService.setLocalStorage(
+          //     "selectedManagementRegistry",
+          //     this.filter.managementRegister
+          //   );
+          // }
+
           if (
-            this._storageService.getLocalStorage("selectedManagementRegistry")
+            this._storageService.getValueFromLocalStorage(
+              "fish-stocking-filter"
+            )
           ) {
-            this.selectedManagementRegistry =
-              this._storageService.getLocalStorage(
-                "selectedManagementRegistry"
-              );
-          } else {
-            this.selectedManagementRegistry = data[0];
-            this._storageService.setLocalStorage(
-              "selectedManagementRegistry",
-              this.selectedManagementRegistry
+            this.filter = this._storageService.getValueFromLocalStorage(
+              "fish-stocking-filter"
             );
+            this.filter.managementRegisterId =
+              this.filter.managementRegister.id;
+            this.initializeFishStocking();
+          } else {
+            this.filter = new FishStockingFilterModel();
           }
-          this.selectedManagementRegistryId =
-            this.selectedManagementRegistry.id;
-          this.initializeFishStocking();
         } else {
           this.loading = false;
         }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   initializeFishStocking() {
@@ -89,7 +120,7 @@ export class FishStockingComponent implements OnInit {
     this._service
       .callGetMethod(
         "/api/owner/getFishStockingReport?fbz=" +
-          this.selectedManagementRegistry.fbz
+          this.filter.managementRegister.fbz
       )
       .subscribe((data: FishStockingReportModel) => {
         if (data) {
@@ -105,9 +136,9 @@ export class FishStockingComponent implements OnInit {
     this._service
       .callGetMethod(
         "/api/owner/getAllFishStocking?fbz=" +
-          this.selectedManagementRegistry.fbz +
+          this.filter.managementRegister.fbz +
           "&year=" +
-          this.selectedManagementRegistry.year,
+          this.filter.managementRegister.year,
         ""
       )
       .subscribe((data: FishStockingModel[]) => {
@@ -124,23 +155,28 @@ export class FishStockingComponent implements OnInit {
   }
 
   onChange(event: ManagementRegisterModel) {
-    this.selectedManagementRegistry = event;
-    if (this.selectedManagementRegistry) {
-      this.selectedManagementRegistryId = event.id;
+    this.filter.managementRegister = event;
+    if (this.filter.managementRegister) {
+      this.filter.managementRegisterId = event.id;
       this._storageService.setLocalStorage(
         "selectedManagementRegistry",
-        this.selectedManagementRegistry
+        this.filter.managementRegister
+      );
+      this._storageService.setValueInLocalStorage(
+        "fish-stocking-filter",
+        this.filter
       );
       this.initializeFishStocking();
     } else {
+      this._storageService.deleteValueFromLocalStorage("fish-stocking-filter");
       this._storageService.removeLocalStorage("selectedManagementRegistry");
-      this.selectedManagementRegistryId = null;
+      this.filter.managementRegisterId = null;
     }
   }
 
   submit(event: FishStockingModel) {
-    event.fbz = this.selectedManagementRegistry.fbz;
-    event.year = this.selectedManagementRegistry.year;
+    event.fbz = this.filter.managementRegister.fbz;
+    event.year = this.filter.managementRegister.year;
     this._service
       .callPostMethod("/api/owner/setFishStocking", event)
       .subscribe((data) => {
@@ -169,8 +205,8 @@ export class FishStockingComponent implements OnInit {
 
   confirmCompleteReportAndShareData() {
     this.fishStockingReport = {
-      fbz: this.selectedManagementRegistry.fbz,
-      year: this.selectedManagementRegistry.year,
+      fbz: this.filter.managementRegister.fbz,
+      year: this.filter.managementRegister.year,
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
       empty: 0,
@@ -181,8 +217,8 @@ export class FishStockingComponent implements OnInit {
 
   confirmCompleteReportAndNoShareData() {
     this.fishStockingReport = {
-      fbz: this.selectedManagementRegistry.fbz,
-      year: this.selectedManagementRegistry.year,
+      fbz: this.filter.managementRegister.fbz,
+      year: this.filter.managementRegister.year,
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
       empty: 0,
@@ -230,8 +266,8 @@ export class FishStockingComponent implements OnInit {
   confirmNoHaveEntryAndShareData() {
     this.loading = true;
     this.fishStockingReport = {
-      fbz: this.selectedManagementRegistry.fbz,
-      year: this.selectedManagementRegistry.year,
+      fbz: this.filter.managementRegister.fbz,
+      year: this.filter.managementRegister.year,
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
       empty: 1,
@@ -243,8 +279,8 @@ export class FishStockingComponent implements OnInit {
   confirmNoHaveEntryAndNoShareData() {
     this.loading = true;
     this.fishStockingReport = {
-      fbz: this.selectedManagementRegistry.fbz,
-      year: this.selectedManagementRegistry.year,
+      fbz: this.filter.managementRegister.fbz,
+      year: this.filter.managementRegister.year,
       status: FishStockingReportEnum.completed,
       date_completed: new Date(),
       empty: 1,

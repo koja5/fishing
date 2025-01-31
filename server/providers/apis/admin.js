@@ -471,32 +471,37 @@ router.post("/deleteWater", authAdmin, function (req, res) {
 
 //#region MANAGEMENT REGISTERS
 
-router.get("/getManagementRegisters", authAdmin, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select mr.*, CONCAT(u1.firstname, ' ', u1.lastname) as 'name_of_owner', CONCAT(u2.firstname, ' ', u2.lastname) as 'name_of_deputy' from management_registers mr join users u1 on mr.id_owner = u1.id_owner join users u2 on mr.id_deputy = u2.id_owner",
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getManagementRegisters/:year?",
+  authAdmin,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select mr.*, CONCAT(u1.firstname, ' ', u1.lastname) as 'name_of_owner', CONCAT(u2.firstname, ' ', u2.lastname) as 'name_of_deputy' from management_registers mr join users u1 on mr.id_owner = u1.id_owner join users u2 on mr.id_deputy = u2.id_owner where mr.year = ?",
+            [req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 router.post("/setManagementRegister", authAdmin, function (req, res, next) {
   connection.getConnection(function (err, conn) {
@@ -525,6 +530,60 @@ router.post("/setManagementRegister", authAdmin, function (req, res, next) {
   });
 });
 
+router.post(
+  "/setManagementRegisterEditableToOn",
+  authAdmin,
+  function (req, res, next) {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+
+      conn.query(
+        "update management_registers set editable = 1 where year = ?",
+        [req.body.year],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(req.body.id);
+          } else {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(false);
+          }
+        }
+      );
+    });
+  }
+);
+
+router.post(
+  "/setManagementRegisterEditableToOff",
+  authAdmin,
+  function (req, res, next) {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+
+      conn.query(
+        "update management_registers set editable = 0 where year = ?",
+        [req.body.year],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(req.body.id);
+          } else {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(false);
+          }
+        }
+      );
+    });
+  }
+);
+
 router.post("/deleteManagementRegister", authAdmin, function (req, res) {
   connection.getConnection(function (err, conn) {
     if (err) {
@@ -552,32 +611,37 @@ router.post("/deleteManagementRegister", authAdmin, function (req, res) {
 
 //#region FISH STOCKING REPORTS
 
-router.get("/getAllFishStockingReports", authAdmin, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select fsr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from fish_stocking_reports fsr join users u on fsr.id_owner = u.id_owner order by fsr.date_completed desc",
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getAllFishStockingReports/:year?",
+  authAdmin,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select fsr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from fish_stocking_reports fsr join users u on fsr.id_owner = u.id_owner where fsr.year = ? order by fsr.date_completed desc",
+            [req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 router.post("/setManagementRegister", authAdmin, function (req, res, next) {
   connection.getConnection(function (err, conn) {
@@ -724,32 +788,37 @@ router.post("/backFishStockingReportToOwner", authAdmin, function (req, res) {
 
 //#region FISH CATCH REPORTS
 
-router.get("/getAllFishCatchReports", authAdmin, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select fcr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from fish_catch_reports fcr join users u on fcr.id_owner = u.id_owner order by fcr.date_completed desc",
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getAllFishCatchReports/:year?",
+  authAdmin,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select fcr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from fish_catch_reports fcr join users u on fcr.id_owner = u.id_owner where fcr.year = ? order by fcr.date_completed desc",
+            [req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 router.get("/getFishCatchReport", authAdmin, async (req, res, next) => {
   try {
@@ -1025,32 +1094,37 @@ router.post(
 //#endregion
 
 //#region BIRD COUNT REPORTS
-router.get("/getAllBirdCountReports", authAdmin, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select bcr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from bird_count_reports bcr join users u on bcr.id_owner = u.id_owner order by bcr.date_completed desc",
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getAllBirdCountReports/:year?",
+  authAdmin,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select bcr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from bird_count_reports bcr join users u on bcr.id_owner = u.id_owner where bcr.year = ? order by bcr.date_completed desc",
+            [req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 router.get("/getBirdCountReportDetails", authAdmin, async (req, res, next) => {
   try {
@@ -1178,32 +1252,37 @@ router.post("/backBirdCountReportToOwner", authAdmin, function (req, res) {
 
 //#region BIRD DAMAGE
 
-router.get("/getAllBirdDamageReports", authAdmin, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select bdr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from bird_damage_reports bdr join users u on bdr.id_owner = u.id_owner order by bdr.date_completed desc",
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getAllBirdDamageReports/:year?",
+  authAdmin,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select bdr.*, CONCAT(u.firstname, ' ', u.lastname) as 'name' from bird_damage_reports bdr join users u on bdr.id_owner = u.id_owner where bdr.year = ? order by bdr.date_completed desc",
+            [req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 router.get("/getBirdDamageReportDetails", authAdmin, async (req, res, next) => {
   try {
@@ -1287,6 +1366,55 @@ router.post("/backBirdDamageReportToOwner", authAdmin, function (req, res) {
             "mail/sendNotificationToOwnerForBackBirdCountReport",
             res
           );
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+//#endregion
+
+//#region YEARS
+router.post("/setYear", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "INSERT INTO years set ? ON DUPLICATE KEY UPDATE ?",
+      [req.body, req.body],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/deleteYear", authAdmin, function (req, res) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "delete from years where id = ?",
+      [req.body.id],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
         } else {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(false);

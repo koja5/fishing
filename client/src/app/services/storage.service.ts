@@ -238,4 +238,30 @@ export class StorageService {
     }
     this.setLocalStorage(key, gridConfig);
   }
+
+  setYear(value) {
+    localStorage.setItem("year", this.encrypt(JSON.stringify(value)));
+  }
+
+  getYear() {
+    if (localStorage.getItem("year")) {
+      return JSON.parse(JSON.parse(this.decrypt(localStorage.getItem("year"))))
+        .year;
+    } else {
+      return null;
+    }
+  }
+
+  isReportForYearEditable() {
+    if (localStorage.getItem("year")) {
+      return JSON.parse(JSON.parse(this.decrypt(localStorage.getItem("year"))))
+        .editable;
+    } else {
+      return null;
+    }
+  }
+
+  removeYear() {
+    localStorage.removeItem("year");
+  }
 }

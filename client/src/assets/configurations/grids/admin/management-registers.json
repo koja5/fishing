@@ -1,12 +1,5 @@
 {
     "pageSize": 10,
-    "request": {
-        "type": "GET",
-        "api": "/api/admin/getManagementRegisters",
-        "parameters": [],
-        "fields": "",
-        "root": ""
-    },
     "paging": {
         "enable": true,
         "settings": {
@@ -402,6 +395,14 @@
             "title": "commonFields.otterStatus",
             "field": "otter_status",
             "required": true
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "editable",
+            "title": "commonFields.editable",
+            "field": "editable"
         },
         {
             "type": "button",

@@ -21,6 +21,8 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { HelpService } from "app/services/help.service";
 import { WaterCustomModel } from "app/main/dashboard/models/water-custom-model";
 import { ShareDataEnum } from "app/main/dashboard/enums/share-data-enum";
+import { MessageService } from "app/services/message.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-fish-catch",
@@ -46,6 +48,7 @@ export class FishCatchComponent {
   public path = "grids/owner";
   public file = "fish-catch.json";
   public fileExportReport = "fish-catch-report.json";
+  subscription: Subscription;
   public managementRegistersData: ManagementRegisterModel[];
   public data: FishCatchModel[];
   public allData: FishCatchModel[];
@@ -59,6 +62,8 @@ export class FishCatchComponent {
   public allWaters: any;
   public waterCustom = new WaterCustomModel();
   public itemData: FishCatchModel;
+  public year: number;
+  public isReportEditable = true;
 
   constructor(
     private _service: CallApiService,
@@ -66,8 +71,14 @@ export class FishCatchComponent {
     private _storageService: StorageService,
     private _translate: TranslateService,
     private _modalService: NgbModal,
-    private _helpService: HelpService
-  ) {}
+    private _helpService: HelpService,
+    private _messageService: MessageService
+  ) {
+    this.subscription = this._messageService.getYear().subscribe((year) => {
+      this._storageService.deleteValueFromLocalStorage("fish-catch-filter");
+      this.ngOnInit();
+    });
+  }
 
   unsavedChanges(): boolean {
     if (this.grid) {
@@ -76,7 +87,13 @@ export class FishCatchComponent {
   }
 
   ngOnInit() {
+    this.year = this._storageService.getYear();
+    this.isReportEditable = this._storageService.isReportForYearEditable();
     this.initialize();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   initialize() {
@@ -89,7 +106,7 @@ export class FishCatchComponent {
     }
 
     this._service
-      .callGetMethod("/api/owner/getManagementRegistersData", "")
+      .callGetMethod("/api/owner/getManagementRegistersData", this.year)
       .subscribe((data: ManagementRegisterModel[]) => {
         this.managementRegistersData = data;
         if (data.length) {

@@ -37,7 +37,7 @@
                     </ng-template>
                 </ng-select>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9" *ngIf="isReportEditable || (filter.managementRegister && filter.managementRegister.editable)">
                 <div class="d-flex justify-content-end action">
                     <div class="d-flex" *ngIf="filter && filter.managementRegister">
                         <button *ngIf="data && data.length && (!report || report.status === reportStatusEnum.draft)"
@@ -65,7 +65,7 @@
 
     <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport"
         [data]="data"
-        [disableCRUD]="(filter && filter.managementRegisterId ? false : true) || (report && report.status === reportStatusEnum.completed)"
+        [disableCRUD]="(filter && filter.managementRegisterId ? false : true) || (report && report.status === reportStatusEnum.completed) || (!isReportEditable && (filter.managementRegister && !filter.managementRegister.editable))"
         [template]="customFormBirdDamage" [modalDialogSize]="'modal-dialog-large'" [height]="'calc(100vh - 32vh)'"
         (emitValueForCustomForm)="emitValueForCustomForm($event)"
         (refreshParentComponent)="refreshGrid()"></app-dynamic-grid>

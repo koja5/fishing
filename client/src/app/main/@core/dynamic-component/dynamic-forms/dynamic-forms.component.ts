@@ -98,7 +98,9 @@ export class DynamicFormsComponent implements OnInit, CanComponentDeactivate {
         if (this.config.request && !this.data) {
           this.getData(this.config);
         } else {
-          this.setValueToForm(this.config.config, this.data);
+          setTimeout(() => {
+            this.setValueToForm(this.config.config, this.data);
+          }, 200);
         }
       }
     }

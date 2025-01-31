@@ -23,6 +23,9 @@ import { StorageService } from "app/services/storage.service";
 import languages from "../../../../assets/configurations/i18n/languages.json";
 import { MessageService } from "app/services/message.service";
 import { AuthenticationService } from "app/auth/services";
+import { ConfigurationService } from "app/services/configuration.service";
+import { CallApiService } from "app/services/call-api.service";
+import { YearModel } from "app/main/dashboard/models/year.model";
 
 @Component({
   selector: "app-navbar",
@@ -45,6 +48,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public selectedLanguage: any;
   public userInfo: any;
   public token: any;
+  public selectedYear = new YearModel();
+  public allYears: any;
 
   @HostBinding("class.fixed-top")
   public isFixed = false;
@@ -95,7 +100,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private _mediaObserver: MediaObserver,
     public _translateService: TranslateService,
     private _storageService: StorageService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _configurationService: ConfigurationService,
+    private _service: CallApiService
   ) {
     this._authenticationService.currentUser.subscribe(
       (x) => (this.currentUser = x)
@@ -185,6 +192,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // get the currentUser details from localStorage
     this.currentUser = this._storageService.getDecodeToken();
     this.token = this._storageService.getToken();
+    this.getYears();
 
     // Subscribe to the config changes
     this._coreConfigService.config
@@ -237,5 +245,37 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getUserInfo() {
     this.userInfo = this._storageService.getDecodeToken();
+  }
+
+  getYears() {
+    // this._configurationService
+    //   .getConfiguration("data", "years.json")
+    //   .subscribe((data) => {
+    //     this.years = data;
+    //   });
+
+    this._service.callGetMethod("/api/getYears").subscribe((data: any) => {
+      this.allYears = data;
+      if (data && data.length) {
+        this.selectedYear = this._storageService.getYear()
+          ? this._storageService.getYear()
+          : data[0].year;
+        this._storageService.setYear(data[0]);
+        setTimeout(() => {
+          this._messageService.sendYear(this.selectedYear);
+        }, 50);
+      }
+    });
+  }
+
+  selectYear(event: any) {
+    if (event) {
+      this.selectedYear = event.year;
+      this._storageService.setYear(event);
+    } else {
+      this.selectedYear = new YearModel();
+      this._storageService.removeYear();
+    }
+    this._messageService.sendYear(this.selectedYear);
   }
 }
