@@ -18,6 +18,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ConfigurationService } from "app/services/configuration.service";
 import { MessageService } from "app/services/message.service";
 import { Subscription } from "rxjs";
+import { UserModel } from "app/models/user";
 
 @Component({
   selector: "app-bird-count",
@@ -51,6 +52,7 @@ export class BirdCountComponent {
   public configForReport: any;
   public year: number;
   public isReportEditable = true;
+  public user: UserModel;
 
   constructor(
     private _service: CallApiService,
@@ -73,6 +75,7 @@ export class BirdCountComponent {
     this.year = this._storageService.getYear();
     this.isReportEditable = this._storageService.isReportForYearEditable();
     this.getManagementRegistersData();
+    this.getMyProfile();
     // this.getDataForReport();
 
     if (this._storageService.getValueFromLocalStorage("bird-count-filter")) {
@@ -90,6 +93,14 @@ export class BirdCountComponent {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  getMyProfile() {
+    this._service
+      .callGetMethod("api/getMyProfile")
+      .subscribe((user: UserModel[]) => {
+        this.user = user[0];
+      });
   }
 
   getDataForReport() {

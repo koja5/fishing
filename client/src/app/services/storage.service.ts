@@ -245,8 +245,10 @@ export class StorageService {
 
   getYear() {
     if (localStorage.getItem("year")) {
-      return JSON.parse(JSON.parse(this.decrypt(localStorage.getItem("year"))))
-        .year;
+      const value = JSON.parse(
+        JSON.parse(this.decrypt(localStorage.getItem("year")))
+      );
+      return value.year ? value.year : value;
     } else {
       return null;
     }

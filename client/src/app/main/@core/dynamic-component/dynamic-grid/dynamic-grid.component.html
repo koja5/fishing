@@ -442,6 +442,11 @@
     </div>
 
     <app-generate-pdf-report #generatePdfReport [path]="path" [file]="fileExportReport ? fileExportReport : file"
-        [groupBy]="groupBy" [data]="rows" [hideExportButton]="false"></app-generate-pdf-report>
+        [groupBy]="groupBy" [data]="rows" [hideExportButton]="false"
+        [reportTemplate]="reportTemplatePdf"></app-generate-pdf-report>
+
+    <ng-template #reportTemplatePdf>
+        <ng-template [ngTemplateOutlet]="reportTemplate"></ng-template>
+    </ng-template>
 
 </div>

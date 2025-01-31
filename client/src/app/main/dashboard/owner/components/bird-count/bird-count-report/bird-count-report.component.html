@@ -1,0 +1,143 @@
+<body>
+    <div>
+        <p>Formular des Landesfischereiverbandes Salzburg</p>
+    </div>
+    <div class="text-center font-weight-bold mt-2 mb-2">
+        <h4>Vogelzählung (fischfressende Vögel)</h4>
+        <h4>für die Fischereibuchzahl {{fbz}} für das Jahr {{year}} </h4>
+    </div>
+    <div *ngIf="user">
+        <p><span class="text-underline">Bewirtschafter:</span> &nbsp; <span>{{user.firstname}} {{user.lastname}} |
+                {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
+    </div>
+    <div>
+        <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
+                'dd.MM.yyyy HH:mm'}}</span></p>
+    </div>
+    <div>
+        <table class="table table-hover mt-3 mb-3">
+            <thead>
+                <tr>
+                    <th scope="col">Zähldatum</th>
+                    <th scope="col">Gewässer</th>
+                    <th scope="col">Wildregion</th>
+                    <th scope="col">Graureiher Anzahl
+                    </th>
+                    <th scope="col">Kormoran Anzahl
+                    </th>
+                    <th scope="col">Gänsesäger Anzahl
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <th>{{item.date | date: 'MM.dd.'}}, vormittags</th>
+                    <th>{{item.name_of_water}}</th>
+                    <th>{{item.fbz}}</th>
+                    <th>{{item.heron}}</th>
+                    <th>{{item.cormorant}}</th>
+                    <th>{{item.goose_sayer}}</th>
+                </tr>
+                <!-- <tr>
+                    <th scope="row">05.01., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.02., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.03., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.04., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.05., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.06., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.07., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.08., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.09., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.10., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.11., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th scope="row">05.12., vormittags</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr> -->
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <p>Ich bestätige hiermit, dass die Angaben vollständig und richtig sind.</p>
+    </div>
+</body>

@@ -32,6 +32,7 @@ import { MessageService } from "app/services/message.service";
 import { StorageService } from "app/services/storage.service";
 import { MethodRequest } from "app/main/enums/method-request";
 import { GeneratePdfReportComponent } from "../../common/generate-pdf-report/generate-pdf-report.component";
+import { UserModel } from "app/models/user";
 
 export class GridConfigModel {
   filter?: string;
@@ -62,6 +63,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   @Input() initializeGrid = false;
   @Input() modalDialogSize: string;
   @Input() height: string;
+  @Input() reportTemplate: TemplateRef<any>;
   @Output() submit = new EventEmitter();
   @Output() emitValueForCustomForm = new EventEmitter<any>();
   @Output() refreshParentComponent = new EventEmitter();
@@ -770,13 +772,6 @@ export class DynamicGridComponent implements CanComponentDeactivate {
   }
 
   exportToPdf() {
-    // this.showExportGrid = true;
-    // setTimeout(() => {
-    //   this.showExportGrid = false;
-    // }, 1);
-    // this.exportAsService
-    //   .save(this.exportAsConfigToPdf, "data")
-    //   .subscribe(() => {});
     this.generatePdfReport.exportToPdf();
   }
 
@@ -788,37 +783,7 @@ export class DynamicGridComponent implements CanComponentDeactivate {
       });
   }
 
-  // print() {
-  //   const printContents = document.getElementById("grid1").innerHTML;
-  //   const WindowObject = window.open(
-  //     "",
-  //     "PrintWindow",
-  //     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes"
-  //   );
-  //   const htmlData = `<html><body>${printContents}</body></html>`;
-
-  //   WindowObject.document.writeln(htmlData);
-  //   WindowObject.document.close();
-  //   WindowObject.focus();
-  // }
-
   print(): void {
-    // const printContent = document.getElementById("export-grid")?.innerHTML;
-    // const printWindow = window.open("", "", "height=400,width=800");
-    // if (printWindow) {
-    //   printWindow.document.write("<html><head><title>Print Receipt</title>");
-    //   printWindow.document.write("<style>");
-    //   printWindow.document.write(
-    //     "body { font-family: Arial, sans-serif; width: 80mm; margin: 0; padding: 0; }"
-    //   );
-    //   printWindow.document.write(".receipt-container { width: 80mm; }");
-    //   printWindow.document.write("</style></head><body >");
-    //   printWindow.document.write(printContent || "");
-    //   printWindow.document.write("</body></html>");
-    //   printWindow.document.close();
-    //   printWindow.print();
-    // }
-
     var printWindow = window.open("", "");
     printWindow.document.write("<html><head><title>Fischereiverband</title>");
 

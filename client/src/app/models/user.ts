@@ -7,7 +7,7 @@ export class UserModel {
   lastname: string;
   street: string;
   location: string;
-  bidrtday: Date;
+  birthday: Date;
   email: string;
   username: string;
   password: string;

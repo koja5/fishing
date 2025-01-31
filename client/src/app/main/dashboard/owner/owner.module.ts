@@ -15,6 +15,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { BirdCountComponent } from "./components/bird-count/bird-count.component";
 import { BirdDamageComponent } from "./components/bird-damage/bird-damage.component";
 import { TemplateModule } from "../template/template.module";
+import { BirdCountReportComponent } from './components/bird-count/bird-count-report/bird-count-report.component';
 
 const routes = [
   {
@@ -36,6 +37,10 @@ const routes = [
     component: BirdCountComponent,
   },
   {
+    path: "bird-count-report",
+    component: BirdCountReportComponent,
+  },
+  {
     path: "bird-damage",
     component: BirdDamageComponent,
   },
@@ -48,6 +53,7 @@ const routes = [
     FishCatchComponent,
     BirdCountComponent,
     BirdDamageComponent,
+    BirdCountReportComponent,
   ],
   imports: [
     CommonModule,
