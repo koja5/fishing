@@ -13,6 +13,7 @@ import {
   RequestedForNextYear,
 } from "app/main/dashboard/models/bird-damage.model";
 import { CallApiService } from "app/services/call-api.service";
+import { StorageService } from "app/services/storage.service";
 
 @Component({
   selector: "app-custom-form-bird-damage",
@@ -27,21 +28,24 @@ export class CustomFormBirdDamageComponent {
 
   public managementRegistersData: any;
   public sectionFourTitle: string;
+  public year: number;
   objectKeys = Object.keys;
 
   constructor(
     private _service: CallApiService,
     private _translate: TranslateService,
-    private _toastr: ToastrComponent
+    private _toastr: ToastrComponent,
+    private _storageService: StorageService
   ) {}
 
   ngOnInit() {
+    this.year = this._storageService.getYear();
     this.sectionFourTitle = this._translate
       .instant("birdDamage.sectionFourTitle")
       .replace("#year", this._translate.instant("birdDamage.nextYear"));
 
     this._service
-      .callGetMethod("/api/owner/getManagementRegistersData")
+      .callGetMethod("/api/owner/getManagementRegistersData", this.year)
       .subscribe((data) => {
         this.managementRegistersData = data;
       });
@@ -134,9 +138,10 @@ export class CustomFormBirdDamageComponent {
   }
 
   calculatePriceForKomorantage() {
-    if (this.data.komorantage_number) {
+    if (this.data.komorantage_number && this.data.komorantage_damage_number) {
       this.data.komorantage_sum_price =
         this.data.komorantage_number *
+        this.data.komorantage_damage_number *
         this._translate.instant("birdDamagePrice.komorantageForKg") *
         this._translate.instant("birdDamagePrice.pricePerKg");
       return this.data.komorantage_sum_price;
@@ -145,9 +150,10 @@ export class CustomFormBirdDamageComponent {
   }
 
   calculatePriceForGoosander() {
-    if (this.data.goosander_number) {
+    if (this.data.goosander_number && this.data.goosander_damage_number) {
       this.data.goosander_sum_price =
         this.data.goosander_number *
+        this.data.goosander_damage_number *
         this._translate.instant("birdDamagePrice.goosanderForKg") *
         this._translate.instant("birdDamagePrice.pricePerKgGoosander");
       return this.data.goosander_sum_price;
@@ -156,9 +162,10 @@ export class CustomFormBirdDamageComponent {
   }
 
   calculatePriceForHeronDemage() {
-    if (this.data.heron_number) {
+    if (this.data.heron_number && this.data.heron_damage_number) {
       this.data.heron_sum_price =
         this.data.heron_number *
+        this.data.heron_damage_number *
         this._translate.instant("birdDamagePrice.heronForKg") *
         this._translate.instant("birdDamagePrice.pricePerKg");
       return this.data.heron_sum_price;

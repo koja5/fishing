@@ -15,7 +15,12 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { BirdCountComponent } from "./components/bird-count/bird-count.component";
 import { BirdDamageComponent } from "./components/bird-damage/bird-damage.component";
 import { TemplateModule } from "../template/template.module";
-import { BirdCountReportComponent } from './components/bird-count/bird-count-report/bird-count-report.component';
+import { BirdCountReportComponent } from "./components/bird-count/bird-count-report/bird-count-report.component";
+import { FishStockingReportComponent } from "./components/fish-stocking/fish-stocking-report/fish-stocking-report.component";
+import { BirdDamageReportComponent } from "./components/bird-damage/bird-damage-report/bird-damage-report.component";
+import { BirdDamageReportDetailsComponent } from "../admin/all-bird-damage-reports/bird-damage-report-details/bird-damage-report-details.component";
+import { ObservationSheetReportComponent } from "./components/observation-sheet/observation-sheet-report/observation-sheet-report.component";
+import { FishCatchReportComponent } from './components/fish-catch/fish-catch-report/fish-catch-report.component';
 
 const routes = [
   {
@@ -24,9 +29,17 @@ const routes = [
     canDeactivate: [DirtycheckGuard],
   },
   {
+    path: "fish-stocking-report",
+    component: FishStockingReportComponent,
+  },
+  {
     path: "observation-sheet",
     component: ObservationSheetComponent,
     canDeactivate: [DirtycheckGuard],
+  },
+  {
+    path: "observation-sheet-report",
+    component: ObservationSheetReportComponent,
   },
   {
     path: "fish-catch",
@@ -35,10 +48,6 @@ const routes = [
   {
     path: "bird-count",
     component: BirdCountComponent,
-  },
-  {
-    path: "bird-count-report",
-    component: BirdCountReportComponent,
   },
   {
     path: "bird-damage",
@@ -54,6 +63,10 @@ const routes = [
     BirdCountComponent,
     BirdDamageComponent,
     BirdCountReportComponent,
+    FishStockingReportComponent,
+    BirdDamageReportComponent,
+    ObservationSheetReportComponent,
+    FishCatchReportComponent,
   ],
   imports: [
     CommonModule,

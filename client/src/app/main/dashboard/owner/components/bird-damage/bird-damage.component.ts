@@ -14,6 +14,7 @@ import { BirdDamageModel } from "app/main/dashboard/models/bird-damage.model";
 import { BirdDamageFilterModel } from "app/main/dashboard/models/bird-damage-filter.model";
 import { BirdDamageReportModel } from "app/main/dashboard/models/bird-damage-report.model";
 import { Subscription } from "rxjs";
+import { UserModel } from "app/models/user";
 
 @Component({
   selector: "app-bird-damage",
@@ -47,6 +48,7 @@ export class BirdDamageComponent {
   public loading = false;
   public year: number;
   public isReportEditable = true;
+  public user: UserModel;
 
   constructor(
     private _service: CallApiService,
@@ -64,6 +66,7 @@ export class BirdDamageComponent {
     this.year = this._storageService.getYear();
     this.isReportEditable = this._storageService.isReportForYearEditable();
     this.getManagementRegistersData();
+    this.getMyProfile();
 
     if (this._storageService.getValueFromLocalStorage("bird-damage-filter")) {
       this.filter =
@@ -78,6 +81,14 @@ export class BirdDamageComponent {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  getMyProfile() {
+    this._service
+      .callGetMethod("api/getMyProfile")
+      .subscribe((user: UserModel[]) => {
+        this.user = user[0];
+      });
   }
 
   getManagementRegistersData() {

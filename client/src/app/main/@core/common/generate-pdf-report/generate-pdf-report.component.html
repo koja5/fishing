@@ -45,7 +45,7 @@
         </table>
     </div>
 </div> -->
-<ng-template #modal let-modal class="modal-export">
+<ng-template *ngIf="reportTemplate" #modal let-modal class="modal-export">
     <div class="modal-header">
         <h5 class="modal-title" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' | translate}}</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
@@ -60,8 +60,9 @@
 
     </div>
 </ng-template>
-<!-- 
-<ng-template #modal let-modal class="modal-export">
+
+
+<ng-template *ngIf="!reportTemplate" #modal let-modal class="modal-export">
     <div class="modal-header">
         <h5 class="modal-title" id="myModalLabel160">{{title ? title : 'generalDialog.areYouSure' | translate}}</h5>
         <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
@@ -188,4 +189,4 @@
 
     </div>
     </div>
-</ng-template> -->
+</ng-template>

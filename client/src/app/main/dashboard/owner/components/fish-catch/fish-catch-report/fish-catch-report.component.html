@@ -1,0 +1,37 @@
+<body>
+    <div>
+        <p>Formular des Landesfischereiverbandes Salzburg</p>
+    </div>
+    <div class="text-center font-weight-bold mt-2 mb-2">
+        <h4>Ausfangmeldungen</h4>
+        <h4>für die Fischereibuchzahl {{fbz}} für das Jahr {{year}} </h4>
+    </div>
+    <div *ngIf="user">
+        <p><span class="text-underline">Bewirtschafter:</span> &nbsp; <span>{{user.firstname}} {{user.lastname}} |
+                {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
+    </div>
+    <div>
+        <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
+                'dd.MM.yyyy HH:mm'}}</span></p>
+    </div>
+    <table class="table table-hover mt-3 mb-3">
+        <thead>
+            <tr>
+                <th scope="col">Name des Gewässers</th>
+                <th scope="col">Fischart / Krebsart</th>
+                <th scope="col">Gesamtmenge in kg</th>
+                <th scope="col">als Speisefisch</th>
+                <th scope="col">als Besatzfisch</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <th>{{item.name_of_water}}</th>
+                <th>{{item.fish}}</th>
+                <th>{{item.quantity}}</th>
+                <th>{{item.edible_fish_quantity}}</th>
+                <th>{{item.stocked_fish_quantity}}</th>
+            </tr>
+        </tbody>
+    </table>
+</body>

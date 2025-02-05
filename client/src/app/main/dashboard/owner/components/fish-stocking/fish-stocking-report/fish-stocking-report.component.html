@@ -1,0 +1,69 @@
+<body>
+    <div>
+        <p>Formular des Landesfischereiverbandes Salzburg</p>
+    </div>
+    <div class="text-center font-weight-bold mt-2 mb-2">
+        <h4>Besatzmeldung</h4>
+        <h4>für die Fischereibuchzahl {{fbz}} für das Jahr {{year}} </h4>
+    </div>
+    <div *ngIf="user">
+        <p><span class="text-underline">Bewirtschafter:</span> &nbsp; <span>{{user.firstname}} {{user.lastname}} |
+                {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
+    </div>
+    <div>
+        <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
+                'dd.MM.yyyy HH:mm'}}</span></p>
+    </div>
+    <div class="checked-container">
+        <input type="checkbox" id="share" name="share" [checked]="report.status === fishStockingReportEnum.completed">
+        <label for="share"> Es wurde für das Jahr {{year}} kein Besatz getätigt.</label>
+    </div>
+    <hr>
+    <div>
+        <span class="text-underline">Erklärung:</span> dieses Formular ist vollständig auszufüllen. Bei „Null-Besatz“
+        ist eine Leermeldung (siehe o.a.
+        Kasten) anzugeben.
+    </div>
+    <div>
+        <table class="table table-hover mt-3 mb-3">
+            <thead>
+                <tr>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Besatz-datum</th>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Gewässer-name</th>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Fisch-/Krebsart</th>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Alter
+                    </th>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Besatzmenge in kg
+                    </th>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Herkunft (Händler, Fischzucht)
+                    </th>
+                    <th scope="col" [ngStyle]="{'width': columnWidth}">Besatz-kosten in Euro
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <th [ngStyle]="{'width': columnWidth}">{{item.date | date: 'dd.MM.yyyy'}}</th>
+                    <th [ngStyle]="{'width': columnWidth}">{{item.name_of_water}}</th>
+                    <th [ngStyle]="{'width': columnWidth}">{{item.fish}}</th>
+                    <th [ngStyle]="{'width': columnWidth}">{{item.age_of_fish}}</th>
+                    <th [ngStyle]="{'width': columnWidth}">{{item.quantity_with_unit}}</th>
+                    <th [ngStyle]="{'width': columnWidth}">{{item.origin}}</th>
+                    <th [ngStyle]="{'width': columnWidth}">{{item.costs}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-3">
+        <p>
+            Der Bewirtschafter hat die Besatzmeldung als Gesamtverzeichnis über den Besatz bzw. über das Umsetzen in
+            andere (eigene) Fischwasser bis spätestens <span class="font-weight-bold">1. März {{getNextYear()}}
+            </span>dem Landesfischereiverband
+            vorzulegen.</p>
+    </div>
+    <div class="checked-container">
+        <input type="checkbox" id="share" name="share" [checked]="report.status === fishStockingReportEnum.completed && report.share_data">
+        <label for="share"> Ich wünsche keine Weitergabe dieser Besatzdaten zur statistischen Auswertung zur
+            EU-WRRL.</label><br>
+    </div>
+</body>

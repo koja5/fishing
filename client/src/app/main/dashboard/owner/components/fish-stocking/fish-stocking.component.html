@@ -75,8 +75,8 @@
 
     <div *ngIf="filter.managementRegister">
         <app-dynamic-grid #grid *ngIf="!loading" [path]="path" [file]="file" [fileExportReport]="fileExportReport"
-            [data]="data" [additionalData]="selectedRegistry" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
-            (refreshParentComponent)="refreshGrid()"
+            [reportTemplate]="reportTemplate" [data]="data" [additionalData]="selectedRegistry"
+            [height]="'calc(100vh - 32vh)'" (submit)="submit($event)" (refreshParentComponent)="refreshGrid()"
             [disableCRUD]="(fishStockingReport && fishStockingReport.status === fishStockingReportEnum.completed) || (!isReportEditable && (filter.managementRegister && !filter.managementRegister.editable))"></app-dynamic-grid>
     </div>
 </div>
@@ -120,3 +120,9 @@
     [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
     [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
     (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>
+
+<ng-template #reportTemplate>
+    <app-fish-stocking-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
+        [year]="filter.managementRegister.year" [data]="data" [report]="fishStockingReport"
+        [user]="user"></app-fish-stocking-report>
+</ng-template>

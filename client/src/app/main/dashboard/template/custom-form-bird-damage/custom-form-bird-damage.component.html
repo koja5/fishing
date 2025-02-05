@@ -8,22 +8,31 @@
                     <h5 class="mb-1 border-bottom">{{'birdDamage.sectionOneHeron' | translate}}</h5>
 
                     <div class="row align-items-baseline">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <label>{{'birdDamage.sectionOneNumberForHeron' | translate }}
                                 <app-explanation-mark [explanation]="('explanation.sectionOneNumber' | translate)">
                                 </app-explanation-mark>
                             </label>
                             <input class=" form-control" name="heron_number" [(ngModel)]="data.heron_number">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
+                            <label>{{'birdDamage.sectionOneNumberForHeronDamage' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionOneNumberForHeronDamageExplanation' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class=" form-control" name="heron_damage_number"
+                                [(ngModel)]="data.heron_damage_number">
+                        </div>
+                        <!-- <div class="col-md-2">
                             <label></label>
                             <p class="price-variable">{{'birdDamage.sectionTwoX' | translate}}
                                 {{'birdDamagePrice.heronForKg' | translate}}
                                 {{'birdDamage.sectionTwoKg' | translate}} {{'birdDamage.sectionTwoX' | translate}}
                                 {{'birdDamagePrice.pricePerKg' | translate}}
                                 {{'birdDamage.sectionTwoEuro' | translate}} </p>
-                        </div>
-                        <div class="col-md-5">
+                        </div> -->
+                        <div class="col-md-4">
                             <label>
                                 {{'birdDamage.sectionOneDamageInEuroPerKg' | translate }}
                                 <app-explanation-mark
@@ -40,7 +49,7 @@
                     <h5 class="mb-1 border-bottom">{{'birdDamage.sectionOneKomorantage' | translate}}</h5>
 
                     <div class="row align-items-baseline">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <label>
                                 {{'birdDamage.sectionOneNumberForKomorantage' | translate }}
                                 <app-explanation-mark [explanation]="('explanation.sectionOneNumber' | translate)">
@@ -48,15 +57,24 @@
                             </label>
                             <input class="form-control" name="komorantage_number" [(ngModel)]="data.komorantage_number">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
+                            <label>{{'birdDamage.sectionOneNumberForKomorantageDamage' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionOneNumberForKomorantageDamageExplanation' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class=" form-control" name="komorantage_damage_number"
+                                [(ngModel)]="data.komorantage_damage_number">
+                        </div>
+                        <!-- <div class="col-md-2">
                             <label></label>
                             <p class="price-variable">{{'birdDamage.sectionTwoX' | translate}}
                                 {{'birdDamagePrice.komorantageForKg' | translate}}
                                 {{'birdDamage.sectionTwoKg' | translate}} {{'birdDamage.sectionTwoX' | translate}}
                                 {{'birdDamagePrice.pricePerKg' | translate}}
                                 {{'birdDamage.sectionTwoEuro' | translate}} </p>
-                        </div>
-                        <div class="col-md-5">
+                        </div> -->
+                        <div class="col-md-4">
                             <label>
                                 {{'birdDamage.sectionOneDamageInEuroPerKg' | translate }}
                                 <app-explanation-mark
@@ -73,7 +91,7 @@
                     <h5 class="mb-1 border-bottom">{{'birdDamage.sectionOneGoosander' | translate}}</h5>
 
                     <div class="row align-items-baseline">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <label>
                                 {{'birdDamage.sectionThreeNumber' | translate }}
                                 <app-explanation-mark [explanation]="('explanation.sectionThreeNumber' | translate)">
@@ -81,15 +99,24 @@
                             </label>
                             <input class="form-control" name="goosander_number" [(ngModel)]="data.goosander_number">
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-4">
+                            <label>{{'birdDamage.sectionOneNumberForGoosanderDamage' | translate }}
+                                <app-explanation-mark
+                                    [explanation]="('explanation.sectionOneNumberForGoosanderDamageExplanation' | translate)">
+                                </app-explanation-mark>
+                            </label>
+                            <input class=" form-control" name="goosander_damage_number"
+                                [(ngModel)]="data.goosander_damage_number">
+                        </div>
+                        <!-- <div class="col-md-2">
                             <label></label>
                             <p class="price-variable">{{'birdDamage.sectionThreeX' | translate}}
                                 {{'birdDamagePrice.goosanderForKg' | translate}}
                                 {{'birdDamage.sectionThreeKg' | translate}} {{'birdDamage.sectionThreeX' | translate}}
                                 {{'birdDamagePrice.pricePerKgGoosander' | translate}}
                                 {{'birdDamage.sectionThreeEuro' | translate}} </p>
-                        </div>
-                        <div class="col-md-5">
+                        </div> -->
+                        <div class="col-md-4">
                             <label>
                                 {{'birdDamage.sectionOneDamageInEuroPerKgForGoosander' | translate }}
                                 <app-explanation-mark

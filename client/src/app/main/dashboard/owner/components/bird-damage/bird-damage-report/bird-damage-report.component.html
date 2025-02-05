@@ -1,0 +1,194 @@
+<body>
+    <div>
+        <p>Formular des Landesfischereiverbandes Salzburg</p>
+    </div>
+    <div class="text-center font-weight-bold mt-2 mb-2">
+        <h4>Vogelschaden (fischfressende Vögel)</h4>
+        <h4>für die Fischereibuchzahl {{fbz}} für das Jahr {{year}} </h4>
+    </div>
+    <div *ngIf="user">
+        <p><span class="text-underline">Bewirtschafter:</span> &nbsp; <span>{{user.firstname}} {{user.lastname}} |
+                {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
+    </div>
+    <div>
+        <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
+                'dd.MM.yyyy HH:mm'}}</span></p>
+    </div>
+    <hr>
+    <div>
+        <span class="text-underline font-weight-bold">Antrag auf Abschuss: Für das Jahr {{getNextYear()}} werden
+            Abschuss
+            beantragt:</span>
+    </div>
+    <div *ngFor="let row of data">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-hover mt-3 mb-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Wildregion</th>
+                            <th scope="col">Anzahl Reiher</th>
+                            <th scope="col">Anzahl Kormoran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of row.requested_for_next_year; let i = index">
+                            <th>{{getWildRegion(item, i)}}</th>
+                            <th>{{getHeron(item, i)}}</th>
+                            <th>{{getKormoran(item, i)}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3 info-container">
+                HINWEIS. Ein Antrag auf Abschuss kann nur unter Angabe von Schäden (Vogeltagen) berücksichtigt werden.
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div>
+                <h4 class="text-center">GRAUREIHER</h4>
+            </div>
+            <div class="mt-2">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Graureiher-Tage</th>
+                            <th scope="col">Dadurch verursachte Schadensmenge in kg
+                                (0,3 kg / Graureiher-Tag)
+                            </th>
+                            <th scope="col">Schadenssumme in Euro (€ 14 / kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>{{row.heron_number}}</th>
+                            <th>{{row.heron_damage_number}}</th>
+                            <th>{{row.heron_sum_price}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="font-weight-bold">Horstmeldung für Graureiher</th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Gewässer mit Ortsbeschreibung</th>
+                            <th scope="col">Horste (Anzahl)
+                            </th>
+                        </tr>
+                        <tr *ngFor="let item of row.nest_and_sleeping; let i = index">
+                            <th>{{getNameOfWater(item, i)}}</th>
+                            <th>{{getHorse(item, i)}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        <div class="mt-3">
+            <h4 class="text-center">KORMORAN</h4>
+            <div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Kormoran-Tage</th>
+                            <th scope="col">Dadurch verursachte Schadensmenge in kg
+                                (0,3 kg / Graureiher-Tag)
+                            </th>
+                            <th scope="col">Schadenssumme in Euro
+                                (€ 14 / kg)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>{{row.komorantage_number}}</th>
+                            <th>{{row.komorantage_damage_number}}</th>
+                            <th>{{row.komorantage_sum_price}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Schlafplatzmeldung für Kormoran</th>
+                            <th scope="col">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Gewässer mit Ortsbeschreibung</th>
+                            <th scope="col">Schlafplatz
+                                (Anzahl)
+                            </th>
+                        </tr>
+                        <tr *ngFor="let item of row.nest_and_sleeping; let i = index">
+                            <th>{{getNameOfWater(item, i)}}</th>
+                            <th>{{getKormoranNest(item, i)}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-3">
+            <p class="text-underline">Weitere Beobachtungen:</p>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Gänsesäger-Tage</th>
+                        <th scope="col">Dadurch verursachte Schadensmenge in kg (0,3 kg / Gänsesäger-Tag)
+                        </th>
+                        <th scope="col">Schadenssumme in Euro (€ 14 / kg)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>{{row.goosander_number}}</th>
+                        <th>{{row.goosander_damage_number}}</th>
+                        <th>{{row.goosander_sum_price}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Menge an aufgefundenen verletzten od. toten Fischen in kg</th>
+                        <th scope="col">Schaden verletzte bzw tote Fische
+                            (€ 14 / kg.)
+                        </th>
+                        <th scope="col">Anzahl Setzlingsverlust
+                            (Aufzuchtgewässer) in Stück
+                        </th>
+                        <th scope="col">
+                            Schaden Setzlinge
+                            (€ 0,80 / Stk.)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>{{row.amount_of_injured_kg}}</th>
+                        <th>{{row.damage_amount_of_injured}}</th>
+                        <th>{{row.number_of_seedlings}}</th>
+                        <th>{{row.damage_of_seedlings}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-3">
+            <p>
+                Ich bestätige hiermit, dass die Angaben vollständig und richtig sind.
+            </p>
+        </div>
+    </div>
+</body>

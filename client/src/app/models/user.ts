@@ -9,6 +9,7 @@ export class UserModel {
   location: string;
   birthday: Date;
   email: string;
+  phone: string;
   username: string;
   password: string;
   type: UserTypes;

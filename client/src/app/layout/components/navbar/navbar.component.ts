@@ -260,7 +260,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.selectedYear = this._storageService.getYear()
           ? this._storageService.getYear()
           : data[0].year;
-        this._storageService.setYear(this.selectedYear);
+        const selectedYearInfo = this._storageService.getYearInfo()
+          ? this._storageService.getYearInfo()
+          : data[0];
+        this._storageService.setYear(selectedYearInfo);
         setTimeout(() => {
           this._messageService.sendYear(this.selectedYear);
         }, 50);

@@ -53,7 +53,7 @@
 </div>
 
 <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [data]="data" [fileExportReport]="fileExportReport"
-    [groupBy]="'fbz'" [height]="'calc(100vh - 32vh)'"
+    [reportTemplate]="reportTemplate" [groupBy]="'fbz'" [height]="'calc(100vh - 32vh)'"
     [disableCRUD]="(observationSheetReport && observationSheetReport.status === observationSheetReportEnum.completed) || !isReportEditable"
     (refreshParentComponent)="refreshParentComponent($event)"></app-dynamic-grid>
 
@@ -74,3 +74,8 @@
     [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
     [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
     (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>
+
+<ng-template #reportTemplate>
+    <app-observation-sheet-report *ngIf="!loading&&data" [data]="data" [user]="user">
+    </app-observation-sheet-report>
+</ng-template>

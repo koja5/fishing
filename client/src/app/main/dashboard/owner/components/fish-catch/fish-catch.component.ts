@@ -23,6 +23,7 @@ import { WaterCustomModel } from "app/main/dashboard/models/water-custom-model";
 import { ShareDataEnum } from "app/main/dashboard/enums/share-data-enum";
 import { MessageService } from "app/services/message.service";
 import { Subscription } from "rxjs";
+import { UserModel } from "app/models/user";
 
 @Component({
   selector: "app-fish-catch",
@@ -64,6 +65,7 @@ export class FishCatchComponent {
   public itemData: FishCatchModel;
   public year: number;
   public isReportEditable = true;
+  public user: UserModel;
 
   constructor(
     private _service: CallApiService,
@@ -90,6 +92,15 @@ export class FishCatchComponent {
     this.year = this._storageService.getYear();
     this.isReportEditable = this._storageService.isReportForYearEditable();
     this.initialize();
+    this.getMyProfile();
+  }
+
+  getMyProfile() {
+    this._service
+      .callGetMethod("api/getMyProfile")
+      .subscribe((user: UserModel[]) => {
+        this.user = user[0];
+      });
   }
 
   ngOnDestroy(): void {

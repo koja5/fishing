@@ -37,7 +37,8 @@
                     </ng-template>
                 </ng-select>
             </div>
-            <div class="col-md-9" *ngIf="isReportEditable || (filter.managementRegister && filter.managementRegister.editable)">
+            <div class="col-md-9"
+                *ngIf="isReportEditable || (filter.managementRegister && filter.managementRegister.editable)">
                 <div class="d-flex justify-content-end action">
                     <div class="d-flex" *ngIf="filter && filter.managementRegister">
                         <button *ngIf="data && data.length && (!report || report.status === reportStatusEnum.draft)"
@@ -64,7 +65,7 @@
     </div>
 
     <app-dynamic-grid *ngIf="!loading" #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport"
-        [data]="data"
+        [reportTemplate]="reportTemplate" [data]="data"
         [disableCRUD]="(filter && filter.managementRegisterId ? false : true) || (report && report.status === reportStatusEnum.completed) || (!isReportEditable && (filter.managementRegister && !filter.managementRegister.editable))"
         [template]="customFormBirdDamage" [modalDialogSize]="'modal-dialog-large'" [height]="'calc(100vh - 32vh)'"
         (emitValueForCustomForm)="emitValueForCustomForm($event)"
@@ -114,3 +115,9 @@
     [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
     [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
     (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>
+
+<ng-template #reportTemplate>
+    <app-bird-damage-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
+        [year]="filter.managementRegister.year" [data]="data" [report]="fishStockingReport"
+        [user]="user"></app-bird-damage-report>
+</ng-template>

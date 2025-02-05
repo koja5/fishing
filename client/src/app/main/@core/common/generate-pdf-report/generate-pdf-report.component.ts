@@ -23,7 +23,7 @@ export class GeneratePdfReportComponent {
   @Input() config: any;
   @Input() groupBy: string;
   @Input() hideExportButton: boolean = true;
-  @Input() reportTemplate: TemplateRef<any>
+  @Input() reportTemplate: TemplateRef<any>;
   @ViewChild("modal") modal: TemplateRef<any>;
   public modalDialog: any;
   private exportAsConfigToPdf: ExportAsConfig = {

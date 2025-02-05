@@ -1,0 +1,162 @@
+<body>
+
+    <div>
+        <p>Formular des Landesfischereiverbandes Salzburg | Reichenhallerstr. 6, 5020 Salzburg | Tel. 0662 842684 |
+            buero&#64;fischereiverband.at</p>
+    </div>
+    <div *ngFor="let item of data">
+        <div class="text-center font-weight-bold mt-2 mb-2">
+            <h4>Fischotter-Meldungen: Beobachtungsblatt</h4>
+            <h4>für die Fischereibuchzahl {{item.fbz}} für das Jahr {{item.year}} </h4>
+        </div>
+        <div *ngIf="user">
+            <p><span class="text-underline">Name des Beobachters | Informant:</span> &nbsp; <span>{{user.firstname}}
+                    {{user.lastname}} |
+                    {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}} | {{user.phone}} | {{user.email}}</span>
+            </p>
+        </div>
+        <div>
+            <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
+                    'dd.MM.yyyy HH:mm'}}</span></p>
+        </div>
+        <br />
+        <br />
+        <div>
+            <h5>Datum, Zeit und Ort der Beobachtung</h5>
+            <table class="table">
+                <tr>
+                    <td style="width: 25%;">Datum, Uhrzeit</td>
+                    <td style="width: 25%;">{{item.date_time | date: 'dd.MM.yyyy'}}</td>
+                    <td style="width: 25%;">Bezirk / Gemeinde</td>
+                    <td style="width: 25%;">{{item.district}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;">Gewässername</td>
+                    <td style="width: 75%;" colspan="3">
+                        {{item.water}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;">Orientierungspunkt
+                        (Brücke, Mündungsbereich, GPS):</td>
+                    <td style="width: 75%;" colspan="3">
+                        {{item.orientation}}
+                    </td>
+                </tr>
+                <tr class="type-water">
+                    <td style="width: 25%;" class="border-right-none">
+                        <input type="radio" id="rivers" name="rivers" value="rivers" [(ngModel)]="item.type_of_water">
+                        <label for="html">&nbsp; Fließgewässer</label>
+                    </td>
+                    <td style="width: 25%;" class="border-left-none border-right-none">
+                        <input type="radio" id="lake" name="lake" value="lake" [(ngModel)]="item.type_of_water">
+                        <label for="html">&nbsp; See</label>
+                    </td>
+                    <td style="width: 25%;" class="border-left-none border-right-none">
+                        <input type="radio" id="pond" name="pond" value="pond" [(ngModel)]="item.type_of_water">
+                        <label for="html">&nbsp; Teich</label>
+                    </td>
+                    <td style="width: 25%;" class="border-left-none">
+                        <input type="radio" id="htfishingFarmml" name="htfishingFarmml" value="fishingFarm"
+                            [(ngModel)]="item.type_of_water">
+                        <label for="html">&nbsp; Fischzuchtanlage</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <div>
+            <h5 style="float: left;">Art der Beobachtung</h5>
+            <h5 style="float: right;">Anzahl Fischotter</h5>
+            <table class="table">
+                <tr>
+                    <td style="width: 90%;" colspan="2">Sichtbeobachtung (Anzahl der Otter, Entfernung, Dauer, mit
+                        Fernglas,
+                        …)</td>
+                    <td style="width: 10%;">{{item.visual_observation}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 30%;">Totfund Fischotter</td>
+                    <td style="width: 60%;">
+                        <div>
+                            <input type="radio" id="inTerrain" name="inTerrain" value="inTerrain"
+                                [(ngModel)]="item.find_dead">
+                            <label for="inTerrain">&nbsp; im Gelände</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="roadTrafic" name="roadTrafic" value="roadTrafic"
+                                [(ngModel)]="item.find_dead">
+                            <label for="roadTrafic">&nbsp; Straßenverkehr</label>
+                        </div>
+                    </td>
+                    <td style="width: 10%;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 90%;" colspan="2">Fährte / Spuren (Anzahl und Verlauf der Spuren, …)</td>
+                    <td style="width: 10%;">{{item.drove_traces}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 90%;" colspan="2">Fund der Losung (Fundort der Losung, Sammlung, Übermittlung an
+                        LFV)
+                    </td>
+                    <td style="width: 10%;">{{item.find_losing}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 90%;" colspan="2">Fischbeute, Fraßspuren (Fischart, Alter/Länge des Fisches,
+                        Verwertungsgrad (nur Organe gefressen, Flossen abgebissen), Schalenreste von Krebsen)
+                    </td>
+                    <td style="width: 10%;" class="border-bottom-none">{{item.fish_prey}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 90%;" colspan="2">
+                        <div>
+                            <input type="radio" id="tracesIsolated" name="tracesIsolated" value="tracesIsolated"
+                                [(ngModel)]="item.traces_color">
+                            <label for="tracesIsolated">&nbsp; Fraßspuren vereinzelt </label> &nbsp; &nbsp; &nbsp;
+                            &nbsp;
+                            <input type="radio" id="tracesNumerous" name="tracesNumerous" value="tracesNumerous"
+                                [(ngModel)]="item.traces_color">
+                            <label for="tracesNumerous">&nbsp; Fraßspuren zahlreich</label>
+                        </div>
+                        <!-- <div style="width: 50%;">
+                        <input type="radio" id="html" name="fav_language" value="HTML">
+                        <label for="html">&nbsp; Fischzuchtanlage</label>
+                    </div> -->
+                    </td>
+                    <td style="width: 10%;" class="border-top-none"></td>
+                </tr>
+                <tr>
+                    <td style="width: 90%;" colspan="2">
+                        Fotofalle, Bilder (Anzahl der Fotos, Übermittlungsformat…)
+                    </td>
+                    <td style="width: 10%;">{{item.photo_trap}}</td>
+                </tr>
+                <tr style="background: lightgray;">
+                    <td style="width: 90%;" colspan="2">
+                        Schätzung des Bestandes (basierend auf den o.a. Beobachtungen)
+                    </td>
+                    <td style="width: 10%;">{{item.estimation_inventory}}</td>
+                </tr>
+            </table>
+        </div>
+        <br />
+        <div>
+            <h5>Dokumentation (bitte entsprechendes Dokumentationsmaterial beiliegen!)</h5>
+            <table class="table">
+                <tr>
+                    <td style="width: 50%;">Der Nachweis wurde dokumentiert durch
+                        (Foto, Karte, Skizze, Wildkamera, Losung…):
+                    </td>
+                    <td style="width: 50%;"></td>
+                </tr>
+
+            </table>
+        </div>
+
+        <div class="mt-3">
+            <h5>
+                Ich bestätige hiermit, dass die Angaben vollständig und richtig sind.
+            </h5>
+        </div>
+    </div>
+</body>

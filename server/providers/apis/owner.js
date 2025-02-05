@@ -294,33 +294,37 @@ router.post("/deleteObservationSheet", auth, function (req, res) {
   });
 });
 
-router.get("/getObservationSheetReport/:year?", auth, async (req, res, next) => {
-  try {
-    connection.getConnection(function (err, conn) {
-      if (err) {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(err);
-      } else {
-        conn.query(
-          "select * from observation_sheet_reports where id_owner = ? and year = ?",
-          [req.user.user.id, req.params.year],
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
+router.get(
+  "/getObservationSheetReport/:year?",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select * from observation_sheet_reports where id_owner = ? and year = ?",
+            [req.user.user.id, req.params.year],
+            function (err, rows, fields) {
+              conn.release();
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(err);
+              } else {
+                res.json(rows);
+              }
             }
-          }
-        );
-      }
-    });
-  } catch (ex) {
-    logger.log("error", err.sql + ". " + err.sqlMessage);
-    res.json(ex);
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
   }
-});
+);
 
 router.post("/completeObservationSheetReport", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {

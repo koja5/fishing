@@ -12,6 +12,7 @@ import { ShareDataEnum } from "app/main/dashboard/enums/share-data-enum";
 import { MessageService } from "app/services/message.service";
 import { Subscription } from "rxjs";
 import { FishStockingFilterModel } from "app/main/dashboard/models/fish-stocking-filter.model";
+import { UserModel } from "app/models/user";
 
 @Component({
   selector: "app-fish-stocking",
@@ -45,6 +46,7 @@ export class FishStockingComponent implements OnInit {
   public fishStockingReportEnum = FishStockingReportEnum;
   public year: number;
   public isReportEditable = true;
+  public user: UserModel;
 
   constructor(
     private _service: CallApiService,
@@ -67,6 +69,7 @@ export class FishStockingComponent implements OnInit {
   ngOnInit() {
     this.year = this._storageService.getYear();
     this.isReportEditable = this._storageService.isReportForYearEditable();
+    this.getMyProfile();
     this._service
       .callGetMethod("/api/owner/getManagementRegistersData", this.year)
       .subscribe((data: ManagementRegisterModel[]) => {
@@ -109,6 +112,14 @@ export class FishStockingComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  getMyProfile() {
+    this._service
+      .callGetMethod("api/getMyProfile")
+      .subscribe((user: UserModel[]) => {
+        this.user = user[0];
+      });
   }
 
   initializeFishStocking() {

@@ -1,0 +1,28 @@
+body {
+    background: none;
+}
+
+.table th,
+.table td {
+  border: 1px solid #000;
+}
+
+.border-bottom-none {
+  border-bottom: none !important;
+}
+
+.border-top-none {
+  border-top: none !important;
+}
+
+.border-left-none {
+  border-left: none !important;
+}
+
+.border-right-none {
+  border-right: none !important;
+}
+
+.type-water td {
+    text-align: center;
+}

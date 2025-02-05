@@ -5,6 +5,7 @@ import { DynamicGridComponent } from "app/main/@core/dynamic-component/dynamic-g
 import { ObservationSheetReportEnum } from "app/main/dashboard/enums/observation-sheet-enum";
 import { ObservationSheetModel } from "app/main/dashboard/models/observation-sheet-model";
 import { ObservationSheetReportModel } from "app/main/dashboard/models/observation-sheet-report-model";
+import { UserModel } from "app/models/user";
 import { CallApiService } from "app/services/call-api.service";
 import { MessageService } from "app/services/message.service";
 import { StorageService } from "app/services/storage.service";
@@ -34,6 +35,7 @@ export class ObservationSheetComponent {
   public loading = false;
   public year: number;
   public isReportEditable = true;
+  public user: UserModel;
 
   constructor(
     private _service: CallApiService,
@@ -48,10 +50,19 @@ export class ObservationSheetComponent {
 
   ngOnInit() {
     this.initialize();
+    this.getMyProfile();
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  getMyProfile() {
+    this._service
+      .callGetMethod("api/getMyProfile")
+      .subscribe((user: UserModel[]) => {
+        this.user = user[0];
+      });
   }
 
   initialize() {

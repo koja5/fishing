@@ -1,0 +1,22 @@
+body {
+  background: none !important;
+}
+
+th {
+  white-space: break-spaces;
+  padding-left: 0px;
+  padding-right: 0px;
+  text-align: center;
+}
+
+.checked-container {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.checked-container label {
+  font-size: 15px;
+  margin-left: 5px;
+  margin-bottom: 0px;
+}

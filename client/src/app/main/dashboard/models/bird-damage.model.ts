@@ -4,11 +4,14 @@ export class BirdDamageModel {
   fbz: string;
   year: number;
   heron_number: number;
+  heron_damage_number: number;
   heron_daily_food: number;
   heron_damage_in_euro_per_kg: number;
   heron_sum_price: number;
   komorantage_number: number;
+  komorantage_damage_number: number;
   goosander_number: number;
+  goosander_damage_number: number;
   komorantage_daily_food: number;
   komorantage_damage_in_euro_per_kg: number;
   komorantage_sum_price: number;

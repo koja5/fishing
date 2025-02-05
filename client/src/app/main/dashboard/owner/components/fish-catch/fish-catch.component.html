@@ -53,7 +53,8 @@
                 </ng-select>
 
             </div>
-            <div class="col-md-6" *ngIf="isReportEditable || (filter.managementRegister && filter.managementRegister.editable)">
+            <div class="col-md-6"
+                *ngIf="isReportEditable || (filter.managementRegister && filter.managementRegister.editable)">
                 <div class="d-flex justify-content-end action">
                     <div class="d-flex" *ngIf="filter.managementRegister">
                         <button
@@ -86,7 +87,8 @@
 
 
     <div *ngIf="!loading&&filter.managementRegisterId">
-        <app-dynamic-grid #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport" [data]="data"
+        <app-dynamic-grid #grid [path]="path" [file]="file" [fileExportReport]="fileExportReport"
+            [reportTemplate]="reportTemplate" [data]="data"
             [disableCRUD]="(filter && filter.water ? false : true) || (fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed) || (!isReportEditable && (filter.managementRegister && !filter.managementRegister.editable))"
             [template]="customForm" [height]="'calc(100vh - 32vh)'" (submit)="submit($event)"
             (refreshParentComponent)="refreshGrid()"
@@ -151,3 +153,9 @@
     [content]="('actionMessage.dialogRequestForAdditionalChangesText' | translate)"
     [confirmButtonText]="('generalDialog.yes' | translate)" [cancelButtonText]="('generalDialog.no' | translate)"
     (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>
+
+<ng-template #reportTemplate>
+    <app-fish-catch-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
+        [year]="filter.managementRegister.year" [data]="data" [report]="fishStockingReport"
+        [user]="user"></app-fish-catch-report>
+</ng-template>
