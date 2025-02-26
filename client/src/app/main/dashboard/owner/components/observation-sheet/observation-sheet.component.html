@@ -43,7 +43,7 @@
                 translate}}</button>
 
             <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                [groupBy]="'fbz'"></app-generate-pdf-report>
+                [groupBy]="'fbz'" [year]="year"></app-generate-pdf-report>
         </div>
 
     </div>
@@ -76,6 +76,6 @@
     (confirm)="requestToAdminForAdditionalChanges()"></app-dialog-confirm>
 
 <ng-template #reportTemplate>
-    <app-observation-sheet-report *ngIf="!loading&&data" [data]="data" [user]="user">
+    <app-observation-sheet-report *ngIf="!loading&&data" [data]="data" [user]="user" [report]="observationSheetReport">
     </app-observation-sheet-report>
 </ng-template>

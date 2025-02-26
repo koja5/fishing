@@ -133,11 +133,12 @@ export class FishStockingComponent implements OnInit {
         "/api/owner/getFishStockingReport?fbz=" +
           this.filter.managementRegister.fbz
       )
-      .subscribe((data: FishStockingReportModel) => {
-        if (data) {
+      .subscribe((data: FishStockingReportModel[]) => {
+        if (data && data.length) {
           this.fishStockingReport = data[0];
         } else {
           this.fishStockingReport = new FishStockingReportModel();
+          this.fishStockingReport.status = this.fishStockingReportEnum.draft;
         }
       });
   }

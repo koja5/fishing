@@ -11,6 +11,14 @@
                 {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
     </div>
     <div>
+        <p><span class="text-underline">Meldung übermittelt am: </span> &nbsp; <span
+                *ngIf="report.status === reportStatusEnum.draft || report.status === reportStatusEnum.empty">noch
+                nicht übermittelt</span>
+            <span *ngIf="report.status === reportStatusEnum.completed">{{report.date_completed | date: 'dd.MM.yyyy
+                HH:mm'}}</span>
+        </p>
+    </div>
+    <div>
         <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
                 'dd.MM.yyyy HH:mm'}}</span></p>
     </div>

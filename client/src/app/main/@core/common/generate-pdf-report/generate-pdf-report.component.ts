@@ -22,6 +22,7 @@ export class GeneratePdfReportComponent {
   @Input() data: any;
   @Input() config: any;
   @Input() groupBy: string;
+  @Input() year: number;
   @Input() hideExportButton: boolean = true;
   @Input() reportTemplate: TemplateRef<any>;
   @ViewChild("modal") modal: TemplateRef<any>;
@@ -159,16 +160,29 @@ export class GeneratePdfReportComponent {
       }
       this.saveToPdf();
     } else if (this.config.request && !this.data) {
-      this._service
-        .callApi(this.config, this._activateRouter)
-        .subscribe((data: any[]) => {
-          if (this.groupBy) {
-            this.rows = this.groupReportByField(data, this.groupBy);
-          } else {
-            this.rows = data;
-          }
-          this.saveToPdf();
-        });
+      if (this.config.request.type === "GET") {
+        this._service
+          .callGetMethod(this.config.request.api, this.year)
+          .subscribe((data: any[]) => {
+            if (this.groupBy) {
+              this.rows = this.groupReportByField(data, this.groupBy);
+            } else {
+              this.rows = data;
+            }
+            this.saveToPdf();
+          });
+      } else {
+        this._service
+          .callApi(this.config, this._activateRouter)
+          .subscribe((data: any[]) => {
+            if (this.groupBy) {
+              this.rows = this.groupReportByField(data, this.groupBy);
+            } else {
+              this.rows = data;
+            }
+            this.saveToPdf();
+          });
+      }
     }
   }
 
@@ -190,15 +204,8 @@ export class GeneratePdfReportComponent {
   }
 
   generateReportName() {
-    const date = new Date();
     return this.config && this.config.name
-      ? this.config.name +
-          " - " +
-          date.getFullYear() +
-          " " +
-          date.getHours() +
-          "-" +
-          date.getMinutes()
+      ? this.config.name + " - " + this._storageService.getYear()
       : "Report";
   }
 
@@ -213,15 +220,7 @@ export class GeneratePdfReportComponent {
   getReportName() {
     if (this.config) {
       const date = new Date();
-      return (
-        this.config.name +
-        " - " +
-        date.getFullYear() +
-        " " +
-        date.getHours() +
-        "-" +
-        date.getMinutes()
-      );
+      return this.config.name + " - " + this.year;
     } else {
       return "Report";
     }

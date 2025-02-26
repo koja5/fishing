@@ -14,8 +14,10 @@ export class ObservationSheetReportComponent {
   @Input() year: string;
   @Input() data: ObservationSheetModel[];
   @Input() user: UserModel;
+  @Input() report: ObservationSheetReportModel;
   public creationDate: Date;
   public columnWidth: string;
+  public observationSheetReportEnum = ObservationSheetReportEnum;
 
   constructor() {}
 

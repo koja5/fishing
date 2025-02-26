@@ -61,6 +61,10 @@
                         <span *ngIf="config.options" class="fa fa-cog cursor-pointer options"
                             (click)="showModalOptionsDialog()"></span>
                     </div>
+                    <div class="save-describe"
+                        *ngIf="rows && rows.length && (!config.export || !config.export.disablePdf)">
+                        {{'action.saveReportLike' | translate}}
+                    </div>
                     <div *ngIf="rows && rows.length && (!config.export || !config.export.disablePdf)"
                         class="flex-grow-0 mr-1">
                         <span class="fa fa-file-pdf-o cursor-pointer options pdf-icon"

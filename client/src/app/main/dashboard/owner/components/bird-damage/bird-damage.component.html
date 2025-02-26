@@ -57,8 +57,8 @@
                             {{'action.noHaveEntry' |
                             translate}}</button>
                     </div>
-                    <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                        [groupBy]="'fbz'"></app-generate-pdf-report>
+                    <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'fbz'"
+                        [year]="filter.managementRegister.year"></app-generate-pdf-report>
                 </div>
             </div>
         </div>
@@ -118,6 +118,6 @@
 
 <ng-template #reportTemplate>
     <app-bird-damage-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
-        [year]="filter.managementRegister.year" [data]="data" [report]="fishStockingReport"
+        [year]="filter.managementRegister.year" [data]="data" [report]="report"
         [user]="user"></app-bird-damage-report>
 </ng-template>

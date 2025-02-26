@@ -11,6 +11,14 @@
                 {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
     </div>
     <div>
+        <p><span class="text-underline">Meldung übermittelt am: </span> &nbsp; <span
+                *ngIf="report.status === reportStatusEnum.draft || report.status === reportStatusEnum.empty">noch
+                nicht übermittelt</span>
+            <span *ngIf="report.status === reportStatusEnum.completed">{{report.date_completed | date: 'dd.MM.yyyy
+                HH:mm'}}</span>
+        </p>
+    </div>
+    <div>
         <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
                 'dd.MM.yyyy HH:mm'}}</span></p>
     </div>
@@ -63,8 +71,8 @@
                     <tbody>
                         <tr>
                             <th>{{row.heron_number}}</th>
-                            <th>{{row.heron_damage_number}}</th>
-                            <th>{{row.heron_sum_price}}</th>
+                            <th>{{row.heron_damage_number.toFixed(2)}}</th>
+                            <th>{{row.heron_sum_price.toFixed(2)}}</th>
                         </tr>
                     </tbody>
                 </table>
@@ -100,7 +108,7 @@
                         <tr>
                             <th scope="col">Kormoran-Tage</th>
                             <th scope="col">Dadurch verursachte Schadensmenge in kg
-                                (0,3 kg / Graureiher-Tag)
+                                (0,5 kg / Graureiher-Tag)
                             </th>
                             <th scope="col">Schadenssumme in Euro
                                 (€ 14 / kg)
@@ -110,8 +118,8 @@
                     <tbody>
                         <tr>
                             <th>{{row.komorantage_number}}</th>
-                            <th>{{row.komorantage_damage_number}}</th>
-                            <th>{{row.komorantage_sum_price}}</th>
+                            <th>{{row.komorantage_damage_number.toFixed(2)}}</th>
+                            <th>{{row.komorantage_sum_price.toFixed(2)}}</th>
                         </tr>
                     </tbody>
                 </table>
@@ -154,8 +162,8 @@
                 <tbody>
                     <tr>
                         <th>{{row.goosander_number}}</th>
-                        <th>{{row.goosander_damage_number}}</th>
-                        <th>{{row.goosander_sum_price}}</th>
+                        <th>{{row.goosander_damage_number.toFixed(2)}}</th>
+                        <th>{{row.goosander_sum_price.toFixed(2)}}</th>
                     </tr>
                 </tbody>
             </table>
@@ -178,9 +186,9 @@
                 <tbody>
                     <tr>
                         <th>{{row.amount_of_injured_kg}}</th>
-                        <th>{{row.damage_amount_of_injured}}</th>
+                        <th>{{row.damage_amount_of_injured.toFixed(2)}}</th>
                         <th>{{row.number_of_seedlings}}</th>
-                        <th>{{row.damage_of_seedlings}}</th>
+                        <th>{{row.damage_of_seedlings.toFixed(2)}}</th>
                     </tr>
                 </tbody>
             </table>

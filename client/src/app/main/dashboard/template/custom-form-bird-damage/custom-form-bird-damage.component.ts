@@ -137,38 +137,62 @@ export class CustomFormBirdDamageComponent {
       });
   }
 
-  calculatePriceForKomorantage() {
+  calculateSumPriceForKomorantage() {
     if (this.data.komorantage_number && this.data.komorantage_damage_number) {
       this.data.komorantage_sum_price =
-        this.data.komorantage_number *
         this.data.komorantage_damage_number *
-        this._translate.instant("birdDamagePrice.komorantageForKg") *
         this._translate.instant("birdDamagePrice.pricePerKg");
-      return this.data.komorantage_sum_price;
+      return this.data.komorantage_sum_price.toFixed(2);
     }
     return "";
   }
 
-  calculatePriceForGoosander() {
+  calculatePriceForKomorantageDamage() {
+    if (this.data.komorantage_number) {
+      this.data.komorantage_damage_number =
+        this.data.komorantage_number *
+        this._translate.instant("birdDamagePrice.komorantageForKg");
+      return this.data.komorantage_damage_number.toFixed(2);
+    }
+    return "";
+  }
+
+  calculateSumPriceForGoosander() {
     if (this.data.goosander_number && this.data.goosander_damage_number) {
       this.data.goosander_sum_price =
-        this.data.goosander_number *
         this.data.goosander_damage_number *
-        this._translate.instant("birdDamagePrice.goosanderForKg") *
         this._translate.instant("birdDamagePrice.pricePerKgGoosander");
-      return this.data.goosander_sum_price;
+      return this.data.goosander_sum_price.toFixed(2);
+    }
+    return "";
+  }
+
+  calculatePriceForGoosanderDamage() {
+    if (this.data.goosander_number) {
+      this.data.goosander_damage_number =
+        this.data.goosander_number *
+        this._translate.instant("birdDamagePrice.goosanderForKg");
+      return this.data.goosander_damage_number.toFixed(2);
     }
     return "";
   }
 
   calculatePriceForHeronDemage() {
+    if (this.data.heron_number) {
+      this.data.heron_damage_number =
+        this.data.heron_number *
+        this._translate.instant("birdDamagePrice.heronForKg");
+      return this.data.heron_damage_number.toFixed(2);
+    }
+    return "";
+  }
+
+  calculateSumPriceForHeron() {
     if (this.data.heron_number && this.data.heron_damage_number) {
       this.data.heron_sum_price =
-        this.data.heron_number *
         this.data.heron_damage_number *
-        this._translate.instant("birdDamagePrice.heronForKg") *
         this._translate.instant("birdDamagePrice.pricePerKg");
-      return this.data.heron_sum_price;
+      return this.data.heron_sum_price.toFixed(2);
     }
     return "";
   }
@@ -178,7 +202,7 @@ export class CustomFormBirdDamageComponent {
       this.data.damage_of_seedlings =
         this.data.number_of_seedlings *
         this._translate.instant("birdDamagePrice.pricePerItem");
-      return this.data.damage_of_seedlings;
+      return this.data.damage_of_seedlings.toFixed(2);
     }
     return "";
   }
@@ -188,7 +212,7 @@ export class CustomFormBirdDamageComponent {
       this.data.damage_amount_of_injured =
         this.data.amount_of_injured_kg *
         this._translate.instant("birdDamagePrice.pricePerKg");
-      return this.data.damage_amount_of_injured;
+      return this.data.damage_amount_of_injured.toFixed(2);
     }
     return "";
   }

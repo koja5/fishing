@@ -1,4 +1,6 @@
 import { Component, Input } from "@angular/core";
+import { ReportStatusEnum } from "app/main/dashboard/enums/report-status-enum";
+import { BirdDamageReportModel } from "app/main/dashboard/models/bird-damage-report.model";
 import { UserModel } from "app/models/user";
 import { CallApiService } from "app/services/call-api.service";
 
@@ -10,9 +12,11 @@ import { CallApiService } from "app/services/call-api.service";
 export class BirdDamageReportComponent {
   @Input() fbz: string;
   @Input() year: string;
-  @Input()data: any;
+  @Input() data: any;
   @Input() user: UserModel;
+  @Input() report: BirdDamageReportModel;
   public creationDate: Date;
+  public reportStatusEnum = ReportStatusEnum;
 
   constructor(private _service: CallApiService) {}
 

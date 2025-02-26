@@ -138,8 +138,18 @@
   color: #fff;
 }
 
-.dark-layout .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover, .ngx-datatable.material:not(.cell-selection) .datatable-body-row:hover .datatable-row-group {
+.dark-layout
+  .ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover,
+.ngx-datatable.material:not(.cell-selection)
+  .datatable-body-row:hover
+  .datatable-row-group {
   background: none !important;
+}
+
+.save-describe {
+  width: 83px;
+  font-size: 10px;
 }
 
 // .ngx-datatable.fixed-row

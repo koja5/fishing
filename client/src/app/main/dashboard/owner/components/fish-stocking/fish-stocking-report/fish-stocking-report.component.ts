@@ -22,6 +22,7 @@ export class FishStockingReportComponent {
   constructor() {}
 
   ngOnInit() {
+    console.log(this.report);
     this.creationDate = new Date();
     console.log(this.year);
     this.columnWidth = 100 / 7 + "%";

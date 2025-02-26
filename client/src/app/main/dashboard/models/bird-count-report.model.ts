@@ -5,7 +5,7 @@ export class BirdCountReportModel {
   id_owner?: number;
   fbz: string;
   year: number;
-  status: ReportStatusEnum;
+  status: ReportStatusEnum = ReportStatusEnum.empty;
   date_completed: Date;
   empty?: number = 0;
 }

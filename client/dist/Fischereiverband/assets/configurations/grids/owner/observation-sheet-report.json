@@ -1,5 +1,12 @@
 {
     "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/owner/getAllObservationSheetForReport",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
     "name": "Fischottermeldungen",
     "paging": {
         "enable": true,

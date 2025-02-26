@@ -140,11 +140,12 @@ export class FishCatchComponent {
         "/api/owner/getFishCatchReport?fbz=" +
           this.filter.managementRegister.fbz
       )
-      .subscribe((data: FishCatchReportModel) => {
-        if (data) {
+      .subscribe((data: FishCatchReportModel[]) => {
+        if (data && data.length) {
           this.fishCatchReport = data[0];
         } else {
           this.fishCatchReport = new FishCatchReportModel();
+          this.fishCatchReport.status = FishCatchReportEnum.draft;
         }
       });
   }

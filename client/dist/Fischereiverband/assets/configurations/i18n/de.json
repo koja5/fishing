@@ -37,7 +37,9 @@
       "noHaveEntry": "Leermeldung absenden",
       "reminderOwnerToCompleteReport": "Bewirtschafter  Erinnerung",
       "requestAdminToChangeStatus": "Bereits gesendete Meldung wieder Aktivieren",
-      "exportToPdf": "Export"
+      "exportToPdf": "Export",
+      "controlList": "Kontrollliste",
+      "saveReportLike": "Speichern der Meldung als"
    },
    "actionMessage": {
       "successExecuteActionTitleDefault": "Erfolgreich geändert!",
@@ -394,7 +396,10 @@
       "sectionFourColumnFive": "Kormoran",
       "mainExplanation": {
          "link": "https://google.rs"
-      }
+      },
+      "sectionOneNumberForHeronDamage": "0,3 kg / Graureiher-Tag",
+      "sectionOneNumberForKomorantageDamage": "0,5 kg / Graureiher-Tag",
+      "sectionOneNumberForGoosanderDamage": "0,3 kg / Gänsesäger-Tag"
    },
    "explanation": {
       "date": "Geben Sie bitte das Datum des Besatzes ein - z.B. 23.04.2024",
@@ -432,6 +437,9 @@
       "sectionTwoKg": "Vogelschaden.kg",
       "sectionTwoDamageInEuro": "Vogelschaden.Schaden in €",
       "sectionThreeTitle": "Vogelschaden.Horst- und Schlafplatzmeldung",
-      "sectionFourTitle": "Vogelschaden.Horst- und Schlafplatzmeldung"
+      "sectionFourTitle": "Vogelschaden.Horst- und Schlafplatzmeldung",
+      "sectionOneNumberForHeronDamageExplanation": "Dadurch verursachte Schadensmenge in kg (0,3 kg / Graureiher-Tag)",
+      "sectionOneNumberForKomorantageDamageExplanation": "Dadurch verursachte Schadensmenge in kg (0,3 kg / Graureiher-Tag)",
+      "sectionOneNumberForGoosanderDamageExplanation": "Dadurch verursachte Schadensmenge in kg (0,3 kg / Gänsesäger-Tag)"
    }
 }

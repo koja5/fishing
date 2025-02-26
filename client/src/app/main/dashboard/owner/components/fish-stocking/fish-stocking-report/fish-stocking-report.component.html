@@ -11,12 +11,20 @@
                 {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
     </div>
     <div>
+        <p><span class="text-underline">Meldung übermittelt am: </span> &nbsp; <span
+                *ngIf="report.status === fishStockingReportEnum.draft || report.status === fishStockingReportEnum.empty">noch
+                nicht übermittelt</span>
+            <span *ngIf="report.status === fishStockingReportEnum.completed">{{report.date_completed | date: 'dd.MM.yyyy HH:mm'}}</span>
+        </p>
+    </div>
+    <div>
         <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
                 'dd.MM.yyyy HH:mm'}}</span></p>
     </div>
-    <div class="checked-container">
+    <div class="checked-container mt-2">
         <input type="checkbox" id="share" name="share" [checked]="report.status === fishStockingReportEnum.completed">
-        <label for="share"> Es wurde für das Jahr {{year}} kein Besatz getätigt.</label>
+        <label for="share"> Es wurde für das Jahr {{year}} <span class="font-weight-bold">kein Besatz</span>
+            getätigt.</label>
     </div>
     <hr>
     <div>
@@ -60,9 +68,13 @@
             andere (eigene) Fischwasser bis spätestens <span class="font-weight-bold">1. März {{getNextYear()}}
             </span>dem Landesfischereiverband
             vorzulegen.</p>
+        <p>
+            Ich bestätige hiermit, dass die Angaben vollständig und richtig sind.
+        </p>
     </div>
     <div class="checked-container">
-        <input type="checkbox" id="share" name="share" [checked]="report.status === fishStockingReportEnum.completed && report.share_data">
+        <input type="checkbox" id="share" name="share"
+            [checked]="report.status === fishStockingReportEnum.completed && report.share_data">
         <label for="share"> Ich wünsche keine Weitergabe dieser Besatzdaten zur statistischen Auswertung zur
             EU-WRRL.</label><br>
     </div>

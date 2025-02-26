@@ -172,11 +172,12 @@ export class BirdCountComponent {
         "/api/owner/getBirdCountReport?fbz=" +
           this.filter.managementRegister.fbz
       )
-      .subscribe((data: BirdCountModel) => {
-        if (data) {
+      .subscribe((data: any) => {
+        if (data && data.length) {
           this.report = data[0];
         } else {
           this.report = new BirdCountReportModel();
+          this.report.status = this.reportStatusEnum.draft;
         }
       });
   }

@@ -1,7 +1,7 @@
 <div *ngIf="managementRegistersData && managementRegistersData.length">
     <div class="row">
         <div class="alert-message col-md-12 text-center" *ngIf="filter.managementRegisterId">
-            <div *ngIf=" fishCatchReport && fishCatchReport.status===fishCatchReportEnum.completed">
+            <div *ngIf="fishCatchReport && fishCatchReport.status === fishCatchReportEnum.completed">
                 <ngb-alert [type]="'success'" [dismissible]="false">
                     <div class="alert-body">{{'actionMessage.reportCompleted' | translate}}
                         {{fishCatchReport.date_completed | date: 'dd.MM.yyyy. HH:mm'}}</div>
@@ -74,8 +74,8 @@
                             {{'action.noHaveEntry' |
                             translate}}</button>
                     </div>
-                    <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                        [groupBy]="'id_water'"></app-generate-pdf-report>
+                    <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'id_water'"
+                        [year]="year"></app-generate-pdf-report>
                 </div>
             </div>
         </div>
@@ -156,6 +156,6 @@
 
 <ng-template #reportTemplate>
     <app-fish-catch-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
-        [year]="filter.managementRegister.year" [data]="data" [report]="fishStockingReport"
+        [year]="filter.managementRegister.year" [data]="data" [report]="fishCatchReport"
         [user]="user"></app-fish-catch-report>
 </ng-template>

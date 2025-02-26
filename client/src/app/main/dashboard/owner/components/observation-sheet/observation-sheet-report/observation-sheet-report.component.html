@@ -16,6 +16,14 @@
             </p>
         </div>
         <div>
+            <p><span class="text-underline">Meldung übermittelt am: </span> &nbsp; <span
+                    *ngIf="report.status === observationSheetReportEnum.draft || report.status === observationSheetReportEnum.empty">noch
+                    nicht übermittelt</span>
+                <span *ngIf="report.status === observationSheetReportEnum.completed">{{report.date_completed | date:
+                    'dd.MM.yyyy HH:mm'}}</span>
+            </p>
+        </div>
+        <div>
             <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
                     'dd.MM.yyyy HH:mm'}}</span></p>
         </div>

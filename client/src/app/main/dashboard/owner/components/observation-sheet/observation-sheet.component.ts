@@ -85,11 +85,13 @@ export class ObservationSheetComponent {
   getObservationSheetReport() {
     this._service
       .callGetMethod("/api/owner/getObservationSheetReport", this.year)
-      .subscribe((data: ObservationSheetReportModel) => {
-        if (data) {
+      .subscribe((data: ObservationSheetReportModel[]) => {
+        if (data && data.length) {
           this.observationSheetReport = data[0];
         } else {
           this.observationSheetReport = new ObservationSheetReportModel();
+          this.observationSheetReport.status =
+            this.observationSheetReportEnum.draft;
         }
       });
   }

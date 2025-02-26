@@ -37,7 +37,9 @@
       "noHaveEntry": "Leermeldung absenden",
       "reminderOwnerToCompleteReport": "Bewirtschafter  Erinnerung",
       "requestAdminToChangeStatus": "Bereits gesendete Meldung wieder Aktivieren",
-      "exportToPdf": "Export"
+      "exportToPdf": "Export",
+      "controlList": "Kontrollliste",
+      "saveReportLike": "Speichern der Meldung als"
    },
    "actionMessage": {
       "successExecuteActionTitleDefault": "Erfolgreich geändert!",
@@ -396,7 +398,7 @@
          "link": "https://google.rs"
       },
       "sectionOneNumberForHeronDamage": "0,3 kg / Graureiher-Tag",
-      "sectionOneNumberForKomorantageDamage": "0,3 kg / Graureiher-Tag",
+      "sectionOneNumberForKomorantageDamage": "0,5 kg / Graureiher-Tag",
       "sectionOneNumberForGoosanderDamage": "0,3 kg / Gänsesäger-Tag"
    },
    "explanation": {

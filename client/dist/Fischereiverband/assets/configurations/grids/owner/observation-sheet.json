@@ -54,9 +54,6 @@
         "showDeleteConfirmDialog": true,
         "mode": "Dialog"
     },
-    "export": {
-        "disablePdf": true
-    },
     "editSettingsRequest": {
         "add": {
             "type": "POST",

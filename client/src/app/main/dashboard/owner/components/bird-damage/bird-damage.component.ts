@@ -126,11 +126,12 @@ export class BirdDamageComponent {
             ? this.filter.managementRegister.fbz
             : null)
       )
-      .subscribe((data: BirdDamageReportModel) => {
-        if (data) {
+      .subscribe((data: BirdDamageReportModel[]) => {
+        if (data && data.length) {
           this.report = data[0];
         } else {
           this.report = new BirdDamageReportModel();
+          this.report.status = this.reportStatusEnum.draft;
         }
       });
   }

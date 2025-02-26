@@ -264,7 +264,6 @@ export class StorageService {
 
   isReportForYearEditable() {
     if (localStorage.getItem("year")) {
-      console.log(this.decrypt(localStorage.getItem("year")));
       return JSON.parse(JSON.parse(this.decrypt(localStorage.getItem("year"))))
         .editable;
     } else {

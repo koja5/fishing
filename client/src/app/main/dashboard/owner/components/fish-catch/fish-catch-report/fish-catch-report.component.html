@@ -3,7 +3,7 @@
         <p>Formular des Landesfischereiverbandes Salzburg</p>
     </div>
     <div class="text-center font-weight-bold mt-2 mb-2">
-        <h4>Ausfangmeldungen</h4>
+        <h4>Besatzmeldung</h4>
         <h4>für die Fischereibuchzahl {{fbz}} für das Jahr {{year}} </h4>
     </div>
     <div *ngIf="user">
@@ -11,27 +11,66 @@
                 {{user.birthday | date: 'dd.MM.yyyy'}} | {{user.location}}</span></p>
     </div>
     <div>
+        <p><span class="text-underline">Meldung übermittelt am: </span> &nbsp; <span
+                *ngIf="report.status === fishCatchReportEnum.draft || report.status === fishCatchReportEnum.empty">noch
+                nicht übermittelt</span>
+            <span *ngIf="report.status === fishCatchReportEnum.completed">{{report.date_completed | date: 'dd.MM.yyyy
+                HH:mm'}}</span>
+        </p>
+    </div>
+    <div>
         <p><span class="text-underline">Datum der digitalen Einreichung: </span> &nbsp; <span>{{creationDate | date:
                 'dd.MM.yyyy HH:mm'}}</span></p>
     </div>
-    <table class="table table-hover mt-3 mb-3">
-        <thead>
-            <tr>
-                <th scope="col">Name des Gewässers</th>
-                <th scope="col">Fischart / Krebsart</th>
-                <th scope="col">Gesamtmenge in kg</th>
-                <th scope="col">als Speisefisch</th>
-                <th scope="col">als Besatzfisch</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of data">
-                <th>{{item.name_of_water}}</th>
-                <th>{{item.fish}}</th>
-                <th>{{item.quantity}}</th>
-                <th>{{item.edible_fish_quantity}}</th>
-                <th>{{item.stocked_fish_quantity}}</th>
-            </tr>
-        </tbody>
-    </table>
+    <div class="checked-container mt-2">
+        <input type="checkbox" id="share" name="share" [checked]="report.status === fishCatchReportEnum.completed">
+        <label for="share"> Es wurde für das Jahr {{year}} <span class="font-weight-bold">kein Besatz</span>
+            getätigt.</label>
+    </div>
+    <hr>
+    <div>
+        <span class="text-underline">Erklärung:</span> dieses Formular ist vollständig auszufüllen. Bei „Null-Besatz“
+        ist eine Leermeldung (siehe o.a.
+        Kasten) anzugeben.
+    </div>
+    <div>
+        <table class="table table-hover mt-3 mb-3">
+            <thead>
+                <tr>
+                    <th scope="col">Gewässername</th>
+                    <th scope="col">Fisch-/Krebsart</th>
+                    <th scope="col">Entnahme-menge in kg</th>
+                    <th scope="col">davon Verwendung als Speisefisch</th>
+                    <th scope="col">davon Verwendung als Besatzfisch bzw. umgesetzt in ein anderes Gewässer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <th>{{item.name_of_water}}</th>
+                    <th>{{item.fish}}</th>
+                    <th>{{item.quantity}}</th>
+                    <th>{{item.edible_fish_quantity}}</th>
+                    <th>{{item.stocked_fish_quantity}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-3">
+        <p>
+            Der Bewirtschafter hat das Fangverzeichnis als Gesamtverzeichnis über den Ertrag des Fischwassers bis
+            spätestens <span class="font-weight-bold">1. März {{getNextYear()}}
+            </span>dem Landesfischereiverband
+            vorzulegen.</p>
+        <p>
+            Ich bestätige hiermit, dass die Angaben vollständig und richtig sind und auch die Fänge der Lizenznehmer
+            enthalten sind.
+        </p>
+    </div>
+    <br />
+    <div class="checked-container">
+        <input type="checkbox" id="share" name="share"
+            [checked]="report.status === fishCatchReportEnum.completed && report.share_data">
+        <label for="share"> Ich wünsche keine Weitergabe dieser Besatzdaten zur statistischen Auswertung zur
+            EU-WRRL.</label><br>
+    </div>
 </body>

@@ -7,7 +7,7 @@
                         {{report.date_completed | date: 'dd.MM.yyyy. HH:mm'}}</div>
                 </ngb-alert>
             </div>
-            <div *ngIf="allData && allData.length && (!report || report.status ===
+            <div *ngIf="(!report || report.status ===
             reportStatusEnum.draft)">
                 <ngb-alert [type]="'warning'" [dismissible]="false">
                     <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
@@ -74,7 +74,6 @@
                     </div>
                     <app-generate-pdf-report [path]="path" [file]="fileExportReport"
                         [groupBy]="'id_water'"></app-generate-pdf-report>
-
                 </div>
             </div>
         </div>
@@ -132,5 +131,5 @@
 
 <ng-template #reportTemplate>
     <app-bird-count-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
-        [year]="filter.managementRegister.year" [data]="data" [user]="user"></app-bird-count-report>
+        [year]="filter.managementRegister.year" [data]="data" [user]="user" [report]="report"></app-bird-count-report>
 </ng-template>

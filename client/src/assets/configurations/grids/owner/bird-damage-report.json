@@ -3,7 +3,7 @@
     "name": "Vogelschaden",
     "request": {
         "type": "GET",
-        "api": "/api/owner/getBirdDamageForReport",
+        "api": "/api/owner/getAllBirdDamageForReport",
         "parameters": [],
         "fields": "",
         "root": ""
