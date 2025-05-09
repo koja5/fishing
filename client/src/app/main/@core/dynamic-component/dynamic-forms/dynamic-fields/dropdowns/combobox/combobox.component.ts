@@ -72,19 +72,29 @@ export class ComboboxComponent implements OnInit {
 
   getApiRequest() {
     this.loading = true;
-    this._service.callApi(this.config, this.config.request!.fields).subscribe(
-      (data) => {
-        if (this.config.request!.root) {
-          // this.data = data[this.config.request!.root];
-        } else {
+    if (this.config.request.parametarsDate && this.config.request.parametarsDate[0].type === "storageYear") {
+      const year = this._storageService.getYear();
+      this._service
+        .callGetMethod(this.config.request.api, year)
+        .subscribe((data) => {
           this.data = data;
           this.loading = false;
+        });
+    } else {
+      this._service.callApi(this.config, this.config.request!.fields).subscribe(
+        (data) => {
+          if (this.config.request!.root) {
+            // this.data = data[this.config.request!.root];
+          } else {
+            this.data = data;
+            this.loading = false;
+          }
+        },
+        (error) => {
+          this.loading = false;
         }
-      },
-      (error) => {
-        this.loading = false;
-      }
-    );
+      );
+    }
   }
 
   getLocalData(localDataRequest: ConfigurationFile) {

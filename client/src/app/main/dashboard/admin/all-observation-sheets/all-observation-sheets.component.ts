@@ -41,7 +41,7 @@ export class AllObservationSheetsComponent {
   getData(year: number) {
     this.loader = true;
     this._service
-      .callGetMethod("/api/admin/getAllFishCatchReports", year)
+      .callGetMethod("/api/admin/getAllObservationSheetReports", year)
       .subscribe((data) => {
         this.data = data;
         this.loader = false;

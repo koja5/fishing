@@ -8,6 +8,7 @@ export class MessageService {
   public configValue = new Subject<any>();
   public refreshAfterRemoveFile = new Subject<any>();
   public year = new Subject<number>();
+  public refreshObservationSheet = new Subject<any>();
 
   constructor() {}
 
@@ -25,6 +26,14 @@ export class MessageService {
 
   getRefreshGrid(): Observable<any> {
     return this.refreshAfterRemoveFile.asObservable();
+  }
+
+  sendRefreshObservationSheet(value?: any) {
+    this.refreshObservationSheet.next(value);
+  }
+
+  getRefreshObservationSheet(): Observable<any> {
+    return this.refreshObservationSheet.asObservable();
   }
 
   sendYear(year: any) {

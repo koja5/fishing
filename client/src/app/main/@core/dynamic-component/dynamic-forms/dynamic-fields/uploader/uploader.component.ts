@@ -183,7 +183,7 @@ export class UploaderComponent {
       )
       .subscribe((data) => {
         if (data) {
-          this._messageService.sendRefreshGrid(this.group.value);
+          this._messageService.sendRefreshObservationSheet(this.group.value);
         }
       });
   }

@@ -1,12 +1,5 @@
 {
     "pageSize": 10,
-    "request": {
-        "type": "GET",
-        "api": "/api/owner/getAllObservationSheet",
-        "parameters": [],
-        "fields": "",
-        "root": ""
-    },
     "refreshParentComponentWithNewChanges": true,
     "paging": {
         "enable": true,
@@ -226,7 +219,12 @@
                 "api": "/api/owner/getManagementRegistersData",
                 "parameters": [],
                 "fields": "",
-                "root": ""
+                "root": "",
+                "parametarsDate": [
+                    {
+                        "type": "storageYear"
+                    }
+                ]
             },
             "fieldConfig": {
                 "ignoreAccent": false,

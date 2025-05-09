@@ -9,7 +9,8 @@ import { UserModel } from "app/models/user";
 import { CallApiService } from "app/services/call-api.service";
 import { MessageService } from "app/services/message.service";
 import { StorageService } from "app/services/storage.service";
-import { Subscription } from "rxjs";
+import { Subject, Subscription } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: "app-observation-sheet",
@@ -29,6 +30,7 @@ export class ObservationSheetComponent {
   public file = "observation-sheet.json";
   public fileExportReport = "observation-sheet-report.json";
   subscription: Subscription;
+  private _unsubscribeAll: Subject<any>;
   public data: ObservationSheetModel[];
   public observationSheetReport: ObservationSheetReportModel;
   public observationSheetReportEnum = ObservationSheetReportEnum;
@@ -43,6 +45,7 @@ export class ObservationSheetComponent {
     private _storageService: StorageService,
     private _messageService: MessageService
   ) {
+    this._unsubscribeAll = new Subject();
     this.subscription = this._messageService.getYear().subscribe((year) => {
       this.ngOnInit();
     });
@@ -51,10 +54,17 @@ export class ObservationSheetComponent {
   ngOnInit() {
     this.initialize();
     this.getMyProfile();
+
+    this._messageService
+      .getRefreshObservationSheet()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((data) => {});
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   getMyProfile() {
@@ -106,7 +116,7 @@ export class ObservationSheetComponent {
 
   confirmCompleteReport() {
     this.observationSheetReport = {
-      year: new Date().getFullYear(),
+      year: this.year,
       status: ObservationSheetReportEnum.completed,
       date_completed: new Date(),
       empty: 0,
@@ -149,7 +159,7 @@ export class ObservationSheetComponent {
   confirmNoHaveFishStockingEntry() {
     this.loading = true;
     this.observationSheetReport = {
-      year: new Date().getFullYear(),
+      year: this.year,
       status: ObservationSheetReportEnum.completed,
       date_completed: new Date(),
       empty: 1,
@@ -168,7 +178,6 @@ export class ObservationSheetComponent {
   }
 
   refreshParentComponent(data) {
-    this.data = data;
-    this.getObservationSheetReport();
+    this.initialize();
   }
 }

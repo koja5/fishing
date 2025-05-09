@@ -208,7 +208,7 @@ function packDocumentsPath(documentation) {
 }
 
 function getFileName(path) {
-  return path.split("\\file-storage").length
-    ? path.split("file-storage\\")[1]
+  return path.split(process.env.FILE_NAME_PATH).length
+    ? path.split(process.env.FILE_NAME_PATH)[1]
     : null;
 }

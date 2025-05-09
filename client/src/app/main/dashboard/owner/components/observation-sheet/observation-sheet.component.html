@@ -9,7 +9,7 @@
         <div *ngIf="data && data.length && (!observationSheetReport || observationSheetReport.status ===
             observationSheetReportEnum.draft)">
             <ngb-alert [type]="'warning'" [dismissible]="false">
-                <div class="alert-body">{{'actionMessage.reportCompletedNotYet' | translate}}</div>
+                <div class="alert-body">{{'actionMessage.observationReportNotCompletedYet' | translate}}</div>
             </ngb-alert>
         </div>
         <div class="explanation">
@@ -42,8 +42,8 @@
                 {{'action.noHaveEntry' |
                 translate}}</button>
 
-            <app-generate-pdf-report [path]="path" [file]="fileExportReport"
-                [groupBy]="'fbz'" [year]="year"></app-generate-pdf-report>
+            <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'fbz'"
+                [year]="year"></app-generate-pdf-report>
         </div>
 
     </div>

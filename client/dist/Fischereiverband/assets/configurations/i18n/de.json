@@ -56,6 +56,7 @@
       "dialogCompleteReportQuestionForShareDataYes": "Ja",
       "dialogCompleteReportQuestionForShareDataNo": "NEIN",
       "reportCompletedNotYet": "Die Meldung wurde noch nicht fertiggestellt und gesendet.",
+      "observationReportNotCompletedYet": "Diese Beobachtung/Meldung wurde noch nicht übermittelt",
       "reportCompleted": "Diese Meldung wurde abgeschlossen am/um",
       "dialogBackReportToOwnerTitle": "Sind sie sicher?",
       "dialogBackReportToOwnerText": "Möchten Sie dem Bewirtschafter die Meldung wieder zum andern freigeben?",

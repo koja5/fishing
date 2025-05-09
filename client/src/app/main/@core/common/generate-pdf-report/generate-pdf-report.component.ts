@@ -220,7 +220,7 @@ export class GeneratePdfReportComponent {
   getReportName() {
     if (this.config) {
       const date = new Date();
-      return this.config.name + " - " + this.year;
+      return this.config.name + " - " + this._storageService.getYear();
     } else {
       return "Report";
     }

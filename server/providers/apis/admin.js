@@ -244,6 +244,7 @@ router.get("/getAgeOfFishes", authAdmin, async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
+        console.log("USAO SAMMM!!!");
         conn.query("select * from age_of_fishes", function (err, rows, fields) {
           conn.release();
           if (err) {
@@ -1002,7 +1003,7 @@ router.get("/getObservationSheetDetails", authAdmin, async (req, res, next) => {
 });
 
 router.get(
-  "/getAllObservationSheetReports",
+  "/getAllObservationSheetReports/:year?",
   authAdmin,
   async (req, res, next) => {
     try {
@@ -1012,7 +1013,8 @@ router.get(
           res.json(err);
         } else {
           conn.query(
-            "select distinct osr.year, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name', u.id_owner, osr.status, osr.empty from observation_sheet_reports osr join users u on osr.id_owner = u.id_owner order by osr.date_completed desc",
+            "select distinct osr.year, CONCAT(u.firstname, ' ', u.lastname) as 'owner_name', u.id_owner, osr.status, osr.empty from observation_sheet_reports osr join users u on osr.id_owner = u.id_owner where osr.year = ? order by osr.date_completed desc",
+            [req.params.year],
             function (err, rows, fields) {
               conn.release();
               if (err) {

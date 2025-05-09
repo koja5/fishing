@@ -58,7 +58,7 @@
                             translate}}</button>
                     </div>
                     <app-generate-pdf-report [path]="path" [file]="fileExportReport" [groupBy]="'fbz'"
-                        [year]="filter.managementRegister.year"></app-generate-pdf-report>
+                        [year]="year"></app-generate-pdf-report>
                 </div>
             </div>
         </div>
@@ -118,6 +118,5 @@
 
 <ng-template #reportTemplate>
     <app-bird-damage-report *ngIf="!loading&&data" [fbz]="filter.managementRegister.fbz"
-        [year]="filter.managementRegister.year" [data]="data" [report]="report"
-        [user]="user"></app-bird-damage-report>
+        [year]="filter.managementRegister.year" [data]="data" [report]="report" [user]="user"></app-bird-damage-report>
 </ng-template>
