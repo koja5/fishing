@@ -93,6 +93,15 @@
                                     "windowClass": "modal modal-danger"
                                 }
                             }
+                        },
+                        {
+                            "type": "copy",
+                            "actionName": "general.copy",
+                            "icon": "copy",
+                            "formDialog": {
+                                "type": "sidebar",
+                                "closeAfterExecute": true
+                            }
                         }
                     ]
                 }

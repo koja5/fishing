@@ -626,6 +626,8 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     } else if (item.type) {
       if (item.type === "edit" || item.type === "show") {
         this.checkConfigurationFunctionsForEditOption(item, row);
+      } else if (item.type === "copy") {
+        this.checkConfigurationFunctionsForEditOption(item, row, true);
       }
 
       if (item.executeAction && item.executeAction.showQuestionBeforeExecute) {
@@ -636,10 +638,13 @@ export class DynamicGridComponent implements CanComponentDeactivate {
     }
   }
 
-  checkConfigurationFunctionsForEditOption(item, row) {
+  checkConfigurationFunctionsForEditOption(item, row, copy = false) {
     this.executeActionConfig = item.formDialog;
     this.createNewRecords = false;
     setTimeout(() => {
+      if (copy) {
+        row.id = null;
+      }
       this.setValue(this.config.config, row);
     }, 50);
 
